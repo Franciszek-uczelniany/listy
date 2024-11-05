@@ -115,7 +115,7 @@
 			odwroc(&_l);
 			break;
 
-		//	odwroc_r(&_l, NULL, NULL);
+			case 13:
 			_l = odwroc_r(_l, NULL, NULL);
 			break;
 
