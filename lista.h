@@ -37,6 +37,7 @@ void DNKL(lista *l, int i);
 
 
 void UEL_k( lista *l, int k, int ilosc_razy = 0);
+void UELR_k( lista *l, int k, int ilosc_razy);
 
 void posortuj(lista *l, lista *l2);
 

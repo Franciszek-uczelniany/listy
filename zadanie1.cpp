@@ -13,7 +13,23 @@
 
 	while(1) {
 		
-		printf("\n Wybierz operacje: \n 0 - wyjscie \n 1 - Dodaj na poczatek listy \n 2 - Dodaj na koniec listy  \n 3 - Usun pierwszy element listy \n 4 - Usun ostatni element listy \n 5 - odszukaj zadany element \n 6 - dodaj nowy element przed lub za wskazanym  \n 7 - usun wskazany element \n 7.1 - usun wszystkie wskazane elementy \n 8 - wczytaj zawartosc listy z pliku \n 9 - zapisz zawartosc listy do pliku \n 10 - wyswietl zawartosc listy  \n 11 - posortuj \n 12 - odwroc iteracyjnie \n13 - odwroc rekurencyjnie\n   \n");
+		printf("\n Wybierz operacje: \n"
+       " 0 - wyjscie \n"
+       " 1 - Dodaj na początek listy \n"
+       " 2 - Dodaj na koniec listy \n"
+       " 3 - Usun pierwszy element listy \n"
+       " 4 - Usun ostatni element listy \n"
+       " 5 - Odszukaj zadany element \n"
+       " 6 - Dodaj nowy element przed lub za wskazanym \n\n"
+       " 7 - Usun wskazany element / elementy (iteracyjnie) \n"
+       " 71 - Usun wskazany element / elementy (rekurencyjnie) \n\n"
+       " 8 - Wczytaj zawartosc listy z pliku \n"
+       " 9 - Zapisz zawartosc listy do pliku \n"
+       " 10 - Wyswietl zawartosc listy \n"
+       " 11 - Posortuj \n"
+       " 12 - Odwroc iteracyjnie \n"
+       " 13 - Odwroc rekurencyjnie \n\n");
+
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
 		switch(wybor) {
@@ -63,8 +79,21 @@
 			case 7:
 			printf("\n klucz=");
 			scanf("%d", &wybor);
-			UEL_k(&_l, wybor, 1);
+			printf("\n Podaj liczbe el do usuniecia, 0 oznacza wszystkie \n :");
+			scanf("%d", &w2);
+			UEL_k(&_l, wybor, w2);
 			break;
+			
+			
+			case 71:
+			printf("\n klucz=");
+			scanf("%d", &wybor);
+			printf("\n Podaj liczbe el do usuniecia, 0 oznacza wszystkie \n :");
+			scanf("%d", &w2);
+			if(w2 == 0) w2--;
+			UELR_k( &_l, wybor , w2);
+			break;
+
 
 			case 8:
 			Wczytaj(&_l);

@@ -233,6 +233,9 @@ Usuwa z kolejki element/-y z kluczem równym k.
 Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
 					 0 oznacza każde wystąpienie
 
+
+Wersja iteracyjna
+
 */
 
 void UEL_k( lista *l, int k, int ilosc_razy) {
@@ -264,6 +267,36 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 		
 	} while((*i) && ilosc_razy != 1);
 		
+	
+};
+
+/*
+Funkcja: Usun Element Listy - k
+
+Usuwa z kolejki element/-y z kluczem równym k.
+
+Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
+					 -1 oznacza każde wystąpienie
+
+
+Wersja rekurencyjna
+
+*/
+
+void UELR_k( lista *l, int k, int ilosc_razy) {
+
+  if(!(*l)) {
+   return;
+  };  
+
+	if( (*l)-> klucz == k) {
+		UPEL(l);
+	}
+
+	if(ilosc_razy > 0 ) UELR_k(l, k, --ilosc_razy);
+	
+	// Przypadek w którym usuwamy wszystkie elementy
+	if(ilosc_razy == -1 ) UELR_k(l, k, ilosc_razy);
 	
 };
 
