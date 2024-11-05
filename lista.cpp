@@ -289,21 +289,29 @@ void UELR_k( lista *l, int k, int ilosc_razy) {
    return;
   };  
 
+if(ilosc_razy == 0) return;
+
 	if( (*l)-> klucz == k) {
 		UPEL(l);
+		if (ilosc_razy != -1) ilosc_razy--;
+		UELR_k(l, k, ilosc_razy);
 	}
 
-	if(ilosc_razy > 0 ) UELR_k(l, k, --ilosc_razy);
+	else {
+
+	 l = &(*l)->nast;
+	 UELR_k(l, k, ilosc_razy);
 	
-	// Przypadek w którym usuwamy wszystkie elementy
-	if(ilosc_razy == -1 ) UELR_k(l, k, ilosc_razy);
-	
+
+	};
+
+
 };
 
  /* 
  Funkcja: Usun Pierwszy Element Listy
  
- Usuwa pierwszy element wskazany przez wskaznik ll.
+ Usuwa pierwszy element wskazany przez wskaznik l.
  
  
  */
