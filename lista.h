@@ -15,7 +15,7 @@ struct el {
 void UPEL(lista *l);
 void UOEL(lista *l);
 
-//lista* odwroc_r( lista* l, lista* prev, lista* next);
+
 lista odwroc_r( lista l, lista prev, lista next);
 
 void odwroc(lista *l);
@@ -27,7 +27,7 @@ lista* przesun(lista *l, int k, int side=1);
 
 void WyswietlListe( lista _lista);
 
-void DL(lista *l, int k);
+void DL(lista *l, int szukany, int nowy, int side);
 void DNPL(lista *l, int i);
 
 void Wczytaj(lista *l);

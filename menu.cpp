@@ -69,11 +69,10 @@
 			scanf("%d", &wybor);
 			printf("\n klucz do wpisania=");
 			scanf("%d", &w2);
-			printf("\n Czy przed wskazanym? 1 - tak\n");
+			printf("\n 0 - przed,  1 - za szukany element\n");
 			scanf("%d", &w3);
 			
-			w2 == 1? DNPL(przesun(&_l, wybor, 1), w2) : DL(przesun(&_l, wybor, 1), w2);
-			
+			DL(&_l, wybor, w2, w3);
 			break;
 
 			case 7:

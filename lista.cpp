@@ -213,16 +213,37 @@ Funkcja: Dodaj do Listy
 
 Dodaje element za wskazany element
 
+1 - za element
+0 - przed
+
 */
-void DL(lista *l, int k) {
-	
-	if(l==0) return;
+void DL(lista *l, int szukany, int nowy, int side) {
+
+	if(*l==0) return;
+
+//  utworz kopie wskaznika i iteruj az znajdziesz sie przed lub za szukanym elementem
+//  Jezeli nie znajdziesz tego elementu to nie alokuj nowej pamieci
+
+// Utworz nowy element i ustaw pola nast
+
+// Ustaw pole nast poprzedniego el aby wskazywal na nowo utworzony el
+
+	if (side == 1) {
+/*
 	lista *nast_prev = &(*l)->nast;
 	lista p = (lista) malloc(sizeof(lista));
 	p->klucz = k;
 	p->nast = *nast_prev;
 	(*l)->nast = p;
+*/
+	} else if (side == 0) {
+
+
+	};
 };
+
+
+
 
 
 /*
