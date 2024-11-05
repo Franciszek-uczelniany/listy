@@ -30,7 +30,8 @@ void WyswietlListe( lista _lista);
 void DL(lista *l, int k);
 void DNPL(lista *l, int i);
 
-lista Wczytaj(lista *l);
+void Wczytaj(lista *l);
+void Zapisz(lista *l);
 
 void DNKL(lista *l, int i);
 

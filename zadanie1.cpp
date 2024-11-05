@@ -69,6 +69,9 @@
 			case 8:
 			Wczytaj(&_l);
 			break;
+			
+			case 9:
+			Zapisz(&_l);
 
 			case 11:
 			posortuj(&_l, &__l);

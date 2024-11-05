@@ -2,29 +2,48 @@
 #include <stdlib.h>
 #include "lista.h"
 
-//todo: dodac wczytaj, zapisz do plkku
 
-lista Wczytaj(lista *l) {
+void  Wczytaj(lista *l) {
     // Zwolnij listę
     ZL(l);
     
     // Otwórz plik "lista.txt"
     FILE *file = fopen("lista.txt", "r");
     if (file == NULL) {
-        printf("Nie można otworzyć pliku lista.txt\n");
-        return *l; // Zwróć pustą listę
+        printf("Nie mozna otworzyc pliku lista.txt\n");
+       
     }
 
     int value;
     // Odczytuj liczby z pliku i dodawaj je do listy
     while (fscanf(file, "%d", &value) == 1) {
-        DNKL(l, value); // Dodaj na koniec listy
+        DNKL(l, value);
     }
 
-    // Zamknij plik
     fclose(file);
     
-    return *l; // Zwróć wczytaną listę
+    
+}
+
+void Zapisz(lista *l) {
+  
+    FILE *file = fopen("lista.txt", "w");
+    if (file == NULL) {
+        printf("Nie można otworzyc pliku lista.txt do zapisu\n");
+        return;
+    }
+
+// Używamy zmiennej i, aby przechodzić przez listę, zamiast modyfikować _l
+	lista i = *l;
+
+    // Iteruj przez listę i zapisuj wartości do pliku
+    while (i) {
+        fprintf(file, "%d\n", i->klucz);
+        i = i->nast; 
+    }
+
+    
+    fclose(file);
 }
 
 
@@ -75,7 +94,7 @@ lista odwroc_r(lista l, lista prev, lista next) {
 
 
 
-// Funkcja: wyswietla listę w odwrotnej kolejności
+// Funkcja: wyświetl listę w odwrotnej kolejności
 
 void WyswietlOdTylu(lista l) {
     if (l == NULL) {
