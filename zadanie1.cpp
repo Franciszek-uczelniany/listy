@@ -6,7 +6,7 @@
  int main(int argc, char* argv [])  {
 	 lista _l = 0;
 	 lista __l=0;
-	double wybor = 0;
+	int wybor = 0;
 	int w2, w3;
 	unsigned short num_el;
 	bool bin;
@@ -15,7 +15,7 @@
 		
 		printf("\n Wybierz operacje: \n 0 - wyjscie \n 1 - Dodaj na poczatek listy \n 2 - Dodaj na koniec listy  \n 3 - Usun pierwszy element listy \n 4 - Usun ostatni element listy \n 5 - odszukaj zadany element \n 6 - dodaj nowy element przed lub za wskazanym  \n 7 - usun wskazany element \n 7.1 - usun wszystkie wskazane elementy \n 8 - wczytaj zawartosc listy z pliku \n 9 - zapisz zawartosc listy do pliku \n 10 - wyswietl zawartosc listy  \n 11 - posortuj \n 12 - odwroc iteracyjnie \n13 - odwroc rekurencyjnie\n   \n");
 		printf("\n wybor = ");
-		scanf("%lf", &wybor);
+		scanf("%d", &wybor);
 		switch(wybor) {
 
 			case 0:
@@ -66,7 +66,9 @@
 			UEL_k(&_l, wybor, 1);
 			break;
 
-//7.1 zaimplementowac!!
+			case 8:
+			Wczytaj(&_l);
+			break;
 
 			case 11:
 			posortuj(&_l, &__l);

@@ -4,6 +4,28 @@
 
 //todo: dodac wczytaj, zapisz do plkku
 
+lista Wczytaj(lista *l) {
+    // Zwolnij listę
+    ZL(l);
+    
+    // Otwórz plik "lista.txt"
+    FILE *file = fopen("lista.txt", "r");
+    if (file == NULL) {
+        printf("Nie można otworzyć pliku lista.txt\n");
+        return *l; // Zwróć pustą listę
+    }
+
+    int value;
+    // Odczytuj liczby z pliku i dodawaj je do listy
+    while (fscanf(file, "%d", &value) == 1) {
+        DNKL(l, value); // Dodaj na koniec listy
+    }
+
+    // Zamknij plik
+    fclose(file);
+    
+    return *l; // Zwróć wczytaną listę
+}
 
 
 // Funkcja: Zwolnij liste
@@ -39,31 +61,6 @@ return;
 }
 
 
-
-
-// Funkcja: rekurencyjne odwracanie listy
-
-/*
-lista* odwroc_r( lista* l, lista* prev, lista* next) {
-
-	if( (*l) ) {
-
-		*next = (*l)->nast;
-		(*l)->nast = *prev;
-		*prev = *l;
-		*l = *next;
-
-		l = odwroc_r(l,prev,next);
-
-	} else *l = *prev;
-
-	// ostatnie wywołanie
-	return l;
-
-
-}
-*/
-
 lista odwroc_r(lista l, lista prev, lista next) {
     if (l) {
         next = l->nast;
@@ -76,25 +73,6 @@ lista odwroc_r(lista l, lista prev, lista next) {
 
 
 
-
-
-void wczytaj (lista *l, const char *plik) {
-
-	ZL(l);
-//	FILE *ret = (const char)fopen(*plik, "r");
-//	if(ret == 0) {perror(""); return;};
-	
-
-	char buff[10];
-
-//	while (fgets(buffer, sizeof(buffer), file) != NULL) {
-
-
-
-
-
-//	fgets(&buff, 1, ret);
-}
 
 
 // Funkcja: wyswietla listę w odwrotnej kolejności
@@ -156,9 +134,6 @@ Wynik: numer elementu z kluczem równym k.
 
 
 */
-
-
-
 
 unsigned short odszukaj(lista *l, int k) {
 
