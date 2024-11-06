@@ -211,13 +211,13 @@ void DL(lista *l, int szukany, int nowy, int side) {
 	while(p && p->nast && p->nast->klucz != szukany) p = p->nast;
 
  // Nie znaleziono
-	if(!(p)) return; 
+	if(!(p->nast) || p->nast->klucz != szukany) return; 
 
 	lista k = (lista) malloc(sizeof(lista));
 	k->klucz = nowy;
 
 	if (side == 1) {
-		p =p->nast;
+		p = p->nast;
 		k->nast = p->nast;
 		p->nast = k;
 	} else if (side == 0) {

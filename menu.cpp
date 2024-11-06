@@ -12,7 +12,7 @@
 
 	while(1) {
 		
-		printf("\n Wybierz operacje: \n"
+	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
        " 1 - Dodaj na początek listy \n"
        " 2 - Dodaj na koniec listy \n"
@@ -69,8 +69,7 @@
 			printf("\n klucz do wpisania=");
 			scanf("%d", &w2);
 			printf("\n 0 - przed,  1 - za szukany element\n");
-			scanf("%d", &w3);
-			
+			scanf("%d", &w3);		
 			DL(&_l, wybor, w2, w3);
 			break;
 
@@ -99,11 +98,7 @@
 			
 			case 9:
 			Zapisz(&_l);
-
-	
-			 
-
-		
+			break;
 
 
 			case 12:
@@ -119,7 +114,7 @@
 
 			case 10:
 			WyswietlListe(_l);
-			WyswietlListe(__l);
+//			WyswietlListe(__l);
 			break;
 			};
 
