@@ -8,8 +8,7 @@
 	 lista __l=0;
 	int wybor = 0;
 	int w2, w3;
-	unsigned short num_el;
-	bool bin;
+
 
 	while(1) {
 		
@@ -26,7 +25,7 @@
        " 8 - Wczytaj zawartosc listy z pliku \n"
        " 9 - Zapisz zawartosc listy do pliku \n"
        " 10 - Wyswietl zawartosc listy \n"
-       " 11 - Posortuj \n"
+
        " 12 - Odwroc iteracyjnie \n"
        " 13 - Odwroc rekurencyjnie \n\n");
 
@@ -101,10 +100,7 @@
 			case 9:
 			Zapisz(&_l);
 
-			case 11:
-			posortuj(&_l, &__l);
-			break;
-
+	
 			 
 
 		

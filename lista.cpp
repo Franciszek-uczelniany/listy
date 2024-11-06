@@ -7,7 +7,7 @@ void  Wczytaj(lista *l) {
     // Zwolnij listę
     ZL(l);
     
-    // Otwórz plik "lista.txt"
+   
     FILE *file = fopen("lista.txt", "r");
     if (file == NULL) {
         printf("Nie mozna otworzyc pliku lista.txt\n");
@@ -15,7 +15,6 @@ void  Wczytaj(lista *l) {
     }
 
     int value;
-    // Odczytuj liczby z pliku i dodawaj je do listy
     while (fscanf(file, "%d", &value) == 1) {
         DNKL(l, value);
     }
@@ -33,10 +32,10 @@ void Zapisz(lista *l) {
         return;
     }
 
-// Używamy zmiennej i, aby przechodzić przez listę, zamiast modyfikować _l
+
 	lista i = *l;
 
-    // Iteruj przez listę i zapisuj wartości do pliku
+
     while (i) {
         fprintf(file, "%d\n", i->klucz);
         i = i->nast; 
@@ -94,20 +93,7 @@ lista odwroc_r(lista l, lista prev, lista next) {
 
 
 
-// Funkcja: wyświetl listę w odwrotnej kolejności
 
-void WyswietlOdTylu(lista l) {
-    if (l == NULL) {
-        return;  
-    }
-    
-    WyswietlOdTylu(l->nast);  // rekurencyjnie przechodzimy do końca listy
-    
-    // Po powrocie z rekurencji wyświetlamy wartości w odwrotnej kolejności
-    printf("%d-", l->klucz);
-
-
-}
 
  /* 
  Funkcja: Przesun wskaznik na liste na lub za wskazany element
@@ -221,22 +207,14 @@ void DL(lista *l, int szukany, int nowy, int side) {
 
 	if(*l==0) return;
 
-//  utworz kopie wskaznika i iteruj az znajdziesz sie przed szukanym elementem
-//  Jezeli nie znajdziesz tego elementu to nie alokuj nowej pamieci
-
 	lista p = *l;
 	while(p && p->nast && p->nast->klucz != szukany) p = p->nast;
 
  // Nie znaleziono
 	if(!(p)) return; 
 
-// Utworz nowy element i ustaw pola nast
-
 	lista k = (lista) malloc(sizeof(lista));
 	k->klucz = nowy;
-
-
-// Ustaw pole nast poprzedniego el aby wskazywal na nowo utworzony el
 
 	if (side == 1) {
 		p =p->nast;
@@ -397,36 +375,7 @@ void U_wsk(lista *l, int k) {
  
  */
 
-//TODO:poprawic kiedy jest pierwszy element parzysty, to nie mozemy go usunac
-// jak jest pierwszy i ostatni 
-void posortuj(lista *l, lista *l2) {
-
-  // Tworzymy wskaźnik ponieważ nie będziemy modyfikować l, który jest zarówno
-  // argumentem tej funkcji, jak i wielu innych funkcji. Będziemy iterować
-  // po p.
-	lista *p = l;
 
 
-	int n=0;
-
-	while((*p)) {
-	
-	
-
-		if((*p)->klucz %2 == 0) {
-			DNKL(l2, (*p)->klucz);
-			UPEL(p);
-
-
-		// Po usunięciu wskaźnik p automatycznie wskazuje na następny element,
-            // więc nie ma potrzeby przeskakiwania na kolejny element ręcznie.
-        } else {
-            p = &(*p)->nast;  // Jeśli element nie został usunięty, przechodzimy na nastepny recznie
-
-	};
-};
-
-
-};
 
 
