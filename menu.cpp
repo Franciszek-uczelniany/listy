@@ -25,7 +25,7 @@
        " 8 - Wczytaj zawartosc listy z pliku \n"
        " 9 - Zapisz zawartosc listy do pliku \n"
        " 10 - Wyswietl zawartosc listy \n"
-
+       " 11 - Wyswietl od konca \n"
        " 12 - Odwroc iteracyjnie \n"
        " 13 - Odwroc rekurencyjnie \n\n");
 
@@ -116,6 +116,11 @@
 			WyswietlListe(_l);
 //			WyswietlListe(__l);
 			break;
+
+			case 11:
+			WyswietlOdTylu(_l);
+			break;
+
 			};
 
 	};

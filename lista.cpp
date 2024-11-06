@@ -156,6 +156,19 @@ unsigned short odszukaj(lista *l, int k) {
 
 };
 
+// Funkcja: wyświetl listę w odwrotnej kolejności
+void WyswietlOdTylu(lista l) {
+    if (l == NULL) {
+        return;  
+    }
+    
+    WyswietlOdTylu(l->nast);  // rekurencyjnie przechodzimy do końca listy
+    
+    // Po powrocie z rekurencji wyświetlamy wartości w odwrotnej kolejności
+    printf("%d-", l->klucz);
+};
+
+
 void WyswietlListe( lista _lista)  { 
 
 	 lista l = _lista;
