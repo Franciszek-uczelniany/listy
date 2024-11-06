@@ -221,24 +221,30 @@ void DL(lista *l, int szukany, int nowy, int side) {
 
 	if(*l==0) return;
 
-//  utworz kopie wskaznika i iteruj az znajdziesz sie przed lub za szukanym elementem
+//  utworz kopie wskaznika i iteruj az znajdziesz sie przed szukanym elementem
 //  Jezeli nie znajdziesz tego elementu to nie alokuj nowej pamieci
 
+	lista p = *l;
+	while(p && p->nast && p->nast->klucz != szukany) p = p->nast;
+
+ // Nie znaleziono
+	if(!(p)) return; 
+
 // Utworz nowy element i ustaw pola nast
+
+	lista k = (lista) malloc(sizeof(lista));
+	k->klucz = nowy;
+
 
 // Ustaw pole nast poprzedniego el aby wskazywal na nowo utworzony el
 
 	if (side == 1) {
-/*
-	lista *nast_prev = &(*l)->nast;
-	lista p = (lista) malloc(sizeof(lista));
-	p->klucz = k;
-	p->nast = *nast_prev;
-	(*l)->nast = p;
-*/
+		p =p->nast;
+		k->nast = p->nast;
+		p->nast = k;
 	} else if (side == 0) {
-
-
+		k->nast = p->nast;
+		p->nast = k;
 	};
 };
 
@@ -357,9 +363,7 @@ void UPEL(lista *l) {
 void UOEL(lista *l) {
 	
 	if((*l)) {
-			while ((*l) && (*l)->nast) {
-				l = &(*l)->nast;
-			};
+		while ((*l) && (*l)->nast) l = &(*l)->nast;
 		free(*l);
 		*l = 0;
 		}
