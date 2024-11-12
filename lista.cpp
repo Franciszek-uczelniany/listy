@@ -314,9 +314,13 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 		
 	
 		if((*i)->klucz == k) {
-			p = *i;
-			(*i) = (*i)->nast;
-			free(p); 
+	//p = *i;
+	//(*i) = (*i)->nast;
+	//free(p); 
+			free (*i);
+			return;
+			
+			
 			if(ilosc_razy != 0) { 
 					ilosc_razy--;
 				}
