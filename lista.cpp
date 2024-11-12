@@ -313,18 +313,19 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 	do {
 		
 	
-		if((*i)->klucz == k) {
-	//p = *i;
-	//(*i) = (*i)->nast;
-	//free(p); 
-			free (*i);
-			return;
+	if((*i)->klucz == k) {
+			p = *i;
+			free(p); 
+			
+			// 1. zmienialem wartosc _l na nast a nastepnie probowalem zwolnic _l
+			// 2. w ramach poprawki uproscilem. usunalem continue i dodatkowy i=&i>nast
+
 			
 			
 			if(ilosc_razy != 0) { 
 					ilosc_razy--;
 				}
-			continue;
+
 		};
 		i = &(*i)->nast;
 		
