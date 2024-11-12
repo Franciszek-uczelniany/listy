@@ -193,6 +193,21 @@ void DNPL(lista *l, int i)
  };
 
 
+
+void Wyswietl_Pierwszy(lista *l)
+ { 
+	if (l==0) return;
+	printf("\n %d", (*l)->klucz);
+ };
+
+
+void Wyswietl_Ostatni(lista *l)  { 
+	if(l==0) return;
+
+	while ( (*l)->nast ) l = &(*l)->nast;
+	printf("\n %d", (*l)->klucz);
+ };
+
 /* 
 Funkcja: Dodaj Na Koniec Listy
 
@@ -239,6 +254,32 @@ void DL(lista *l, int szukany, int nowy, int side) {
 	};
 };
 
+
+/*
+Funkcja: Dodaj do posrtowanej Listy
+
+*/
+void DL_sort(lista *l, int klucz) {
+
+	if(*l==0) {
+		lista k  = (lista) malloc(sizeof(lista));
+		k->klucz = klucz;
+		k->nast  = NULL;
+		*l       = k;
+		return; 
+	}
+
+	lista p = *l;
+	while(p->nast && p->nast->klucz < klucz)
+							p = p->nast;
+
+	
+		lista k = (lista) malloc(sizeof(lista));
+		k->klucz = klucz;
+		k->nast = p->nast;
+		p->nast = k;
+
+};
 
 
 

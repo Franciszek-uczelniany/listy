@@ -28,6 +28,7 @@ lista* przesun(lista *l, int k, int side=1);
 void WyswietlListe( lista _lista);
 
 void DL(lista *l, int szukany, int nowy, int side);
+void DL_sort(lista *l, int klucz);
 void DNPL(lista *l, int i);
 
 void Wczytaj(lista *l);
@@ -41,6 +42,8 @@ void UELR_k( lista *l, int k, int ilosc_razy);
 
 void posortuj(lista *l, lista *l2);
 
+void Wyswietl_Pierwszy(lista *l);
+void Wyswietl_Ostatni(lista *l);
 
 void ZL (lista *l);
 
