@@ -307,29 +307,28 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
   if(ilosc_razy != 0) ilosc_razy++;
 
 
-  lista p;
-  lista *i = l;
-	
+  lista buff;
+  lista *obecny = l;
+  lista poprzedni = NULL;
+
 	do {
 		
 	
-	if((*i)->klucz == k) {
-			p = *i;
-			free(p); 
-			
-			// 1. zmienialem wartosc _l na nast a nastepnie probowalem zwolnic _l
-			// 2. w ramach poprawki uproscilem. usunalem continue i dodatkowy i=&i>nast
-
-			
-			
-			if(ilosc_razy != 0) { 
+	if((*obecny)->klucz == k) {
+			buff = (*obecny)->nast; //zapisujemy wskaznik nastepnego elementu do bufora
+			if(poprzedni) poprzedni->nast = buff;
+				else	*l = (*obecny)->nast;	
+			free(*obecny);		// ten free powoduje ze musimy uzyc podwojnego wskaznika
+			*obecny = buff;
+			if(ilosc_razy != 0)
 					ilosc_razy--;
-				}
-
+				
+			continue;
 		};
-		i = &(*i)->nast;
+	poprzedni = *obecny;
+	obecny = &(*obecny)->nast;
 		
-	} while((*i) && ilosc_razy != 1);
+	} while((*obecny) && ilosc_razy != 1);
 		
 	
 };
@@ -425,16 +424,6 @@ void U_wsk(lista *l, int k) {
 	UPEL(p);
 
 };
-
-/* 
- Funkcja: posortuj
- 
- Sortuje listę dzieląc ją na dwie: z elementami parzystymi i nieparzystymi.
- 
- 
- */
-
-
 
 
 
