@@ -258,8 +258,6 @@ void DL(lista *l, int szukany, int nowy, int side) {
 /*
 Funkcja: Dodaj do posrtowanej Listy
 
-Obecny problem polega na tym, że jeżeli najpierw dodamy 12 a potem jedynke to 12 bedzie nadal pierwsza 
-
 */
 void DL_sort(lista *l, int klucz) {
 
@@ -284,22 +282,13 @@ void DL_sort(lista *l, int klucz) {
 		} else break;
 	};
 	
-//	if (poprzedni == NULL) {
-//		// Dopisujemy na początek listy
-//		lista k  = (lista) malloc(sizeof(lista));
-//		k->klucz = klucz;
-//		k->nast  = obecny;
-//		
-//		*l       = k;
-//		return; 	
-//	} else {
 		lista k  = (lista) malloc(sizeof(lista));
 		k->klucz = klucz;
 		k->nast  = obecny->nast;
 		
 		obecny->nast = k;
 		return; 
-//	}
+
 
 
 };
@@ -318,6 +307,11 @@ Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
 
 Wersja iteracyjna
 
+
+Problemy:
+kiedy usuwamy pierwszy element listy, program w main() probuje odczytac pamiec ktora juz zostala zwolniona
+
+
 */
 
 void UEL_k( lista *l, int k, int ilosc_razy) {
@@ -330,9 +324,39 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
   if(ilosc_razy != 0) ilosc_razy++;
 
 
+
+// implementacja, usuwa wszystkie elementy
+
+  lista obecny = *l;
+  lista poprzedni = NULL;
+  lista t;
+
+	while(obecny ) {
+		
+		if(obecny->klucz == k) {
+			
+			// ustaw wskaznik poprzedniego elementu listy na nastepny obecnego
+			// lub
+			// ustaw wskaznik poczatku listy na nastepny element jezeli jestesmy na
+			// pierwszym elemencie
+			
+			// skopiuj adres obecnego elementu listy do zmiennej
+			
+			// zwolnij pamiec pod adresem przechowanym we zmiennej	
+			// Moge uzyc funkcji UPEL lecz musze pamietac ze wtedy glowka poczatku listy zostala juz zmieniona
+		
+		}
+	}
+
+
+
+
+
+/*
   lista buff;
   lista *obecny = l;
   lista poprzedni = NULL;
+
 
 	do {
 		
@@ -356,7 +380,8 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 	obecny = &(*obecny)->nast;
 		
 	} while((*obecny) && ilosc_razy != 1);
-		
+	
+	*/	
 	
 };
 
@@ -408,8 +433,8 @@ if(ilosc_razy == 0) return;
 
 void UPEL(lista *l) {
 	
-	lista p;
-	if((*l)) {
+	if(*l) {
+		lista p; 		// lista to wskaznik, a nie struktura
 		p = *l;
 		*l = (*l)->nast;
 		free(p);
