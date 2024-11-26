@@ -16,7 +16,7 @@ void  Wczytaj(lista *l) {
 
     int value;
     while (fscanf(file, "%d", &value) == 1) {
-        DNKL(l, value);
+        DL_sort(l, value);
     }
 
     fclose(file);
@@ -258,26 +258,49 @@ void DL(lista *l, int szukany, int nowy, int side) {
 /*
 Funkcja: Dodaj do posrtowanej Listy
 
+Obecny problem polega na tym, że jeżeli najpierw dodamy 12 a potem jedynke to 12 bedzie nadal pierwsza 
+
 */
 void DL_sort(lista *l, int klucz) {
 
-	if(*l==0) {
+	if(*l == 0 || (*l)->klucz > klucz) {
 		lista k  = (lista) malloc(sizeof(lista));
 		k->klucz = klucz;
-		k->nast  = NULL;
+		k->nast  = *l;
 		*l       = k;
 		return; 
 	}
 
-	lista p = *l;
-	while(p->nast && p->nast->klucz < klucz)
-							p = p->nast;
 
+	lista obecny = *l;
+	lista poprzedni = *l;
 	
-		lista k = (lista) malloc(sizeof(lista));
+	while (obecny != NULL && obecny->nast != NULL) {
+
+
+			if (obecny->nast->klucz < klucz) {
+				poprzedni = obecny;
+				obecny = obecny->nast;
+		} else break;
+	};
+	
+//	if (poprzedni == NULL) {
+//		// Dopisujemy na początek listy
+//		lista k  = (lista) malloc(sizeof(lista));
+//		k->klucz = klucz;
+//		k->nast  = obecny;
+//		
+//		*l       = k;
+//		return; 	
+//	} else {
+		lista k  = (lista) malloc(sizeof(lista));
 		k->klucz = klucz;
-		k->nast = p->nast;
-		p->nast = k;
+		k->nast  = obecny->nast;
+		
+		obecny->nast = k;
+		return; 
+//	}
+
 
 };
 
@@ -318,8 +341,12 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 			buff = (*obecny)->nast; //zapisujemy wskaznik nastepnego elementu do bufora
 			if(poprzedni) poprzedni->nast = buff;
 				else	*l = (*obecny)->nast;	
+				
+				
 			free(*obecny);		// ten free powoduje ze musimy uzyc podwojnego wskaznika
 			*obecny = buff;
+			
+			
 			if(ilosc_razy != 0)
 					ilosc_razy--;
 				
