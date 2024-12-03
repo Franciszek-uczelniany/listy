@@ -1,0 +1,5 @@
+funkcja UPEL nie dziala przy posortowanej liscie
+UPEL jest taki sam jak na wykladzie i wczytywanie pliku rozni sie od tej co na branchu main jedynie funkcja
+DL_sort
+
+wystarczy ze dodam jedynke na pierwsze miejsce za pomoca DL_sort i juz UPEL nie bedzie sobie z tym radzil
