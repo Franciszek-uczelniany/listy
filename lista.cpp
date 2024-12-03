@@ -241,7 +241,7 @@ void DL(lista *l, int szukany, int nowy, int side) {
  // Nie znaleziono
 	if(!(p->nast) || p->nast->klucz != szukany) return; 
 
-	lista k = (lista) malloc(sizeof(lista));
+	lista k = (lista) malloc(sizeof(elListy));
 	k->klucz = nowy;
 
 	if (side == 1) {
@@ -262,7 +262,7 @@ Funkcja: Dodaj do posortowanej Listy
 void DL_sort(lista *l, int klucz) {
 
 
-	lista k  = (lista) malloc(sizeof(lista));
+	lista k  = (lista) malloc(sizeof(elListy));
 	k->klucz = klucz;
 
 	if(*l == 0 || (*l)->klucz > klucz) {
