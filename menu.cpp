@@ -28,7 +28,9 @@
        " 10 - Wyswietl zawartosc listy \n"
        " 11 - Wyswietl od konca \n"
        " 12 - Odwroc iteracyjnie \n"
-       " 13 - Odwroc rekurencyjnie \n\n");
+       " 13 - Odwroc rekurencyjnie \n\n"
+       
+       " 20 - Usun pierwszy element listy \n");
 
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
@@ -92,6 +94,10 @@
 
 			case 11:
 			WyswietlOdTylu(_l);
+			break;
+
+			case 20:
+			UPEL(&_l);
 			break;
 
 			};

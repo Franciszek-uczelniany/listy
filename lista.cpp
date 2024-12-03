@@ -256,14 +256,16 @@ void DL(lista *l, int szukany, int nowy, int side) {
 
 
 /*
-Funkcja: Dodaj do posrtowanej Listy
+Funkcja: Dodaj do posortowanej Listy
 
 */
 void DL_sort(lista *l, int klucz) {
 
+
+	lista k  = (lista) malloc(sizeof(lista));
+	k->klucz = klucz;
+
 	if(*l == 0 || (*l)->klucz > klucz) {
-		lista k  = (lista) malloc(sizeof(lista));
-		k->klucz = klucz;
 		k->nast  = *l;
 		*l       = k;
 		return; 
@@ -281,16 +283,11 @@ void DL_sort(lista *l, int klucz) {
 				obecny = obecny->nast;
 		} else break;
 	};
-	
-		lista k  = (lista) malloc(sizeof(lista));
-		k->klucz = klucz;
+
 		k->nast  = obecny->nast;
 		
 		obecny->nast = k;
 		return; 
-
-
-
 };
 
 
@@ -327,25 +324,32 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 
 // implementacja, usuwa wszystkie elementy
 
-  lista obecny = *l;
+ // lista obecny = *l;
+  lista *obecny = l;
   lista poprzedni = NULL;
   lista t;
+  // lista *pp = l;
 
-	while(obecny ) {
+	while(*obecny ) {
 		
-		if(obecny->klucz == k) {
+		if((*obecny)->klucz == k) {
 			
-			// ustaw wskaznik poprzedniego elementu listy na nastepny obecnego
-			// lub
-			// ustaw wskaznik poczatku listy na nastepny element jezeli jestesmy na
-			// pierwszym elemencie
+			t = *obecny;
 			
-			// skopiuj adres obecnego elementu listy do zmiennej
+			if (poprzedni ) poprzedni->nast = (*obecny)->nast;
+				else
+				{
+				 	UPEL(obecny);
+				 	continue;
+				 }
 			
-			// zwolnij pamiec pod adresem przechowanym we zmiennej	
-			// Moge uzyc funkcji UPEL lecz musze pamietac ze wtedy glowka poczatku listy zostala juz zmieniona
-		
+			obecny = &(*obecny)->nast;
+			
+			free(t);
 		}
+		
+		poprzedni = *obecny;
+		obecny = &(*obecny)->nast;
 	}
 
 
