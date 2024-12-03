@@ -186,7 +186,7 @@ Funkcja: Dodaj Na Poczatek Listy
 void DNPL(lista *l, int i)
  { 
 	if (l==0) return;
-	 lista p = ( lista )malloc(sizeof( elListy ));
+	 lista p = ( lista ) malloc(sizeof( elListy ));
 	 p->klucz = i;
 	 p->nast = *l;
 	 *l = p;
@@ -226,7 +226,7 @@ void DL(lista *l, int szukany, int nowy, int side) {
  // Nie znaleziono
 	if(!(p->nast) || p->nast->klucz != szukany) return; 
 
-	lista k = (lista) malloc(sizeof(lista));
+	lista k = (lista) malloc(sizeof(elListy));
 	k->klucz = nowy;
 
 	if (side == 1) {
