@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "lista.h"
 
+lista join(lista l1, lista l2) 
+{
+	// tutaj bedzie sprawdzac i dodawac element jesli nie moze odrazu paru elementow
+	// wstawic do listy. Pytanie czy jako chirurg czy nie. Raczej jako chirurg
+
+
+}
 
 void  Wczytaj(lista *l) {
     // Zwolnij listę

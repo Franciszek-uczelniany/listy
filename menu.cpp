@@ -7,7 +7,7 @@
 	 lista l[2] = {0, 0};
 	int wybor = 0;
 	int w2, w3;
-	int i;
+	int i=0;
 
 	while(1) {
 		
@@ -29,7 +29,7 @@
        " 13 - Odwroc rekurencyjnie \n\n"
        
        " 20 - Usun pierwszy element listy \n"
-       " l - Zmien zlapana liste \n"
+       " 44 - Zmien zlapana liste \n"
 
 
 	" Obecnie zlapana lista: %p \n", &l[i]);
@@ -41,8 +41,8 @@
 		scanf("%d", &wybor);
 		switch(wybor) {
 
-			case 'l':
-			i == 0 ? i = 1 : i = 2;
+			case 44:
+			i=++i%2;
 			break;
 
 			case 0:
