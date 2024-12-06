@@ -4,16 +4,14 @@
 
 
  int main(int argc, char* argv [])  {
-	 lista _l = 0;
-	 lista __l=0;
+	 lista l[2] = {0, 0};
 	int wybor = 0;
 	int w2, w3;
-
+	int i;
 
 	while(1) {
 		
-		// Lista bez wartownika
-		
+
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
        " 1 - Dodaj do posortowanej listy\n"
@@ -30,11 +28,22 @@
        " 12 - Odwroc iteracyjnie \n"
        " 13 - Odwroc rekurencyjnie \n\n"
        
-       " 20 - Usun pierwszy element listy \n");
+       " 20 - Usun pierwszy element listy \n"
+       " l - Zmien zlapana liste \n"
+
+
+	" Obecnie zlapana lista: %p \n", &l[i]);
+
+
+
 
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
 		switch(wybor) {
+
+			case 'l':
+			i == 0 ? i = 1 : i = 2;
+			break;
 
 			case 0:
 			exit(0);
@@ -43,21 +52,21 @@
 			case 1:
 			printf("\n klucz=");
 			scanf("%d", &wybor);
-			DL_sort(&_l, wybor);
+			DL_sort(&l[i], wybor);
 			break;
 			
 			case 3:
-			Wyswietl_Pierwszy(&_l);
+			Wyswietl_Pierwszy(&l[i]);
 			break;
 			
 			case 4:
-			Wyswietl_Ostatni(&_l);
+			Wyswietl_Ostatni(&l[i]);
 			break;
 
 			case 5:
 			printf("\n klucz =");
 			scanf("%d", &wybor);
-			printf("\n zadany el. jest %u w liscie", odszukaj(&_l, wybor));
+			printf("\n zadany el. jest %u w liscie", odszukaj(&l[i], wybor));
 			break;
 
 			case 7:
@@ -66,39 +75,39 @@
 			printf("\n Podaj liczbe el do usuniecia, 0 oznacza wszystkie \n :");
 			scanf("%d", &w2);
 			if(w2==0) w2--;
-			UEL_k(&_l, wybor, w2);
+			UEL_k(&l[i], wybor, w2);
 			break;
 			
 			case 8:
-			Wczytaj(&_l);
+			Wczytaj(&l[i]);
 			break;
 			
 			case 9:
-			Zapisz(&_l);
+			Zapisz(&l[i]);
 			break;
 
 
 			case 12:
-			odwroc(&_l);
+			odwroc(&l[i]);
 			break;
 
 			case 13:
-			_l = odwroc_r(_l, NULL, NULL);
+			l[i] = odwroc_r(l[i], NULL, NULL);
 			break;
 
 
 
 
 			case 10:
-			WyswietlListe(_l);
+			WyswietlListe(l[i]);
 			break;
 
 			case 11:
-			WyswietlOdTylu(_l);
+			WyswietlOdTylu(l[i]);
 			break;
 
 			case 20:
-			UPEL(&_l);
+			UPEL(&l[i]);
 			break;
 
 			};
