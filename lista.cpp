@@ -162,9 +162,9 @@ void WyswietlOdTylu(lista l) {
         return;  
     }
     
-    WyswietlOdTylu(l->nast);  // rekurencyjnie przechodzimy do końca listy
+    WyswietlOdTylu(l->nast);  
     
-    // Po powrocie z rekurencji wyświetlamy wartości w odwrotnej kolejności
+    
     printf("%d-", l->klucz);
 };
 
@@ -299,15 +299,10 @@ Funkcja: Usun Element Listy - k
 Usuwa z kolejki element/-y z kluczem równym k.
 
 Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
-					 0 oznacza każde wystąpienie
+					 -1 oznacza każde wystąpienie
 
 
 Wersja iteracyjna
-
-
-Problemy:
-kiedy usuwamy pierwszy element listy, program w main() probuje odczytac pamiec ktora juz zostala zwolniona
-
 
 */
 
@@ -317,77 +312,34 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
    printf("\n Lista pusta"); 
    return;
   };
-  
-  if(ilosc_razy != 0) ilosc_razy++;
 
 
-
-// implementacja, usuwa wszystkie elementy
-
- // lista obecny = *l;
   lista *obecny = l;
   lista poprzedni = NULL;
   lista t;
-  // lista *pp = l;
 
-	while(*obecny ) {
+	while(*obecny && ilosc_razy != 0) {
 		
 		if((*obecny)->klucz == k) {
 			
-			t = *obecny;
-			
+			if(ilosc_razy != -1) ilosc_razy--;
+
 			if (poprzedni ) poprzedni->nast = (*obecny)->nast;
 				else
 				{
 				 	UPEL(obecny);
 				 	continue;
 				 }
-			
+
+			t = *obecny;
 			obecny = &(*obecny)->nast;
-			
 			free(t);
 		}
 		
 		poprzedni = *obecny;
 		obecny = &(*obecny)->nast;
-	}
+}
 
-
-
-
-
-/*
-  lista buff;
-  lista *obecny = l;
-  lista poprzedni = NULL;
-
-
-	do {
-		
-	
-	if((*obecny)->klucz == k) {
-			buff = (*obecny)->nast; //zapisujemy wskaznik nastepnego elementu do bufora
-			if(poprzedni) poprzedni->nast = buff;
-				else	*l = (*obecny)->nast;	
-				
-				
-			free(*obecny);		// ten free powoduje ze musimy uzyc podwojnego wskaznika
-			*obecny = buff;
-			
-			
-			if(ilosc_razy != 0)
-					ilosc_razy--;
-				
-			continue;
-		};
-	poprzedni = *obecny;
-	obecny = &(*obecny)->nast;
-		
-	} while((*obecny) && ilosc_razy != 1);
-	
-	*/	
-	
-};
 
 /*
 Funkcja: Usun Element Listy - k
@@ -408,20 +360,18 @@ void UELR_k( lista *l, int k, int ilosc_razy) {
    return;
   };  
 
-if(ilosc_razy == 0) return;
+if (ilosc_razy == 0) return;
 
-	if( (*l)-> klucz == k) {
+	if((*l)->klucz == k) {
 		UPEL(l);
 		if (ilosc_razy != -1) ilosc_razy--;
 		UELR_k(l, k, ilosc_razy);
 	}
 
-	else {
-
-	 l = &(*l)->nast;
-	 UELR_k(l, k, ilosc_razy);
-	
-
+	else 
+	{
+	 	l = &(*l)->nast;
+	 	UELR_k(l, k, ilosc_razy);
 	};
 
 
