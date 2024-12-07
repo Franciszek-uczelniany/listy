@@ -2,9 +2,11 @@
 #include <stdlib.h>     
 #include "lista.h"
 
+#define NR 2
+
 
  int main(int argc, char* argv [])  {
-	 lista l[2] = {0, 0};
+	 lista l[NR] = {0, 0};
 	int wybor = 0;
 	int w2, w3;
 	int i=0;
@@ -27,12 +29,12 @@
        " 11 - Wyswietl od konca \n"
        " 12 - Odwroc iteracyjnie \n"
        " 13 - Odwroc rekurencyjnie \n\n"
-       
+       " 14 - Polacz dwie listy w jedna \n"
        " 20 - Usun pierwszy element listy \n"
        " 44 - Zmien zlapana liste \n"
 
 
-	" Obecnie zlapana lista: %p \n", &l[i]);
+	" Obecnie zlapana lista: %d \n", i);
 
 
 
@@ -42,7 +44,7 @@
 		switch(wybor) {
 
 			case 44:
-			i=++i%2;
+			i=++i%NR;
 			break;
 
 			case 0:
@@ -104,6 +106,11 @@
 
 			case 11:
 			WyswietlOdTylu(l[i]);
+			break;
+
+			case 14:
+			join(l[0], l[1]);
+			i=0;
 			break;
 
 			case 20:
