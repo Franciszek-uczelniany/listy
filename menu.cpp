@@ -11,6 +11,20 @@
 	int w2, w3;
 	int i=0;
 
+	drzewo d = NULL;
+
+
+
+	DodajD(&d, 4);
+	DodajD(&d, 6);
+	DodajD(&d, 10);
+	DodajD(&d, 2);
+	DodajD(&d, 1);
+	DodajD(&d, 0);
+
+	DrukujDrzewo(d);
+	return;
+
 	while(1) {
 		
 
