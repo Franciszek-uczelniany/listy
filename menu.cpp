@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>     
-#include "lista.h"
+#include "drzewo.h"
 
 #define NR 2
 
@@ -16,108 +16,22 @@
 
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
-       " 1 - Dodaj do posortowanej listy\n"
-
-       " 3 - Pobierz pierwszy element listy \n" 
-       " 4 - Pobierz ostatni element listy \n"
-       " 5 - Odszukaj zadany element \n"
-
-       " 7 - Usun wskazany element / elementy \n"
-       " 8 - Wczytaj zawartosc listy z pliku \n"
-       " 9 - Zapisz zawartosc listy do pliku \n"
-       " 10 - Wyswietl zawartosc listy \n"
-       " 11 - Wyswietl od konca \n"
-       " 12 - Odwroc iteracyjnie \n"
-       " 13 - Odwroc rekurencyjnie \n\n"
-       " 14 - Polacz dwie listy w jedna \n"
-       " 20 - Usun pierwszy element listy \n"
-       " 44 - Zmien zlapana liste \n"
-
-
-	" Obecnie zlapana lista: %d \n", i);
-
-
+       " 1 - Dodaj do drzewa\n"
+       " 2 - Usun z drzewa\n"
+       " 3 - szukaj elementu\n"
+       " 4 - wyznacz minimum\n"
+       " 5 - wyznacz maksimum\n"
+       " 6 - wyznacz poprzednika\n"
+       " 7 - wyznacz nastepnika\n\n"
+       " 10 - Drukuj");
 
 
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
 		switch(wybor) {
 
-			case 44:
-			i=++i%NR;
-			break;
 
-			case 0:
-			exit(0);
-			break;
-
-			case 1:
-			printf("\n klucz=");
-			scanf("%d", &wybor);
-			DL_sort(&l[i], wybor);
-			break;
-			
-			case 3:
-			Wyswietl_Pierwszy(&l[i]);
-			break;
-			
-			case 4:
-			Wyswietl_Ostatni(&l[i]);
-			break;
-
-			case 5:
-			printf("\n klucz =");
-			scanf("%d", &wybor);
-			printf("\n zadany el. jest %u w liscie", odszukaj(&l[i], wybor));
-			break;
-
-			case 7:
-			printf("\n klucz=");
-			scanf("%d", &wybor);
-			printf("\n Podaj liczbe el do usuniecia, 0 oznacza wszystkie \n :");
-			scanf("%d", &w2);
-			if(w2==0) w2--;
-			UEL_k(&l[i], wybor, w2);
-			break;
-			
-			case 8:
-			Wczytaj(&l[i]);
-			break;
-			
-			case 9:
-			Zapisz(&l[i]);
-			break;
-
-
-			case 12:
-			odwroc(&l[i]);
-			break;
-
-			case 13:
-			l[i] = odwroc_r(l[i], NULL, NULL);
-			break;
-
-
-
-
-			case 10:
-			WyswietlListe(l[i]);
-			break;
-
-			case 11:
-			WyswietlOdTylu(l[i]);
-			break;
-
-			case 14:
-			join(l[0], l[1]);
-			i=0;
-			break;
-
-			case 20:
-			UPEL(&l[i]);
-			break;
-
-			};
+};
 
 	};
 
