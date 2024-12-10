@@ -2,69 +2,16 @@
 #include <stdlib.h>
 #include "lista.h"
 
-void join(lista l1, lista l2) 
+void join(lista* l1, lista l2) 
 {
-	// tutaj bedzie sprawdzac i dodawac element jesli nie moze odrazu paru elementow
-	// wstawic do listy. Pytanie czy jako chirurg czy nie. Raczej jako chirurg
 
-	struct lista1
-	{
-		lista current;
-		lista prev;
-		lista next;
-	};
+	lista p = l2;
 
-	lista1 p1 = {l1, NULL, l1->nast};
-	lista1 p2 = {l2, NULL, l2->nast};
-
-	lista temp;
-
-	while(p2.current) {
-
-		if(p2.current->klucz < p1.current->klucz) {
-
-			// wepchnij p2 przed p1 (Pierwszy pasujacy element)
-
-			if(p1.prev != NULL) {
-				p1.prev->nast = p2.current;
-			} else {
-				temp = l1;
-				l1 = p2.current;
-				p2.current->nast = temp;
-
-			}
-
-
-			// sprawdz czy taka cecha ze jest mniejsze jest zachowana dla
-			// elementow nastepnych, a jesli tak to dla ostatniego elementu
-			// ustaw nast na p2
-
-			while(p2.current->klucz < p1.current->klucz) p2.current = p2.current->nast;
-			temp = p2.current->nast;
-			p2.current->nast = p1.current; 
-
-
-			// problem - musimy zapamietac current next zanim nadpiszemy ten wskaznik
-			// zeby nie pogubic sie
-
-
-			p2.current = temp;
-			continue;
-
-			//na koncu recznie sprawdz bez zagladania czy pointery sa dobre
-
-		}
-
-		p2.prev = p2.current;
-		p2.current = p2.current->nast;
-
-		p1.prev = p1.current;
-		p1.current = p1.current->nast;
-
+	while (p) {
+		
+		
+		
 	}
-
-
-
 
 }
 
