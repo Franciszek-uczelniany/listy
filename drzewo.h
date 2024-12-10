@@ -9,6 +9,7 @@ struct elDrzewaB
 	int licznik;
 	struct elDrzewaB *lewy;
 	struct elDrzewaB *prawy;
+	struct elDrzewaB *ojciec;
 	
 };
 typedef struct elDrzewaB wDrzewaB;
@@ -19,5 +20,7 @@ void DrukujDrzewo(drzewo d);
 void DodajD(drzewo* d, int klucz);
 drzewo* ZnajdzD(drzewo* d, int klucz);
 
+
+drzewo* poprzednik(drzewo d, int liczba);
 
 #endif // DRZEWO_H

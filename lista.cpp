@@ -7,14 +7,14 @@ void DrukujDrzewo0(drzewo d, int glebokosc) {
     if (d == NULL) return;
     DrukujDrzewo0(d->lewy, glebokosc + 1);
     for (int i = 0; i < glebokosc; i++)
-        putchar(' '); // U¿ycie pojedynczego apostrofu zamiast " "
+        putchar(' ');
     printf("%d\n", d->klucz);
     DrukujDrzewo0(d->prawy, glebokosc + 1);
 }
 
 void DrukujDrzewo(drzewo d) {
     DrukujDrzewo0(d, 0);
-    putchar('\n'); // Poprawka: '\n' zamiast " "
+    putchar(' ');
 }
 
 void DodajD(drzewo* d, int klucz) {
@@ -74,4 +74,26 @@ drzewo* MinD(drzewo* d) {
         d = &((*d)->lewy);
     }
     return d;
+}
+
+
+drzewo* poprzednik(drzewo d, int liczba) {
+
+    drzewo i = d;
+    drzewo* pop = NULL; // poprzedni element
+
+    while (i) {
+        if (liczba > i->klucz ) {
+            pop = &i;
+            if (i->lewy) i = i->lewy;
+        }
+        else {
+            if (i->prawy) i = i->prawy;
+        }
+
+    }
+
+    return pop;
+
+
 }

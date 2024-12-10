@@ -9,10 +9,10 @@
 
 	int wybor = 0;
 	int w2, w3;
-	int i=0;
+	
 
 	drzewo d = NULL;
-
+	drzewo* i;
 
 
 	DodajD(&d, 4);
@@ -22,8 +22,8 @@
 	DodajD(&d, 1);
 	DodajD(&d, 0);
 
-	DrukujDrzewo(d);
-	return;
+//	DrukujDrzewo(d);
+	
 
 	while(1) {
 		
@@ -44,7 +44,19 @@
 		scanf("%d", &wybor);
 		switch(wybor) {
 
+		case 0:
+			return 0;
+			break;
+		case 1:
+			break;
 
+		case 6:
+			i = poprzednik(d, 4);
+			printf("\n %d", (*i)->klucz);
+			break;
+
+		case 7:
+			break;
 };
 
 	};
