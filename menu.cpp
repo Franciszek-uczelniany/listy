@@ -6,7 +6,7 @@
 
 
  int main(int argc, char* argv [])  {
-	 lista l[NR] = {0, 0};
+
 	int wybor = 0;
 	int w2, w3;
 	int i=0;

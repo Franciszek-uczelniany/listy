@@ -23,7 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lista.h">
+    <ClInclude Include="drzewo.h">
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
   </ItemGroup>
