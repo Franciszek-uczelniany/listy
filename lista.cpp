@@ -76,24 +76,57 @@ drzewo* MinD(drzewo* d) {
     return d;
 }
 
-
-drzewo* poprzednik(drzewo d, int liczba) {
+void poprzednik(drzewo d, int liczba) {
 
     drzewo i = d;
-    drzewo* pop = NULL; // poprzedni element
+    int pop = -255;
 
-    while (i) {
-        if (liczba > i->klucz ) {
-            pop = &i;
-            if (i->lewy) i = i->lewy;
+    do {
+         if (i->klucz >= liczba) {
+               
+                i = i->lewy;
+            }
+            else 
+            {
+                pop = i->klucz;
+                i = i->prawy;
+            }
+
+    } while (i);
+    
+    if (pop == -255) {
+        printf("\n Nie udalo sie znalezc");
+        return;
+    };
+
+    printf("\n Poprzednik: %d", pop);
+
+}
+
+void nastepnik(drzewo d, int liczba) {
+
+    drzewo i = d;
+    int pop = -255;
+
+    do {
+        
+        if (i->klucz <= liczba) {
+            
+            i = i->prawy;
         }
-        else {
-            if (i->prawy) i = i->prawy;
+        else
+        {
+            pop = i->klucz; // kandydat na nastepnika musi byc wiekszy
+            i = i->lewy;
         }
 
-    }
+    } while (i);
 
-    return pop;
+    if (pop == -255) {
+        printf("\n Nie udalo sie znalezc");
+        return;
+    };
 
+    printf("\n Nastepnik: %d", pop);
 
 }

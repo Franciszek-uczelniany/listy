@@ -1,8 +1,2 @@
-﻿  menu.cpp
-C:\Users\osana\Desktop\lab\lab-zadania\menu.cpp(41,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\osana\Desktop\lab\lab-zadania\menu.cpp(54,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\osana\Desktop\lab\lab-zadania\menu.cpp(68,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\osana\Desktop\lab\lab-zadania\menu.cpp(74,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\osana\Desktop\lab\lab-zadania\menu.cpp(76,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\osana\Desktop\lab\lab-zadania\menu.cpp(9,10): warning C4101: "w3": lokalna zmienna, do której nie istnieje odwołanie
-  lab-zadania.vcxproj -> C:\Users\osana\Desktop\lab\lab-zadania\x64\Debug\lab-zadania.exe
+﻿  lista.cpp
+  lab-zadania.vcxproj -> C:\Users\osana\Desktop\drzewo\lab-zadania\x64\Debug\lab-zadania.exe

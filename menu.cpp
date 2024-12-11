@@ -8,7 +8,7 @@
  int main(int argc, char* argv [])  {
 
 	int wybor = 0;
-	int w2, w3;
+	int w, w2, w3;
 	
 
 	drzewo d = NULL;
@@ -21,6 +21,7 @@
 	DodajD(&d, 2);
 	DodajD(&d, 1);
 	DodajD(&d, 0);
+	DodajD(&d, 3);
 
 //	DrukujDrzewo(d);
 	
@@ -48,14 +49,25 @@
 			return 0;
 			break;
 		case 1:
+			printf("\n i=");
+			scanf("%d", &w);
+			DodajD(&d, w);
 			break;
 
 		case 6:
-			i = poprzednik(d, 4);
-			printf("\n %d", (*i)->klucz);
+			printf("\n i=");
+			scanf("%d", &w);
+			poprzednik(d, w);
 			break;
 
 		case 7:
+			printf("\n i=");
+			scanf("%d", &w);
+			nastepnik(d, w);
+			break;
+
+		case 10:
+			DrukujDrzewo(d);
 			break;
 };
 

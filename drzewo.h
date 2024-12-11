@@ -21,6 +21,7 @@ void DodajD(drzewo* d, int klucz);
 drzewo* ZnajdzD(drzewo* d, int klucz);
 
 
-drzewo* poprzednik(drzewo d, int liczba);
+void poprzednik(drzewo d, int liczba);
+void nastepnik(drzewo d, int liczba);
 
 #endif // DRZEWO_H
