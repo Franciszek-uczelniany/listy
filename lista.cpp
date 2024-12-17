@@ -62,6 +62,40 @@ void DodajD(drzewo* d, int klucz) {
 void UsunD(drzewo* d, int klucz) {
     if (*d == NULL) return;
 
+    // drzewo binarne kluczow znakowym 
+    // kluczem nie jest int tylko char*
+    // to jest koniecznie do poprawy
+
+    // na wykladzie jest
+
+
+
+    DFS(Depth - First Search)
+
+        zadanie 16:
+
+
+    wystarczy przejsc przez drzewo zapisujac wszystko do macierzy sasiedztwa lub tablicy list
+        a nastepnie porownac oba listy
+
+
+        zapisac oba drzewa jako tablica list(i porownac rownoczesnie jesli jest taka mozliwosc)
+
+
+
+        5 - Odszukaj zadany element nie dziala w main
+        wiec trzeba zadanie 1 poprawic
+        usuwanie odnalezionego nie dziala na posortowanej i na main
+        nie mam funkcji(zadanie3) najczestszej wartosci
+        6 nie dziala
+        trzeciego nie mam
+
+        funkcja join tez jest do poprawy
+
+
+
+
+
     if (*d->prawy == NULL && *d->lewy == NULL) {
 
         //usuwanie bezdzietnego wezla
