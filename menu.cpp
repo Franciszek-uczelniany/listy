@@ -54,6 +54,21 @@
 			DodajD(&d, w);
 			break;
 
+		case 2:
+			printf("\n i=");
+			scanf("%d", &w);
+			UsunD(&d, w);
+			break;
+
+		case 4:
+			min(d);
+			break;
+
+		case 5:
+			max(d);
+			break;
+
+
 		case 6:
 			printf("\n i=");
 			scanf("%d", &w);

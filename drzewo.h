@@ -18,8 +18,11 @@ typedef wDrzewaB* drzewo;
 void DrukujDrzewo0(drzewo d, int glebokosc);
 void DrukujDrzewo(drzewo d);
 void DodajD(drzewo* d, int klucz);
+void UsunD(drzewo* d, int klucz);
 drzewo* ZnajdzD(drzewo* d, int klucz);
 
+int max(drzewo d);
+int min(drzewo d);
 
 void poprzednik(drzewo d, int liczba);
 void nastepnik(drzewo d, int liczba);

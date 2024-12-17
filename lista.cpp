@@ -3,6 +3,26 @@
 #include "drzewo.h"
 
 
+int max(drzewo d) {
+
+    while (d->prawy) {
+        d = d->prawy;
+    }
+
+    printf("\n Maksymalna wartosc wynosi %d", d->klucz);
+    return d->klucz;
+}
+
+int min(drzewo d) {
+
+    while (d->lewy) {
+        d = d->lewy;
+    }
+
+    printf("\n Minimalna wartosc wynosi %d", d->klucz);
+    return d->klucz;
+}
+
 void DrukujDrzewo0(drzewo d, int glebokosc) {
     if (d == NULL) return;
     DrukujDrzewo0(d->lewy, glebokosc + 1);
@@ -39,6 +59,37 @@ void DodajD(drzewo* d, int klucz) {
     }
 }
 
+void UsunD(drzewo* d, int klucz) {
+    if (*d == NULL) return;
+
+    if (*d->prawy == NULL && *d->lewy == NULL) {
+
+        //usuwanie bezdzietnego wezla
+
+        if (*d->ojciec) {
+            // wykrywanie czy d jest lewym czy prawym 
+
+            // ustawianie tego wskaznika na NULL
+
+            free(*d);
+
+            return;
+
+        }
+
+        // obsluzenie pozostalych przypadkow
+
+        return;
+
+    }
+
+    // https://eduinf.waw.pl/inf/utils/002_roz/mp001.php
+
+
+
+
+}
+
 drzewo* ZnajdzD(drzewo* d, int klucz) {
     if (*d == NULL) return NULL;
     if (klucz < (*d)->klucz) {
@@ -58,22 +109,6 @@ void ZwolnijD(drzewo* d) {
     ZwolnijD(&((*d)->prawy));
     free(*d);
     *d = NULL;
-}
-
-drzewo* MaxD(drzewo* d) {
-    if (*d == NULL) return NULL;
-    while ((*d)->prawy != NULL) {
-        d = &((*d)->prawy);
-    }
-    return d;
-}
-
-drzewo* MinD(drzewo* d) {
-    if (*d == NULL) return NULL;
-    while ((*d)->lewy != NULL) {
-        d = &((*d)->lewy);
-    }
-    return d;
 }
 
 void poprzednik(drzewo d, int liczba) {
