@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>     
+#include <stdlib.h>
 #include "lista.h"
 
 
@@ -8,10 +8,12 @@
 	 lista __l=0;
 	int wybor = 0;
 	int w2, w3;
+	int ret;
+
 
 
 	while(1) {
-		
+
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
        " 1 - Dodaj na początek listy \n"
@@ -48,11 +50,11 @@
 			scanf("%d", &wybor);
 			DNKL(&_l, wybor);
 			break;
-			
+
 			case 3:
 			UPEL(&_l);
 			break;
-			
+
 			case 4:
 			UOEL(&_l);
 			break;
@@ -60,7 +62,9 @@
 			case 5:
 			printf("\n klucz =");
 			scanf("%d", &wybor);
-			printf("\n zadany el. jest %u w liscie", odszukaj(&_l, wybor));
+			ret = odszukaj(&_l, wybor);
+			if(ret > 0) printf("\n zadany el. jest %d w liscie", ret); else
+			printf("\n nie znaleziono tego elementu");
 			break;
 
 			case 6:
@@ -69,7 +73,7 @@
 			printf("\n klucz do wpisania=");
 			scanf("%d", &w2);
 			printf("\n 0 - przed,  1 - za szukany element\n");
-			scanf("%d", &w3);		
+			scanf("%d", &w3);
 			DL(&_l, wybor, w2, w3);
 			break;
 
@@ -80,8 +84,8 @@
 			scanf("%d", &w2);
 			UEL_k(&_l, wybor, w2);
 			break;
-			
-			
+
+
 			case 71:
 			printf("\n klucz=");
 			scanf("%d", &wybor);
@@ -95,7 +99,7 @@
 			case 8:
 			Wczytaj(&_l);
 			break;
-			
+
 			case 9:
 			Zapisz(&_l);
 			break;
