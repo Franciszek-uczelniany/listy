@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>     
+#include <stdlib.h>
 #include "lista.h"
 
 #define NR 2
@@ -13,7 +13,6 @@
 	int ret;
 
 	while(1) {
-		
 
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
@@ -57,11 +56,11 @@
 			scanf("%d", &wybor);
 			DL_sort(&l[i], wybor);
 			break;
-			
+
 			case 3:
 			Wyswietl_Pierwszy(&l[i]);
 			break;
-			
+
 			case 4:
 			Wyswietl_Ostatni(&l[i]);
 			break;
@@ -82,11 +81,11 @@
 			if(w2==0) w2--;
 			UEL_k(&l[i], wybor, w2);
 			break;
-			
+
 			case 8:
 			Wczytaj(&l[i]);
 			break;
-			
+
 			case 9:
 			Zapisz(&l[i]);
 			break;

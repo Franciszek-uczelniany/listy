@@ -331,9 +331,8 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
   lista t;
 
 	while(*obecny && ilosc_razy != 0) {
-		
+
 		if((*obecny)->klucz == k) {
-			
 			if(ilosc_razy != -1) ilosc_razy--;
 
 			if (poprzedni ) poprzedni->nast = (*obecny)->nast;
@@ -343,11 +342,12 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 				 	continue;
 				 }
 
+			//ponizsze linijki zostana wykonane jezeli element otory usuwamy nie jest tym pierwszym
 			t = *obecny;
 			obecny = &(*obecny)->nast;
 			free(t);
 		}
-		
+
 		poprzedni = *obecny;
 		obecny = &(*obecny)->nast;
 	}}
