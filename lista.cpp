@@ -266,31 +266,34 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
    printf("\n Lista pusta"); 
    return;
   };
-  
-  if(ilosc_razy != 0) ilosc_razy++;
 
 
-  lista p;
-  lista *i = l;
-	
-	do {
-		
-	  p = *i;
-	  i = &(*i)->nast;
+  lista *obecny = l;
+  lista poprzedni = NULL;
+  lista t;
 
-		if(p->klucz == k) {
+	while(*obecny && ilosc_razy != 0) {
 
-			free(p); 
-			if(ilosc_razy != 0) 
-					ilosc_razy--;
-				
+		if((*obecny)->klucz == k) {
+			if(ilosc_razy != -1) ilosc_razy--;
 
-		};
-		
-	} while((*i) && ilosc_razy != 1);
-		
-	
-};
+			if (poprzedni ) poprzedni->nast = (*obecny)->nast;
+				else
+				{
+				 	UPEL(obecny);
+				 	continue;
+				 }
+
+			//ponizsze linijki zostana wykonane jezeli element otory usuwamy nie jest tym pierwszym
+			t = *obecny;
+			obecny = &(*obecny)->nast;
+			free(t);
+		}
+
+		poprzedni = *obecny;
+		obecny = &(*obecny)->nast;
+	}}
+
 
 /*
 Funkcja: Usun Element Listy - k

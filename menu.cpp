@@ -82,6 +82,7 @@
 			scanf("%d", &wybor);
 			printf("\n Podaj liczbe el do usuniecia, 0 oznacza wszystkie \n :");
 			scanf("%d", &w2);
+			if(w2 == 0) w2--;
 			UEL_k(&_l, wybor, w2);
 			break;
 
