@@ -10,6 +10,7 @@
 	int wybor = 0;
 	int w2, w3;
 	int i=0;
+	int ret;
 
 	while(1) {
 		
@@ -68,7 +69,9 @@
 			case 5:
 			printf("\n klucz =");
 			scanf("%d", &wybor);
-			printf("\n zadany el. jest %u w liscie", odszukaj(&l[i], wybor));
+			ret = odszukaj(&l[i], wybor);
+			if(ret > 0) printf("\n zadany el. jest %d w liscie", ret); else 
+			printf("\n nie znaleziono tego elementu");
 			break;
 
 			case 7:
@@ -109,7 +112,7 @@
 			break;
 
 			case 14:
-			join(l[0], l[1]);
+			//undeclared join(l[0], l[1]);
 			i=0;
 			break;
 

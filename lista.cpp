@@ -152,19 +152,19 @@ Wynik: numer elementu z kluczem równym k.
 
 */
 
-unsigned short odszukaj(lista *l, int k) {
+int odszukaj(lista *l, int k) {
 
-	unsigned short ret = 1;
+	int ret = 1;
 	lista _l = *l;
 	while(_l) {
 
-		if(_l->klucz == k) break;
+		if(_l->klucz == k) return ret;
 		_l = _l->nast;
 		ret++;
 };
 
 
-	return ret;
+	return -1;
 
 };
 

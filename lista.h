@@ -22,7 +22,7 @@ void odwroc(lista *l);
 
 void WyswietlOdTylu(lista l);
 
-unsigned short odszukaj(lista *l, int k);
+int odszukaj(lista *l, int k);
 lista* przesun(lista *l, int k, int side=1);
 
 void WyswietlListe( lista _lista);
