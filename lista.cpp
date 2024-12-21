@@ -23,6 +23,23 @@ int min(drzewo d) {
     return d->klucz;
 }
 
+drzewo* el_Max(drzewo* d) {
+
+   while((*d)->prawy) d = &(*d)->prawy;
+
+  return d;
+
+}
+
+
+drzewo* el_Min(drzewo* d) {
+
+    while((*d)->lewy) d = &(*d)->lewy;
+
+    return d;
+
+}
+
 void DrukujDrzewo0(drzewo d, int glebokosc) {
     if (d == NULL) return;
     DrukujDrzewo0(d->lewy, glebokosc + 1);
@@ -61,66 +78,25 @@ void DodajD(drzewo* d, int klucz) {
 
 void UsunD(drzewo* d, int klucz) {
     if (*d == NULL) return;
-
-    // drzewo binarne kluczow znakowym 
-    // kluczem nie jest int tylko char*
-    // to jest koniecznie do poprawy
-
-    // na wykladzie jest
-
-
-
-    DFS(Depth - First Search)
-
-        zadanie 16:
-
-
-    wystarczy przejsc przez drzewo zapisujac wszystko do macierzy sasiedztwa lub tablicy list
-        a nastepnie porownac oba listy
-
-
-        zapisac oba drzewa jako tablica list(i porownac rownoczesnie jesli jest taka mozliwosc)
-
-
-
-        5 - Odszukaj zadany element nie dziala w main
-        wiec trzeba zadanie 1 poprawic
-        usuwanie odnalezionego nie dziala na posortowanej i na main
-        nie mam funkcji(zadanie3) najczestszej wartosci
-        6 nie dziala
-        trzeciego nie mam
-
-        funkcja join tez jest do poprawy
-
-
-
-
-
-    if (*d->prawy == NULL && *d->lewy == NULL) {
-
-        //usuwanie bezdzietnego wezla
-
-        if (*d->ojciec) {
-            // wykrywanie czy d jest lewym czy prawym 
-
-            // ustawianie tego wskaznika na NULL
-
-            free(*d);
-
-            return;
-
-        }
-
-        // obsluzenie pozostalych przypadkow
-
-        return;
-
+    drzewo* do_usuniecia;
+    drzewo* ds;
+    ds = ZnajdzD(d, klucz);
+    if (*ds == NULL) return;
+    if ((*d)->licznik > 1) {
+     (*d)->licznik--;
+     return;
     }
+   if( (*d)->lewy == NULL ||  (*d)->prawy == NULL ) do_usuniecia = d;
+   else {
+     do_usuniecia = el_Max(&(*d)->lewy);
+     (*d)->klucz = (*do_usuniecia)->klucz;
+     (*d)->licznik = (*do_usuniecia)->licznik;
+}
+    ds = do_usuniecia;
+    if((*do_usuniecia)->lewy == NULL) *do_usuniecia = (*do_usuniecia)->prawy;
+     else *do_usuniecia = (*do_usuniecia)->lewy;
 
-    // https://eduinf.waw.pl/inf/utils/002_roz/mp001.php
-
-
-
+    free(*ds);
 
 }
 

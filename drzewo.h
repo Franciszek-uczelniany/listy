@@ -24,6 +24,10 @@ drzewo* ZnajdzD(drzewo* d, int klucz);
 int max(drzewo d);
 int min(drzewo d);
 
+drzewo* el_Min(drzewo* d);
+drzewo* el_Max(drzewo* d);
+
+
 void poprzednik(drzewo d, int liczba);
 void nastepnik(drzewo d, int liczba);
 
