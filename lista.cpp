@@ -342,10 +342,12 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 				 	continue;
 				 }
 
-			//ponizsze linijki zostana wykonane jezeli element otory usuwamy nie jest tym pierwszym
+			//ponizsze linijki zostana wykonane jezeli element ktory usuwamy nie jest pierwszym
+			//elementem listy
 			t = *obecny;
 			obecny = &(*obecny)->nast;
 			free(t);
+			continue;
 		}
 
 		poprzedni = *obecny;
