@@ -288,6 +288,7 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
 			t = *obecny;
 			obecny = &(*obecny)->nast;
 			free(t);
+			continue;
 		}
 
 		poprzedni = *obecny;
