@@ -9,8 +9,8 @@ int max(drzewo d) {
         d = d->prawy;
     }
 
-    printf("\n Maksymalna wartosc wynosi %d", d->klucz);
-    return d->klucz;
+    printf("\n Maksymalna wartosc wynosi %s", d->klucz);
+    return atoi(d->klucz);
 }
 
 int min(drzewo d) {
@@ -19,8 +19,8 @@ int min(drzewo d) {
         d = d->lewy;
     }
 
-    printf("\n Minimalna wartosc wynosi %d", d->klucz);
-    return d->klucz;
+    printf("\n Minimalna wartosc wynosi %s", d->klucz);
+    return atoi(d->klucz);
 }
 
 drzewo* el_Max(drzewo* d) {
@@ -45,7 +45,7 @@ void DrukujDrzewo0(drzewo d, int glebokosc) {
     DrukujDrzewo0(d->lewy, glebokosc + 1);
     for (int i = 0; i < glebokosc; i++)
         putchar(' ');
-    printf("%d\n", d->klucz);
+    printf("%s\n", d->klucz);
     DrukujDrzewo0(d->prawy, glebokosc + 1);
 }
 
@@ -60,15 +60,17 @@ void DodajD(drzewo* d, int klucz) {
         if (*d == NULL) {
             perror("Nie udalo sie przydzielic pamieci");
             exit(1);
-        }
-        (*d)->klucz = klucz;
+   	}
+
+	sprintf((*d)->klucz, "%d", klucz);
         (*d)->licznik = 1;
         (*d)->lewy = (*d)->prawy = NULL;
     }
-    else if (klucz < (*d)->klucz) {
+    else if (klucz < atoi((*d)->klucz)) {
         DodajD(&((*d)->lewy), klucz);
+
     }
-    else if (klucz > (*d)->klucz) {
+    else if (klucz > atoi((*d)->klucz)) {
         DodajD(&((*d)->prawy), klucz);
     }
     else {
@@ -89,7 +91,9 @@ void UsunD(drzewo* d, int klucz) {
    if( (*d)->lewy == NULL ||  (*d)->prawy == NULL ) do_usuniecia = d;
    else {
      do_usuniecia = el_Max(&(*d)->lewy);
-     (*d)->klucz = (*do_usuniecia)->klucz;
+     int buff = atoi((*do_usuniecia)->klucz);
+     sprintf((*d)->klucz, "%d", buff);
+
      (*d)->licznik = (*do_usuniecia)->licznik;
 }
     ds = do_usuniecia;
@@ -102,10 +106,10 @@ void UsunD(drzewo* d, int klucz) {
 
 drzewo* ZnajdzD(drzewo* d, int klucz) {
     if (*d == NULL) return NULL;
-    if (klucz < (*d)->klucz) {
+    if (klucz < atoi((*d)->klucz)) {
         return ZnajdzD(&((*d)->lewy), klucz);
     }
-    else if (klucz > (*d)->klucz) {
+    else if (klucz > atoi( (*d)->klucz) ) {
         return ZnajdzD(&((*d)->prawy), klucz);
     }
     else {
@@ -127,13 +131,13 @@ void poprzednik(drzewo d, int liczba) {
     int pop = -255;
 
     do {
-         if (i->klucz >= liczba) {
+         if (atoi(i->klucz) >= liczba) {
                
                 i = i->lewy;
             }
             else 
             {
-                pop = i->klucz;
+                pop = atoi(i->klucz);
                 i = i->prawy;
             }
 
@@ -155,13 +159,13 @@ void nastepnik(drzewo d, int liczba) {
 
     do {
         
-        if (i->klucz <= liczba) {
+        if (atoi(i->klucz) <= liczba) {
             
             i = i->prawy;
         }
         else
         {
-            pop = i->klucz; // kandydat na nastepnika musi byc wiekszy
+            pop = atoi(i->klucz); // kandydat na nastepnika musi byc wiekszy
             i = i->lewy;
         }
 

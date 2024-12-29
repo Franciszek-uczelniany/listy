@@ -5,7 +5,7 @@
 
 struct elDrzewaB
 {
-	int klucz;
+	char klucz[10];
 	int licznik;
 	struct elDrzewaB *lewy;
 	struct elDrzewaB *prawy;
