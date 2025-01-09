@@ -6,7 +6,8 @@
 #include <iostream>
 
 #include <algorithm>
-#define NUM 50
+#define NUM 100
+//#define VERBOSE 0
 
 void bubble(int* tablica, unsigned int size);
 void wstawienie(int* tab, unsigned int size);
@@ -32,15 +33,17 @@ int main()
     // free(tablica);
     int size = NUM;
 
-    qsort(tablica, 0, --size);
+    //qsort(tablica, 0, --size);
 
 
 
-    return 0;
-    /*
+    //return 0;
+    
     bubble(tablica, NUM);
     wstawienie(tablica, NUM);
-    */
+    
+
+printf("\n");
     }
 
 
@@ -75,14 +78,14 @@ int partition(int* A , int p, int r)
     if (i > j) printf("\n UWAGA: i>j");
     else if (i == j) {
         printf("\n UWAGA: i == j");
-        maxi++;
+        // maxi++ nie moze tu byc poniewaz maxi nie jest zadeklarowane
     }
 
     int mini = std::min(i, j);
     int maxi = std::max(i, j);
+    if(mini == maxi) maxi++;
 
-
-
+#ifdef VERBOSE
     printf("\n\n pivot: %d", x);
     printf("\n A[p,i]: ");
 
@@ -95,6 +98,8 @@ int partition(int* A , int p, int r)
 
 
     printf("\n");
+#endif
+
     return j;
 
 }
@@ -155,9 +160,12 @@ void wstawienie(int* tab, unsigned int size) {
 
 
 
-    printf("\n porownania: %ld \n wstawienia: %ld", porownania, wstawienia);
+    printf("\n sortowanie przez wstawienie: porownania: %ld  wstawienia: %ld", porownania, wstawienia);
+
+#ifdef VERBOSE
     for (unsigned int i = 0; i < size; i++)
         printf("\n %d", wynik[i]);
+#endif
 
     free(wynik);
 }
@@ -189,9 +197,12 @@ void bubble(int* tablica, unsigned int size) {
         }
 
 
-    printf("\n porownania: %ld \n wstawienia: %ld", porownania, wstawienia);
+    printf("\n babelkowe: porownania: %ld wstawienia: %ld", porownania, wstawienia);
+
+#ifdef VERBOSE
     for (unsigned int i = 0; i < size; i++)
         printf("\n %d", wynik[i]);
+#endif
 
     free(wynik);
 }
