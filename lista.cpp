@@ -326,32 +326,28 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
   };
 
 
-  lista *obecny = l;
+  lista obecny = *l;
   lista poprzedni = NULL;
-  lista t;
 
-	while(*obecny && ilosc_razy != 0) {
+	while(obecny && ilosc_razy != 0) {
 
-		if((*obecny)->klucz == k) {
+		if(obecny->klucz == k) {
 			if(ilosc_razy != -1) ilosc_razy--;
 
-			if (poprzedni ) poprzedni->nast = (*obecny)->nast;
-				else
-				{
-				 	UPEL(obecny);
-				 	continue;
-				 }
+			if (poprzedni)
+					poprzedni->nast = obecny->nast;
+			else 
+				   *l = obecny->nast;
 
-			//ponizsze linijki zostana wykonane jezeli element ktory usuwamy nie jest pierwszym
-			//elementem listy
-			t = *obecny;
-			obecny = &(*obecny)->nast;
-			free(t);
+
+			lista rem = obecny;
+			obecny = obecny->nast;
+			free(rem);
 			continue;
 		}
 
-		poprzedni = *obecny;
-		obecny = &(*obecny)->nast;
+		poprzedni = obecny;
+		obecny = obecny->nast;
 	}}
 
 
