@@ -260,40 +260,38 @@ Wersja iteracyjna
 
 */
 
-void UEL_k( lista *l, int k, int ilosc_razy) {
+void UEL_k(lista* l, int k, int ilosc_razy) {
 
-  if(!(*l)) {
-   printf("\n Lista pusta"); 
-   return;
-  };
+	if (!(*l)) {
+		printf("\n Lista pusta");
+		return;
+	};
 
 
-  lista *obecny = l;
-  lista poprzedni = NULL;
-  lista t;
+	lista obecny = *l;
+	lista poprzedni = NULL;
 
-	while(*obecny && ilosc_razy != 0) {
+	while (obecny && ilosc_razy != 0) {
 
-		if((*obecny)->klucz == k) {
-			if(ilosc_razy != -1) ilosc_razy--;
+		if (obecny->klucz == k) {
+			if (ilosc_razy != -1) ilosc_razy--;
 
-			if (poprzedni ) poprzedni->nast = (*obecny)->nast;
-				else
-				{
-				 	UPEL(obecny);
-				 	continue;
-				 }
+			if (poprzedni)
+				poprzedni->nast = obecny->nast;
+			else
+				*l = obecny->nast;
 
-			//ponizsze linijki zostana wykonane jezeli element otory usuwamy nie jest tym pierwszym
-			t = *obecny;
-			obecny = &(*obecny)->nast;
-			free(t);
+
+			lista rem = obecny;
+			obecny = obecny->nast;
+			free(rem);
 			continue;
 		}
 
-		poprzedni = *obecny;
-		obecny = &(*obecny)->nast;
-	}}
+		poprzedni = obecny;
+		obecny = obecny->nast;
+	}
+}
 
 
 /*
