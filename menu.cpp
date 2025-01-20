@@ -31,6 +31,7 @@
        " 13 - Odwroc rekurencyjnie \n\n"
        " 14 - Polacz dwie listy w jedna \n"
        " 20 - Usun pierwszy element listy \n"
+       " 21 - Porownaj obie listy \n"
        " 44 - Zmien zlapana liste \n"
 
 
@@ -117,6 +118,10 @@
 
 			case 20:
 			UPEL(&l[i]);
+			break;
+
+			case 21:
+			porownaj(&l[0], &l[1]);
 			break;
 
 			};

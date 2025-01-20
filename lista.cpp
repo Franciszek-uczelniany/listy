@@ -2,6 +2,67 @@
 #include <stdlib.h>
 #include "lista.h"
 
+int CzyIstnieje(lista l1, lista l2, int arg)
+{
+	int w1 =0, w2 =0;
+
+	for(lista i = l1; i != NULL; i = i-> nast) {
+		if(i->klucz == arg) {
+			w1 =1;
+			break;
+		}
+
+	}
+
+	for(lista i = l1; i != NULL; i = i-> nast) {
+		if(i->klucz == arg) {
+			w2 =1;
+			break;
+		}}
+
+	if(w2 ==1 && w2 ==1) return 1;
+
+	return 0;
+
+
+}
+
+void* porownaj(lista l1, lista l2)
+{
+	lista* w1, w2;
+
+//problem polega na tym ze mamy porownac wartosci, a one moga sie powtarzac
+
+	int ret;
+
+	// Sprawdzenie ktore istnieja w 1 liscie a w drugiej nie
+	// w1 to wartosci ktore wystepuja wylacznie w 1. liscie
+	for(lista i=l1; i!=NULL && p!=NULL; i=i->nast && p=p->nast) {
+		if(i->klucz != p->klucz) {
+			ret = CzyIstnieje(l1, l2, i->klucz);
+			if(ret == 0) DL_sort(w1, i->klucz);
+
+
+		}
+
+	};
+
+	for(lista i=l2; i!=NULL && p!=NULL; i=i->nast && p=p->nast) {
+		if(i->klucz != p->klucz) {
+			ret = CzyIstnieje(l1, l2, i->klucz);
+			if(ret == 0) DL_sort(w2, i->klucz);
+		}};
+
+printf("\n w1:");
+WyswietlListe(&w1);
+printf("\n w2:");
+WyswietlListe(&w2);
+
+
+	// tu powinno byc ret wskaznik ro tablicy dwoch list
+	return 0;
+}
+
 void join(lista* l1, lista l2) 
 {
 

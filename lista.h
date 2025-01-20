@@ -15,6 +15,8 @@ struct el {
 void UPEL(lista *l);
 void UOEL(lista *l);
 
+int CzyIstnieje(lista l1, lista l2, int arg);
+void* porownaj(lista l1, lista l2);
 
 lista odwroc_r( lista l, lista prev, lista next);
 
