@@ -7,46 +7,146 @@
 
 #include <algorithm>
 #define NUM 100
-//#define VERBOSE 0
+#define VERBOSE 1
+#define N 10000
+#define M 1000
 
-void bubble(int* tablica, unsigned int size);
-void wstawienie(int* tab, unsigned int size);
+
+
+struct stats {
+    long wstawienia = 0;
+    long porownania = 0;
+
+};
+
+struct stats bubble(int* tablica, unsigned int size);
+struct stats wstawienie(int* tab, unsigned int size);
 void qsort(int* A, int p, int r);
 int partition(int* A, int p, int r);
+struct stats shell(int* A);
+
+
+// Powinienem zrobic qsort w formie iteracyjnej
+
+unsigned int minimum(int* A, int size) {
+
+    int ret = A[0];
+
+    for (int i = 0; i < size; i++) if (A[i] < ret) ret = A[i];
+
+    return ret;
+}
+
+unsigned int maximum(int* A, int size) {
+
+    int ret = A[0];
+
+    for (int i = 0; i < size; i++) if (A[i] < ret) ret = A[i];
+
+    return ret;
+}
 
 int main()
 {
     srand(time(NULL));
     int* tablica = (int*) malloc(sizeof(int) * NUM);
 
-    for (int i = 0; i < NUM; i++)
-        tablica[i] = rand() % 10000; // ustalamy, że liczby są z zakresu 1 do 10 000
+    // powtarzamy tą czynnosc 1000 razy (M)
+    struct stats* wyniki_bu = new struct stats[M];
+    struct stats* wyniki_ws = new struct stats[M];
+    struct stats* wyniki_qs = new struct stats[M];
+    struct stats* wyniki_sh = new struct stats[M];
 
 
-    // wywolujemy dla kazdego algorytmu 
-    // liczymy ilosc porownan i podstawien kluczy (czyli zamian)
 
-    // powtarzamy tą czynnosc 1000 razy (czyli tworzymy tablice dwuwymiarowa i dajemy funkcji wsktaznik do niej)
+    for (int i = 0; i < M; i++) {
+    
+        for (int i = 0; i < NUM; i++)
+            tablica[i] = rand() % N; // ustalamy, że liczby są z zakresu 1 do 10 000
+        
+        
+        wyniki_bu[i] = bubble(tablica, NUM);
+        wyniki_ws[i] = wstawienie(tablica, NUM);
+      //  wyniki_qs[i] = qsort(tablica, NUM);
+        wyniki_sh[i] = shell(tablica);
 
-    // drukujemy wyniki.....
+    }
+
+    // Drukujemy wyniki
+    printf("\n Typ sortowania \t MIN wstawien \t MAX wstawien \t srednia wstawien \t MIN porownan \t MAX porownan \t srednia porownan");
+//    printf("\n sortowanie babelkowe \t %ld \t %ld", );
+  
+
+
+
+
+    // Dla każdej z
+   //  wymienionych metod program powinien wyświetlić w tabeli następujące dane : maksymalna
+     //   i minimalna w serii M prób liczba wykonanych podstawień i porównań sortowanych kluczy
+     //   oraz średnia liczba podstawień i porównań.
 
     // free(tablica);
     int size = NUM;
 
-    //qsort(tablica, 0, --size);
+    shell(tablica);
+
+    return 0;
+    qsort(tablica, 0, --size);
 
 
 
-    //return 0;
+
     
     bubble(tablica, NUM);
     wstawienie(tablica, NUM);
     
 
 printf("\n");
+
+
+return 0;
     }
 
+struct stats shell(int* A) {
 
+    struct stats ret;
+
+    int h, i, j, x;
+    for (h = 1; h < NUM; h = 3 * h + 1);
+    h /= 9;
+    if (!h) h++;
+        
+  
+
+    while (h)
+    {
+        for (j = NUM - h - 1; j >= 0; j--)
+        {
+            x = A[j];
+            i = j + h;
+            while ((i < NUM) && (x > A[i]))
+            {
+                ret.porownania++; // tutaj chodzi o porownanie wyzej w warunku petli while
+
+                A[i - h] = A[i];
+                ret.wstawienia++;
+                i += h;
+            }
+            A[i - h] = x;
+            ret.wstawienia++;
+        }
+        h /= 3;
+    }
+
+#ifdef VERBOSE
+    printf("\n posortowane: ");
+    for (int i = 0; i < NUM; i++)
+        printf("\n %d", A[i]);
+#endif
+
+
+    return ret;
+}
 
 
 //todo: zrobic funkcje partition w taki sposob aby robiła trzy partycje
@@ -127,10 +227,11 @@ void qsort(int* A, int p, int r)
 
 }
 
-void wstawienie(int* tab, unsigned int size) {
+struct stats wstawienie(int* tab, unsigned int size) {
+
+    struct stats ret;
 
     int* wynik = (int*)malloc(sizeof(int) * size);
-    long porownania = 0, wstawienia = 0;
 
 
     for (unsigned int i = 0; i < size; i++)
@@ -149,18 +250,18 @@ void wstawienie(int* tab, unsigned int size) {
         while (j >= 0 && wynik[j] > buf) {
             wynik[j + 1] = wynik[j];
             --j;
-            porownania++; // Porównanie
-            wstawienia++; // Przesunięcie elementu
+            ret.porownania++;
+            ret.wstawienia++;
         }
 
         // Wstawienie elementu buf w odpowiednie miejsce
         wynik[j + 1] = buf;
-        wstawienia++; // Wstawienie elementu
+        ret.wstawienia++; // Wstawienie elementu
     }
 
 
 
-    printf("\n sortowanie przez wstawienie: porownania: %ld  wstawienia: %ld", porownania, wstawienia);
+    printf("\n sortowanie przez wstawienie: porownania: %ld  wstawienia: %ld", ret.porownania, ret.wstawienia);
 
 #ifdef VERBOSE
     for (unsigned int i = 0; i < size; i++)
@@ -168,13 +269,15 @@ void wstawienie(int* tab, unsigned int size) {
 #endif
 
     free(wynik);
+
+    return ret;
 }
 
-void bubble(int* tablica, unsigned int size) {
+struct stats bubble(int* tablica, unsigned int size) {
 
     int* wynik = (int*)malloc(sizeof(int) * size);
 
-    long porownania = 0, wstawienia = 0;
+    struct stats ret;
 
    
     for (unsigned int i = 0; i < size; i++)
@@ -186,18 +289,18 @@ void bubble(int* tablica, unsigned int size) {
 
     for(unsigned int i=0; i<size; i++) 
         for (unsigned int j = 1; j < size - i; j++) {
-            porownania++;
+            ret.porownania++;
             if (wynik[j - 1] > wynik[j]) {
                 buf = wynik[j - 1];
                 wynik[j - 1] = wynik[j];
                 wynik[j] = buf;
-                wstawienia++;
+                ret.wstawienia++;
             }
 
         }
 
 
-    printf("\n babelkowe: porownania: %ld wstawienia: %ld", porownania, wstawienia);
+    printf("\n babelkowe: porownania: %ld wstawienia: %ld", ret.porownania, ret.wstawienia);
 
 #ifdef VERBOSE
     for (unsigned int i = 0; i < size; i++)
@@ -205,4 +308,6 @@ void bubble(int* tablica, unsigned int size) {
 #endif
 
     free(wynik);
+
+    return ret;
 }
