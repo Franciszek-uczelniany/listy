@@ -29,7 +29,8 @@ int CzyIstnieje(lista l1, lista l2, int arg)
 
 void* porownaj(lista l1, lista l2)
 {
-	lista* w1, w2;
+	lista *w1 = 0, *w2 = 0;
+	lista p = l2;
 
 //problem polega na tym ze mamy porownac wartosci, a one moga sie powtarzac
 
@@ -37,7 +38,9 @@ void* porownaj(lista l1, lista l2)
 
 	// Sprawdzenie ktore istnieja w 1 liscie a w drugiej nie
 	// w1 to wartosci ktore wystepuja wylacznie w 1. liscie
-	for(lista i=l1; i!=NULL && p!=NULL; i=i->nast && p=p->nast) {
+
+	for (lista i = l1; i != NULL && p != NULL; i = i->nast, p = p->nast ) {
+		
 		if(i->klucz != p->klucz) {
 			ret = CzyIstnieje(l1, l2, i->klucz);
 			if(ret == 0) DL_sort(w1, i->klucz);
@@ -47,17 +50,24 @@ void* porownaj(lista l1, lista l2)
 
 	};
 
-	for(lista i=l2; i!=NULL && p!=NULL; i=i->nast && p=p->nast) {
+	p = l1;
+
+	for(lista i=l2; i!=NULL && p!=NULL; i=i->nast, p=p->nast) {
 		if(i->klucz != p->klucz) {
 			ret = CzyIstnieje(l1, l2, i->klucz);
 			if(ret == 0) DL_sort(w2, i->klucz);
 		}};
 
-printf("\n w1:");
-WyswietlListe(&w1);
-printf("\n w2:");
-WyswietlListe(&w2);
+	if (w1 != NULL && *w1 != NULL) {
 
+		printf("\n w1:");
+		WyswietlListe(*w1);
+	}
+	if (w2 != NULL && *w2 != NULL) {
+
+		printf("\n w2:");
+		WyswietlListe(*w2);
+	}
 
 	// tu powinno byc ret wskaznik ro tablicy dwoch list
 	return 0;
@@ -338,7 +348,7 @@ void DL_sort(lista *l, int klucz) {
 	lista k  = (lista) malloc(sizeof(elListy));
 	k->klucz = klucz;
 
-	if(*l == 0 || (*l)->klucz > klucz) {
+	if((l == 0 || *l == 0) || (*l)->klucz > klucz) {
 		k->nast  = *l;
 		*l       = k;
 		return; 
@@ -346,13 +356,11 @@ void DL_sort(lista *l, int klucz) {
 
 
 	lista obecny = *l;
-	lista poprzedni = *l;
 	
 	while (obecny != NULL && obecny->nast != NULL) {
 
 
 			if (obecny->nast->klucz < klucz) {
-				poprzedni = obecny;
 				obecny = obecny->nast;
 		} else break;
 	};

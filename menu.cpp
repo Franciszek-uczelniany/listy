@@ -121,7 +121,7 @@
 			break;
 
 			case 21:
-			porownaj(&l[0], &l[1]);
+			porownaj(l[0], l[1]);
 			break;
 
 			};
