@@ -58,7 +58,7 @@ void Wczytaj(lista* l) {
     ZL(l);
     FILE* file = fopen("lista.txt", "r");
     if (file == NULL) {
-        printf("Nie można otworzyć pliku lista.txt\n");
+        printf("Nie można otworzyc pliku lista.txt\n");
         return;
     }
 
@@ -74,7 +74,7 @@ void Wczytaj(lista* l) {
 void Zapisz(lista* l) {
     FILE* file = fopen("lista.txt", "w");
     if (file == NULL) {
-        printf("Nie można otworzyć pliku lista.txt do zapisu\n");
+        printf("Nie można otworzyc pliku lista.txt do zapisu\n");
         return;
     }
 
