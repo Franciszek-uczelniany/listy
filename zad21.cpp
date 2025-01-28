@@ -59,6 +59,7 @@ int main()
 
 
 
+
     for (int i = 0; i < M; i++) {
     
         for (int i = 0; i < NUM; i++)
@@ -88,9 +89,6 @@ int main()
     // free(tablica);
     int size = NUM;
 
-    shell(tablica);
-
-    return 0;
     qsort(tablica, 0, --size);
 
 
@@ -183,9 +181,9 @@ int partition(int* A , int p, int r)
 
     int mini = std::min(i, j);
     int maxi = std::max(i, j);
-    if(mini == maxi) maxi++;
+    //if(mini == maxi) maxi++;
 
-#ifdef VERBOSE
+#ifdef VERBOSE_
     printf("\n\n pivot: %d", x);
     printf("\n A[p,i]: ");
 
@@ -200,8 +198,8 @@ int partition(int* A , int p, int r)
     printf("\n");
 #endif
 
-    return j;
-
+ return j;
+      //return maxi; // tymczasowe rozwiązanie.
 }
 
 void part_verify(int* A, int p, int i, int j, int r) {
@@ -252,11 +250,12 @@ struct stats wstawienie(int* tab, unsigned int size) {
             --j;
             ret.porownania++;
             ret.wstawienia++;
+
         }
 
-        // Wstawienie elementu buf w odpowiednie miejsce
         wynik[j + 1] = buf;
         ret.wstawienia++; // Wstawienie elementu
+
     }
 
 
