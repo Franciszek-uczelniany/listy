@@ -2,87 +2,64 @@
 #include <stdlib.h>
 #include "lista.h"
 
-int CzyIstnieje(lista l1, lista l2, int arg)
-{
-	int w1 =0, w2 =0;
+// Funkcja sprawdza, czy element istnieje w obu listach
+int CzyIstnieje(lista l1, lista l2, int arg) {
+    int w1 = 0, w2 = 0;
 
-	for(lista i = l1; i != NULL; i = i-> nast) {
-		if(i->klucz == arg) {
-			w1 =1;
-			break;
-		}
+    for (lista i = l1; i != NULL; i = i->nast) {
+        if (i->klucz == arg) {
+            w1 = 1;
+            break;
+        }
+    }
 
-	}
+    for (lista i = l2; i != NULL; i = i->nast) {
+        if (i->klucz == arg) {
+            w2 = 1;
+            break;
+        }
+    }
 
-	for(lista i = l1; i != NULL; i = i-> nast) {
-		if(i->klucz == arg) {
-			w2 =1;
-			break;
-		}}
-
-	if(w2 ==1 && w2 ==1) return 1;
-
-	return 0;
-
-
+    if (w1 == 1 && w2 == 1) return 1;
+    return 0;
 }
 
-void* porownaj(lista l1, lista l2)
-{
-	lista *w1 = 0, *w2 = 0;
-	lista p = l2;
+// Funkcja porównuje dwie listy
+void* porownaj(lista l1, lista l2) {
+    lista w1 = NULL, w2 = NULL;
 
-//problem polega na tym ze mamy porownac wartosci, a one moga sie powtarzac
+    for (lista i = l1; i != NULL; i = i->nast) {
+        if (!CzyIstnieje(l1, l2, i->klucz)) {
+            DL_sort(&w1, i->klucz);
+        }
+    }
 
-	int ret;
+    for (lista i = l2; i != NULL; i = i->nast) {
+        if (!CzyIstnieje(l1, l2, i->klucz)) {
+            DL_sort(&w2, i->klucz);
+        }
+    }
 
-	// Sprawdzenie ktore istnieja w 1 liscie a w drugiej nie
-	// w1 to wartosci ktore wystepuja wylacznie w 1. liscie
+    printf("\nLista w1 (unikatowe w l1): ");
+    WyswietlListe(w1);
+    printf("\nLista w2 (unikatowe w l2): ");
+    WyswietlListe(w2);
 
-	for (lista i = l1; i != NULL && p != NULL; i = i->nast, p = p->nast ) {
-		
-		if(i->klucz != p->klucz) {
-			ret = CzyIstnieje(l1, l2, i->klucz);
-			if(ret == 0) DL_sort(w1, i->klucz);
+    // Wskaźnik na tablicę dwóch list
+    lista* wynik = (lista*)malloc(2 * sizeof(lista));
+    wynik[0] = w1;
+    wynik[1] = w2;
 
-
-		}
-
-	};
-
-	p = l1;
-
-	for(lista i=l2; i!=NULL && p!=NULL; i=i->nast, p=p->nast) {
-		if(i->klucz != p->klucz) {
-			ret = CzyIstnieje(l1, l2, i->klucz);
-			if(ret == 0) DL_sort(w2, i->klucz);
-		}};
-
-	if (w1 != NULL && *w1 != NULL) {
-
-		printf("\n w1:");
-		WyswietlListe(*w1);
-	}
-	if (w2 != NULL && *w2 != NULL) {
-
-		printf("\n w2:");
-		WyswietlListe(*w2);
-	}
-
-	// tu powinno byc ret wskaznik ro tablicy dwoch list
-	return 0;
+    return wynik;
 }
 
-
-void  Wczytaj(lista *l) {
-    // Zwolnij listę
+// Funkcja odczytuje listę z pliku
+void Wczytaj(lista* l) {
     ZL(l);
-    
-   
-    FILE *file = fopen("lista.txt", "r");
+    FILE* file = fopen("lista.txt", "r");
     if (file == NULL) {
-        printf("Nie mozna otworzyc pliku lista.txt\n");
-       
+        printf("Nie można otworzyć pliku lista.txt\n");
+        return;
     }
 
     int value;
@@ -91,28 +68,22 @@ void  Wczytaj(lista *l) {
     }
 
     fclose(file);
-    
-    
 }
 
-void Zapisz(lista *l) {
-  
-    FILE *file = fopen("lista.txt", "w");
+// Funkcja zapisuje listę do pliku
+void Zapisz(lista* l) {
+    FILE* file = fopen("lista.txt", "w");
     if (file == NULL) {
-        printf("Nie można otworzyc pliku lista.txt do zapisu\n");
+        printf("Nie można otworzyć pliku lista.txt do zapisu\n");
         return;
     }
 
-
-	lista i = *l;
-
-
+    lista i = *l;
     while (i) {
         fprintf(file, "%d\n", i->klucz);
-        i = i->nast; 
+        i = i->nast;
     }
 
-    
     fclose(file);
 }
 
@@ -497,6 +468,7 @@ void U_wsk(lista *l, int k) {
 	UPEL(p);
 
 };
+
 
 
 
