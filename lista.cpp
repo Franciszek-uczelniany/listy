@@ -73,18 +73,6 @@ void* porownaj(lista l1, lista l2)
 	return 0;
 }
 
-void join(lista* l1, lista l2) 
-{
-
-	lista p = l2;
-
-	while (p) {
-		
-		
-		
-	}
-
-}
 
 void  Wczytaj(lista *l) {
     // Zwolnij listę
