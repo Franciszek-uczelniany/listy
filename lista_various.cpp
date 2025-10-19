@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "lista.h"
+#include "lista.h"
 // Ten plik definiuje różne funkcje, które mogą zostać użyte w obu typach list: posortowanych i nieposort.
 // odpowiedni nagłówek musi zostać wczytany wcześniej przez inny plik .cpp
 
@@ -33,13 +33,13 @@ void* porownaj(lista l1, lista l2) {
 
     for (lista i = l1; i != NULL; i = i->nast) {
         if (!CzyIstnieje(l1, l2, i->klucz)) {
-            DL(&w1, i->klucz);
+            DNKL(&w1, i->klucz);   // zmiana: używamy DNKL do doklejania na koniec
         }
     }
 
     for (lista i = l2; i != NULL; i = i->nast) {
         if (!CzyIstnieje(l1, l2, i->klucz)) {
-            DL(&w2, i->klucz);
+            DNKL(&w2, i->klucz);   // zmiana: używamy DNKL do doklejania na koniec
         }
     }
 
@@ -67,7 +67,7 @@ void Wczytaj(lista* l) {
 
     int value;
     while (fscanf(file, "%d", &value) == 1) {
-        DL(l, value);
+        DNKL(l, value);   // zmiana: DNKL zamiast DL
     }
 
     fclose(file);
@@ -95,18 +95,18 @@ void Zapisz(lista* l) {
 // Funkcja: iteracyjne odwracanie listy
 void odwroc(lista *l) {
 
-	lista prev = NULL;
-	lista cur = *l;
-	lista next = NULL;
+    lista prev = NULL;
+    lista cur = *l;
+    lista next = NULL;
 
-	while(cur){
-		next=cur->nast;
-		cur -> nast = prev;
-		prev = cur;
-		cur = next;
-	}
-*l=prev;
-return;
+    while(cur){
+        next=cur->nast;
+        cur -> nast = prev;
+        prev = cur;
+        cur = next;
+    }
+    *l=prev;
+    return;
 
 }
 
@@ -125,30 +125,29 @@ lista odwroc_r(lista l, lista prev, lista next) {
  /* 
  Funkcja: Przesun wskaznik na liste na lub za wskazany element
  1 - Na. Domyslna opcja.
-	kiedy jest "na" a nie "przed", prosciej zaimplementowac dodawanie el. przed lub za wskazanym
- 
+    kiedy jest "na" a nie "przed", prosciej zaimplementowac dodawanie el. przed lub za wskazanym
+
  */
 lista* przesun(lista *l, int k, int side) {
 
-	if(!(*l)) return l;
-	lista *ret = l;
+    if(!(*l)) return l;
+    lista *ret = l;
 
 
-	while ((*ret) && (*ret)->nast && (*ret)->klucz != k) {
-		ret = &(*ret)->nast;
-	}
+    while ((*ret) && (*ret)->nast && (*ret)->klucz != k) {
+        ret = &(*ret)->nast;
+    }
 
 
-// Sprawdzamy, czy znaleziono element z kluczem k
+    // Sprawdzamy, czy znaleziono element z kluczem k
     if ((*ret) && (*ret)->klucz == k) {
         if (side != 1) {
             if ((*ret)->nast) ret = &(*ret)->nast;
         }
     } else {
         printf("\n Nie znaleziono elementu o kluczu %d\n", k);
-	return l;
+        return l;
     };
-
 
 
   return ret;
@@ -164,9 +163,9 @@ int odszukaj(lista *l, int k) {
   int ret = 1;
   lista _l = *l;
   while(_l) {
-	if(_l->klucz == k) return ret;
-	_l = _l->nast;
-	ret++;
+    if(_l->klucz == k) return ret;
+    _l = _l->nast;
+    ret++;
   };
   return -1;
 
@@ -177,37 +176,37 @@ void WyswietlOdTylu(lista l) {
     if (l == NULL) {
         return;  
     }
-    
+
     WyswietlOdTylu(l->nast);  
-    
-    
+
+
     printf("%d-", l->klucz);
 };
 
 
 void WyswietlListe( lista _lista)  { 
 
-	 lista l = _lista;
-	 while (l){ 
-		 printf ("%d-", l->klucz);
-		 l = l->nast;
-		 } ;
+     lista l = _lista;
+     while (l){ 
+         printf ("%d-", l->klucz);
+         l = l->nast;
+         } ;
  printf ("|\n");
  };
 
 
 void Wyswietl_Pierwszy(lista *l)
  { 
-	if (l==0) return;
-	printf("\n %d", (*l)->klucz);
+    if (l==0) return;
+    printf("\n %d", (*l)->klucz);
  };
 
 
 void Wyswietl_Ostatni(lista *l)  { 
-	if(l==0) return;
+    if(l==0) return;
 
-	while ( (*l)->nast ) l = &(*l)->nast;
-	printf("\n %d", (*l)->klucz);
+    while ( (*l)->nast ) l = &(*l)->nast;
+    printf("\n %d", (*l)->klucz);
  };
 
 /* 
@@ -216,11 +215,11 @@ Funkcja: Dodaj Na Koniec Listy
 */
 
 void DNKL(lista *l, int i)  { 
-	if(l==0) return;
-	 lista p = ( lista )malloc(sizeof( elListy ));
-	p->klucz = i;
-	 p->nast = 0;	
-	 while ((* l )) l = &(*l)->nast;
+    if(l==0) return;
+     lista p = ( lista )malloc(sizeof( elListy ));
+    p->klucz = i;
+     p->nast = 0;    
+     while ((* l )) l = &(*l)->nast;
  *l = p;
  };
 
@@ -233,25 +232,25 @@ Dodaje element za wskazany element
 */
 void DL(lista *l, int szukany, int nowy, int side) {
 
-	if(*l==0) return;
+    if(*l==0) return;
 
-	lista p = *l;
-	while(p && p->nast && p->nast->klucz != szukany) p = p->nast;
+    lista p = *l;
+    while(p && p->nast && p->nast->klucz != szukany) p = p->nast;
 
  // Nie znaleziono
-	if(!(p->nast) || p->nast->klucz != szukany) return; 
+    if(!(p->nast) || p->nast->klucz != szukany) return; 
 
-	lista k = (lista) malloc(sizeof(elListy));
-	k->klucz = nowy;
+    lista k = (lista) malloc(sizeof(elListy));
+    k->klucz = nowy;
 
-	if (side == 1) {
-		p = p->nast;
-		k->nast = p->nast;
-		p->nast = k;
-	} else if (side == 0) {
-		k->nast = p->nast;
-		p->nast = k;
-	};
+    if (side == 1) {
+        p = p->nast;
+        k->nast = p->nast;
+        p->nast = k;
+    } else if (side == 0) {
+        k->nast = p->nast;
+        p->nast = k;
+    };
 };
 
 
@@ -261,7 +260,7 @@ Funkcja: Usun Element Listy - k
 Usuwa z kolejki element/-y z kluczem równym k.
 
 Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
-					 -1 oznacza każde wystąpienie
+                     -1 oznacza każde wystąpienie
 
 
 Wersja iteracyjna
@@ -279,26 +278,26 @@ void UEL_k( lista *l, int k, int ilosc_razy) {
   lista obecny = *l;
   lista poprzedni = NULL;
 
-	while(obecny && ilosc_razy != 0) {
+    while(obecny && ilosc_razy != 0) {
 
-		if(obecny->klucz == k) {
-			if(ilosc_razy != -1) ilosc_razy--;
+        if(obecny->klucz == k) {
+            if(ilosc_razy != -1) ilosc_razy--;
 
-			if (poprzedni)
-					poprzedni->nast = obecny->nast;
-			else 
-				   *l = obecny->nast;
+            if (poprzedni)
+                    poprzedni->nast = obecny->nast;
+            else 
+                   *l = obecny->nast;
 
 
-			lista rem = obecny;
-			obecny = obecny->nast;
-			free(rem);
-			continue;
-		}
+            lista rem = obecny;
+            obecny = obecny->nast;
+            free(rem);
+            continue;
+        }
 
-		poprzedni = obecny;
-		obecny = obecny->nast;
-	}}
+        poprzedni = obecny;
+        obecny = obecny->nast;
+    }}
 
 
 /*
@@ -307,7 +306,7 @@ Funkcja: Usun Element Listy - k
 Usuwa z kolejki element/-y z kluczem równym k.
 
 Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
-					 -1 oznacza każde wystąpienie
+                     -1 oznacza każde wystąpienie
 
 
 Wersja rekurencyjna
@@ -321,17 +320,17 @@ void UELR_k( lista *l, int k, int ilosc_razy) {
 
 if (ilosc_razy == 0) return;
 
-	if((*l)->klucz == k) {
-		UPEL(l);
-		if (ilosc_razy != -1) ilosc_razy--;
-		UELR_k(l, k, ilosc_razy);
-	}
+    if((*l)->klucz == k) {
+        UPEL(l);
+        if (ilosc_razy != -1) ilosc_razy--;
+        UELR_k(l, k, ilosc_razy);
+    }
 
-	else 
-	{
-	 	l = &(*l)->nast;
-	 	UELR_k(l, k, ilosc_razy);
-	};
+    else 
+    {
+        l = &(*l)->nast;
+        UELR_k(l, k, ilosc_razy);
+    };
 
 
 };
@@ -340,19 +339,19 @@ if (ilosc_razy == 0) return;
  Funkcja: Usun Pierwszy Element Listy
 
  Usuwa pierwszy element wskazany przez wskaznik l.
- 
- 
+
+
  */
 
 void UPEL(lista *l) {
-	
-	if(*l) {
-		lista p; 		// lista to wskaznik, a nie struktura
-		p = *l;
-		*l = (*l)->nast;
-		free(p);
-	};
-	
+
+    if(*l) {
+        lista p;         // lista to wskaznik, a nie struktura
+        p = *l;
+        *l = (*l)->nast;
+        free(p);
+    };
+
 };
 
 
@@ -362,16 +361,16 @@ void UPEL(lista *l) {
  */
 
 void UOEL(lista *l) {
-	
-	if((*l)) {
-		while ((*l) && (*l)->nast) l = &(*l)->nast;
-		free(*l);
-		*l = 0;
-		}
 
-	
+    if((*l)) {
+        while ((*l) && (*l)->nast) l = &(*l)->nast;
+        free(*l);
+        *l = 0;
+        }
+
+
 };
-/*
+ /*
   Funkcja: Usun wskazany element listy
 
   Usuwa k-ty element
@@ -379,14 +378,14 @@ void UOEL(lista *l) {
 */
 
 void U_wsk(lista *l, int k) {
-	if(l==0) return;
-	int i = 1;
-	lista *p = l;
-	while(i != k && (*p)) {
-		p=&(*p)->nast;
-		i++;
-	};
-	UPEL(p);
+    if(l==0) return;
+    int i = 1;
+    lista *p = l;
+    while(i != k && (*p)) {
+        p=&(*p)->nast;
+        i++;
+    };
+    UPEL(p);
 
 };
 
