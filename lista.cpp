@@ -1,15 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
-
-// Funkcja: Zwolnij liste
-
-void ZL (lista *l) {
-
-	while((*l)) UOEL(l);
-
-};
-
+#include "lista_various.h"
 
 /* 
 Funkcja: Dodaj Na Poczatek Listy

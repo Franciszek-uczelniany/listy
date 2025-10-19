@@ -1,8 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lista.h"
+#include "lista_various.h"
 // Ten plik definiuje różne funkcje, które mogą zostać użyte w obu typach list: posortowanych i nieposort.
 // odpowiedni nagłówek musi zostać wczytany wcześniej przez inny plik .cpp
+
+
+ /* 
+ Funkcja: Usun Ostatni Element Listy
+
+ */
+
+void UOEL(lista *l) {
+
+    if((*l)) {
+        while ((*l) && (*l)->nast) l = &(*l)->nast;
+        free(*l);
+        *l = 0;
+        }
+
+
+};
+
+
+// Funkcja: Zwolnij liste
+
+void ZL (lista *l) {
+
+	while((*l)) UOEL(l);
+
+};
 
 
 // Funkcja sprawdza, czy element istnieje w obu listach
@@ -355,21 +381,6 @@ void UPEL(lista *l) {
 };
 
 
- /* 
- Funkcja: Usun Ostatni Element Listy
-
- */
-
-void UOEL(lista *l) {
-
-    if((*l)) {
-        while ((*l) && (*l)->nast) l = &(*l)->nast;
-        free(*l);
-        *l = 0;
-        }
-
-
-};
  /*
   Funkcja: Usun wskazany element listy
 
