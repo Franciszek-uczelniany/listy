@@ -2,13 +2,22 @@
 #ifndef LISTA_VA
 #define LISTA_VA
 
-
+#ifndef dwukierunkowa
 struct el { 
 	 int klucz ;
 	 struct el *nast;
  };
  typedef struct el elListy ;
  typedef elListy  *lista;
+#else
+
+
+
+#endif
+
+typedef struct el ElListy;
+typedef elListy *lista;
+
 
 #ifdef wart
 // Wtedy uzywamy wartownika w naszej liście

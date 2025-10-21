@@ -4,6 +4,22 @@ Lista gotowych zadan:
 2. 
 5.
 6. (bez wartownika)
-8. do zrobienia, do poprawienia
+8. Nie jest to zadanie obowiązkowe
 
 środowisko programistyczne: Visual Studio
+
+
+
+ 1, 2, 5, 6, 9, 10, 12, 14, 16, 21, 22, 25 
+ 
+ 9. zadanie 
+  Powtórzyć zadanie 1 dla liniowej listy dwukierunkowej nieposortowanej oraz zadanie 6 dla
+ takiej listy posortowanej rosnąco
+ 
+ 10. Powtórzyć zadanie 1 dla nieposortowanych list cyklicznych a) jednokierunkowej i b) dwukie
+runkowej
+
+ 12. Napisz funkcję, która dla dwóch nieposortowanych jednokierunkowych list cyklicznych usunie
+ z pierwszej z nich wszystkie wartości występujące w drugiej
+ 
+ reszta zadan jest juz z drzew.....
