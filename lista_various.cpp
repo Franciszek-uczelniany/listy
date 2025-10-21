@@ -1,6 +1,8 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista_various.h"
+
 // Ten plik definiuje różne funkcje, które mogą zostać użyte w obu typach list: posortowanych i nieposort.
 // odpowiedni nagłówek musi zostać wczytany wcześniej przez inny plik .cpp
 
@@ -188,16 +190,24 @@ Wynik: numer elementu z kluczem równym k.
 int odszukaj(lista *l, int k) {
   int ret = 1;
   lista _l = *l;
+#ifdef wart
+ while(_l->klucz != INT_MAX) {
+  if(_l->klucz == k) return ret;
+  _l = _l->nast; ret++;
+}
+#else
   while(_l) {
     if(_l->klucz == k) return ret;
     _l = _l->nast;
     ret++;
   };
+#endif
   return -1;
 
 };
 
 // Funkcja: wyświetl listę w odwrotnej kolejności
+#ifndef wart
 void WyswietlOdTylu(lista l) {
     if (l == NULL) {
         return;  
@@ -208,16 +218,24 @@ void WyswietlOdTylu(lista l) {
 
     printf("%d-", l->klucz);
 };
-
+#endif
 
 void WyswietlListe( lista _lista)  { 
+  lista l = _lista;
 
-     lista l = _lista;
+#ifdef wart
+  while (l->klucz != INT_MAX) {
+    printf ("%d-", l->klucz);
+    l = l->nast;
+  }
+
+#else
      while (l){ 
          printf ("%d-", l->klucz);
          l = l->nast;
          } ;
- printf ("|\n");
+#endif
+printf ("|\n");
  };
 
 
@@ -230,8 +248,11 @@ void Wyswietl_Pierwszy(lista *l)
 
 void Wyswietl_Ostatni(lista *l)  { 
     if(l==0) return;
-
+#ifdef wart
+    while ( (*l)->nast->klucz != INT_MAX ) l = &(*l)->nast;
+#else
     while ( (*l)->nast ) l = &(*l)->nast;
+#endif
     printf("\n %d", (*l)->klucz);
  };
 
@@ -244,8 +265,12 @@ void DNKL(lista *l, int i)  {
     if(l==0) return;
      lista p = ( lista )malloc(sizeof( elListy ));
     p->klucz = i;
-     p->nast = 0;    
-     while ((* l )) l = &(*l)->nast;
+     p->nast = 0;
+#ifdef wart
+  while ((*l->klucz != INT_MAX )) l = &(*l)->nast;
+#else
+while ((*l )) l = &(*l)->nast;
+#endif
  *l = p;
  };
 

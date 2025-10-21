@@ -10,6 +10,10 @@ struct el {
  typedef struct el elListy ;
  typedef elListy  *lista;
 
+#ifdef wart
+// Wtedy uzywamy wartownika w naszej liście
+#endif
+
 void ZL(lista *l);
 
 int CzyIstnieje(lista l1, lista l2, int arg);
