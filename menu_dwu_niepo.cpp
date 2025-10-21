@@ -25,6 +25,11 @@
        " 10 - Wyswietl zawartosc listy \n"
        " 0 - Zakoncz dzialanie programu \n"
 
+// 5 odszukaj zadany element - bez zmian
+// 6 tutaj duzo zmian
+// 7 chyba nie za duzo zmian, usuwajac musimy ustawic przed->nast na nastepny po usuwanym
+// I nastepny->pop na przed. Cale zadanie sprowadza sie do aktualizacji wskaznika pop
+
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
 		switch(wybor) {

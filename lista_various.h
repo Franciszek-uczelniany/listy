@@ -7,17 +7,18 @@ struct el {
 	 int klucz ;
 	 struct el *nast;
  };
- typedef struct el elListy ;
- typedef elListy  *lista;
 #else
-
-
-
+struct el { 
+	 int klucz ;
+	 struct el *nast;
+	 struct el *pop;
+ };
 #endif
 
-typedef struct el ElListy;
+typedef struct el elListy;
 typedef elListy *lista;
-
+// mozna dac wskaznik na poczatek, koniec jesli czesto wykonujemy dzialania aby nie przechodzic
+// przez cala liste.
 
 #ifdef wart
 // Wtedy uzywamy wartownika w naszej liście
