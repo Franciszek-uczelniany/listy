@@ -2,6 +2,33 @@
 #include <stdlib.h>
 #include "lista_nieposortowana.h"
 
+void odwroc_el(lista* pp) {
+
+	lista l = (*pp);
+
+	lista glowa = l;
+	lista ogon;
+//	l = l->nast;
+	lista tab[100];
+	int i = 0;
+	while(l->nast != NULL) {
+	  tab[i] = l;
+	  i++;
+	  l = l->nast;
+	}
+	ogon = l->nast;
+	ogon->nast=tab[i-1];
+	do {
+	  l->nast=tab[--i];
+	  l = tab[i];
+	  //i--;
+	} while (l && i!=0);
+//	ogon->nast = glowa;
+//	*l = 
+	glowa->nast = NULL;
+	*pp = ogon;
+}
+
 
  int main(int argc, char* argv [])  {
 	 lista _l = 0;
@@ -107,7 +134,10 @@
 
 
 			case 12:
-			odwroc(&_l);
+//			odwroc(&_l);
+			odwroc_el(&_l);
+			printf("\nwyswietl");
+			WyswietlListe(_l);
 			break;
 
 			case 13:
