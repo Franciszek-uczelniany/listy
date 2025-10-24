@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lista_dwu_nieposortowana.h"
-
+//#include "lista_dwu_nieposortowana.h"
+#include "lista_various.h"
+#include "lista_nieposortowana.h"
 
  int main(int argc, char* argv [])  {
 	 lista _l = 0;
@@ -11,20 +12,20 @@
 	int ret;
 
 	while(1) {
-	printf("\n Wybierz operacje: \n"
-       " 0 - wyjscie \n"
-       " 1 - Dodaj na początek listy \n"
-       " 2 - Dodaj na koniec listy \n"
-       " 3 - Usun pierwszy element listy \n"
-       " 4 - Usun ostatni element listy \n"
-       " 5 - Odszukaj zadany element \n"
-       " 6 - Dodaj nowy element przed lub za wskazanym \n"
-       " 7 - Usun wskazany element / elementy \n"
-       " 8 - Wczytaj zawartosc listy z pliku \n"
-       " 9 - Zapisz zawartosc listy do pliku \n"
-       " 10 - Wyswietl zawartosc listy \n"
-       " 0 - Zakoncz dzialanie programu \n"
-
+		printf("\n Wybierz operacje: \n"
+			" 0 - wyjscie \n"
+			" 1 - Dodaj na początek listy \n"
+			" 2 - Dodaj na koniec listy \n"
+			" 3 - Usun pierwszy element listy \n"
+			" 4 - Usun ostatni element listy \n"
+			" 5 - Odszukaj zadany element \n"
+			" 6 - Dodaj nowy element przed lub za wskazanym \n"
+			" 7 - Usun wskazany element / elementy \n"
+			" 8 - Wczytaj zawartosc listy z pliku \n"
+			" 9 - Zapisz zawartosc listy do pliku \n"
+			" 10 - Wyswietl zawartosc listy \n"
+			" 0 - Zakoncz dzialanie programu \n"
+		);
 // 5 odszukaj zadany element - bez zmian
 // 6 tutaj duzo zmian
 // 7 chyba nie za duzo zmian, usuwajac musimy ustawic przed->nast na nastepny po usuwanym
@@ -33,10 +34,6 @@
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
 		switch(wybor) {
-
-			case 0:
-			exit(0);
-			break;
 
 			case 1:
 			printf("\n klucz=");
