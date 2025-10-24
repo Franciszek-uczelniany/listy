@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "lista_dwu_nieposortowana.h"
+// w ustawieniach projektu "lista dwukierunkowa" jest #define dwukierunkowa 1
 #include "lista_various.h"
 #include "lista_nieposortowana.h"
 
@@ -14,7 +14,7 @@
 	while(1) {
 		printf("\n Wybierz operacje: \n"
 			" 0 - wyjscie \n"
-			" 1 - Dodaj na początek listy \n"
+			" 1 - Dodaj na poczatek listy \n"
 			" 2 - Dodaj na koniec listy \n"
 			" 3 - Usun pierwszy element listy \n"
 			" 4 - Usun ostatni element listy \n"

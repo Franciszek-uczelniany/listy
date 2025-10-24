@@ -43,7 +43,7 @@ void odwroc_el(lista* pp) {
 
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
-       " 1 - Dodaj na początek listy \n"
+       " 1 - Dodaj na poczatek listy \n"
        " 2 - Dodaj na koniec listy \n"
        " 3 - Usun pierwszy element listy \n"
        " 4 - Usun ostatni element listy \n"

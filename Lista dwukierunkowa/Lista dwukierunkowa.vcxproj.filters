@@ -21,9 +21,6 @@
     <ClCompile Include="..\menu_dwu_niepo.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\lista_nieposortowana.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lista_various.h">

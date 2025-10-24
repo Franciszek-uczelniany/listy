@@ -7,12 +7,19 @@
 // odpowiedni nagłówek musi zostać wczytany wcześniej przez inny plik .cpp
 
 
- /* 
- Funkcja: Usun Ostatni Element Listy
 
- */
-
+// Funkcja: Usun Ostatni Element Listy
 void UOEL(lista *l) {
+
+#ifdef cykliczna
+    if ((*l)) {
+  //TODO dokonczyc
+        while ((*l) && (*l)->nast) l = &(*l)->nast;
+        free(*l);
+        *l = 0;
+}
+#endif
+
 
     if((*l)) {
         while ((*l) && (*l)->nast) l = &(*l)->nast;
@@ -25,8 +32,7 @@ void UOEL(lista *l) {
 
 
 // Funkcja: Zwolnij liste
-
-void ZL (lista *l) {
+void ZL(lista *l) {
 
 	while((*l)) UOEL(l);
 
@@ -229,12 +235,21 @@ void WyswietlListe( lista _lista)  {
     l = l->nast;
   }
 
+#elifdef cykliczna
+  lista glowa = _lista;
+  do {
+      printf("%d-", l->klucz);
+      l = l->nast;
+  } while (l != glowa);
+ 
 #else
      while (l){ 
          printf ("%d-", l->klucz);
          l = l->nast;
          } ;
 #endif
+
+
 printf ("|\n");
  };
 
@@ -423,5 +438,18 @@ void U_wsk(lista *l, int k) {
     };
     UPEL(p);
 
+};
+
+
+
+
+//Funkcja: Dodaj Na Poczatek Listy
+void DNPL(lista* l, int i)
+{
+    if (l == 0) return;
+    lista p = (lista)malloc(sizeof(elListy));
+    p->klucz = i;
+    p->nast = *l;
+    *l = p;
 };
 

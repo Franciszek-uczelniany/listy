@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\lista_nieposortowana.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="..\lista_various.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -26,7 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lista_nieposortowana.h">
+    <ClInclude Include="..\lista_various.h">
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
   </ItemGroup>

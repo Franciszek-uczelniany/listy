@@ -1,53 +1,41 @@
+#include <assert.h> 
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
 #include "lista_various.h"
 
-/* 
-Funkcja: Dodaj Na Poczatek Listy
 
-*/
-void DNPL(lista *l, int i)
- { 
-	if (l==0) return;
-	 lista p = ( lista )malloc(sizeof( elListy ));
-	 p->klucz = i;
-	 p->nast = *l;
-	 *l = p;
- };
-
-
-/*
-Funkcja: Dodaj do posortowanej Listy
-
-*/
+//Funkcja: Dodaj do posortowanej Listy
 void DL_sort(lista *l, int klucz) {
+	assert(l != NULL);
 
+	lista nowy  = (lista) malloc(sizeof(elListy));
+	assert(nowy != NULL);
+	nowy->klucz = klucz;
 
-	lista k  = (lista) malloc(sizeof(elListy));
-	k->klucz = klucz;
-
-	if((l == 0 || *l == 0) || (*l)->klucz > klucz) {
-		k->nast  = *l;
-		*l       = k;
-		return; 
+	// Dodajemy pierwszy element listy
+	if (*l == 0) {
+		*l = nowy;
+		nowy->nast == NULL;
+		return;
 	}
 
-
+	// Jeœli element który dodajemy jest mniejszy od nastêpnego elementu, dodajemy go przed nim
+	if( klucz < (*l)->klucz) {
+		nowy->nast  = *l;
+		*l       = nowy;
+		return; 
+	}
 	lista obecny = *l;
-	
 	while (obecny != NULL && obecny->nast != NULL) {
-
-
-			if (obecny->nast->klucz < klucz) {
+			if (obecny->klucz < klucz) {
 				obecny = obecny->nast;
 		} else break;
-	};
+	}; // koñczymy pêtlê kiedy element który chcemy dodaæ jest wiêkszy równy "obecny" el.
 
-		k->nast  = obecny->nast;
-		
-		obecny->nast = k;
+
+		nowy->nast  = obecny->nast;
+		obecny->nast = nowy;
 		return; 
 };
-
 

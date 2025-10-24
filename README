@@ -1,10 +1,19 @@
+Jedno "rozwiązanie" zawiera kilka projektów, aby wybrać projekt do kompilacji, należy wybrać w VS Studio Projekt -> ustaw jako projekt startowy.
+
 Lista gotowych zadan:
 
 1. 
 2. 
 5.
 6. (bez wartownika)
-8. Nie jest to zadanie obowiązkowe
+8. Nie jest to zadanie obowiązkowe, nie jest dokonczone
+9. dwukierunkowa - wymaga testow ale raczej ok, pytanie gdzie mam korzystać z tego ze jest lista dwukier.
+--> zadanie 6 ze dla posortowanej rosnąco, wartownik jako zmienna globalna, która jest doklejana..
+10. todo, co to dokładnie oznacza ze jest lista cykliczna
+
+
+
+
 
 środowisko programistyczne: Visual Studio
 

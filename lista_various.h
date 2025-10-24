@@ -2,6 +2,8 @@
 #ifndef LISTA_VA
 #define LISTA_VA
 
+//TODO: czy lista cykliczna zawiera we wlasnym eL wskaznik na glowe i na koniec?
+
 #ifndef dwukierunkowa
 struct el { 
 	 int klucz ;

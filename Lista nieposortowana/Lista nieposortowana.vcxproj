@@ -123,12 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\lista_nieposortowana.cpp" />
     <ClCompile Include="..\lista_various.cpp" />
     <ClCompile Include="..\menu_nieposortowana.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lista_nieposortowana.h" />
+    <ClInclude Include="..\lista_various.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
