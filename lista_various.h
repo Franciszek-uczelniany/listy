@@ -44,7 +44,8 @@ void Wyswietl_Pierwszy(lista *l);
 
 void Wyswietl_Ostatni(lista *l); 
 
-void DNKL(lista *l, int i); 
+void DNKL(lista *l, int i);
+void DNPL(lista* l, int i); 
 void DL(lista *l, int szukany, int nowy, int side);
 
 void UEL_k( lista *l, int k, int ilosc_razy);

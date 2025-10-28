@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lista_nieposortowana.h"
+#include "lista_various.h"
 
 void odwroc_el(lista* pp) {
 
