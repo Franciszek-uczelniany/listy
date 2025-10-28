@@ -8,6 +8,30 @@
 
 
 
+/*  Funkcja: Dodaj Na Koniec Listy */
+void DNKL(lista *l, int i)  { 
+    if(l==0) return;
+     lista p = ( lista )malloc(sizeof( elListy ));
+    p->klucz = i;
+     p->nast = 0;
+#ifdef wart
+  while ((*l->klucz != INT_MAX )) l = &(*l)->nast;
+#else
+while ((*l )) l = &(*l)->nast;
+#endif
+ *l = p;
+ };
+
+//Funkcja: Dodaj Na Poczatek Listy
+void DNPL(lista* l, int i)
+{
+    if (l == 0) return;
+    lista p = (lista)malloc(sizeof(elListy));
+    p->klucz = i;
+    p->nast = *l;
+    *l = p;
+};
+
 // Funkcja: Usun Ostatni Element Listy
 void UOEL(lista *l) {
 
@@ -67,13 +91,13 @@ void* porownaj(lista l1, lista l2) {
 
     for (lista i = l1; i != NULL; i = i->nast) {
         if (!CzyIstnieje(l1, l2, i->klucz)) {
-            DNKL(&w1, i->klucz);   // zmiana: używamy DNKL do doklejania na koniec
+            DNKL(&w1, i->klucz);
         }
     }
 
     for (lista i = l2; i != NULL; i = i->nast) {
         if (!CzyIstnieje(l1, l2, i->klucz)) {
-            DNKL(&w2, i->klucz);   // zmiana: używamy DNKL do doklejania na koniec
+            DNKL(&w2, i->klucz);
         }
     }
 
@@ -220,8 +244,6 @@ void WyswietlOdTylu(lista l) {
     }
 
     WyswietlOdTylu(l->nast);  
-
-
     printf("%d-", l->klucz);
 };
 #endif
@@ -269,24 +291,6 @@ void Wyswietl_Ostatni(lista *l)  {
     while ( (*l)->nast ) l = &(*l)->nast;
 #endif
     printf("\n %d", (*l)->klucz);
- };
-
-/* 
-Funkcja: Dodaj Na Koniec Listy
-
-*/
-
-void DNKL(lista *l, int i)  { 
-    if(l==0) return;
-     lista p = ( lista )malloc(sizeof( elListy ));
-    p->klucz = i;
-     p->nast = 0;
-#ifdef wart
-  while ((*l->klucz != INT_MAX )) l = &(*l)->nast;
-#else
-while ((*l )) l = &(*l)->nast;
-#endif
- *l = p;
  };
 
 /*
@@ -442,14 +446,4 @@ void U_wsk(lista *l, int k) {
 
 
 
-
-//Funkcja: Dodaj Na Poczatek Listy
-void DNPL(lista* l, int i)
-{
-    if (l == 0) return;
-    lista p = (lista)malloc(sizeof(elListy));
-    p->klucz = i;
-    p->nast = *l;
-    *l = p;
-};
 
