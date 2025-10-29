@@ -1,102 +1,119 @@
+
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "lista_various.h"
 
-// Ten plik definiuje różne funkcje, które mogą zostać użyte w obu typach list: posortowanych i nieposort.
-// odpowiedni nagłówek musi zostać wczytany wcześniej przez inny plik .cpp
+// Dodaj Na Koniec Listy
+void DNKL(lista *l, int i) {
+    if (l == NULL) return;
 
-
-
-/*  Funkcja: Dodaj Na Koniec Listy */
-void DNKL(lista *l, int i)  { 
-    if(l==0) return;
-     lista p = ( lista )malloc(sizeof( elListy ));
-    p->klucz = i;
-     p->nast = 0;
-#ifdef wart
-  while ((*l->klucz != INT_MAX )) l = &(*l)->nast;
-#else
-while ((*l )) l = &(*l)->nast;
-#endif
- *l = p;
- };
-
-//Funkcja: Dodaj Na Poczatek Listy
-void DNPL(lista* l, int i)
-{
-    if (l == 0) return;
     lista p = (lista)malloc(sizeof(elListy));
+    if (!p) return;
+    p->klucz = i;
+    p->nast = NULL;
+
+#ifdef wart
+    // Dla list z wartownikiem (wartownikiem ma być element z kluczem INT_MAX)
+    while (*l && (*l)->klucz != INT_MAX) {
+        l = &(*l)->nast;
+    }
+#else
+    // Dla zwykłej listy idziemy do końca
+    while (*l) {
+        l = &(*l)->nast;
+    }
+#endif
+
+    *l = p;
+}
+
+// Dodaj Na Poczatek Listy
+void DNPL(lista* l, int i) {
+    if (l == NULL) return;
+
+    lista p = (lista)malloc(sizeof(elListy));
+    if (!p) return;
     p->klucz = i;
     p->nast = *l;
     *l = p;
-};
+}
 
-// Funkcja: Usun Ostatni Element Listy
+// Usuń Ostatni Element Listy
 void UOEL(lista *l) {
+    if (l == NULL || *l == NULL) return;
 
 #ifdef cykliczna
-    if ((*l)) {
-  //TODO dokonczyc
-        while ((*l) && (*l)->nast) l = &(*l)->nast;
+    // Dla list cyklicznych: jeśli tylko jeden element -> usuń i ustaw na NULL
+    if ((*l)->nast == *l) {
         free(*l);
-        *l = 0;
-}
+        *l = NULL;
+        return;
+    }
+    // znajdź przedostatni element
+    lista cur = *l;
+    while (cur->nast && cur->nast->nast && cur->nast != *l) {
+        cur = cur->nast;
+    }
+    // cur->nast to ostatni element
+    free(cur->nast);
+    cur->nast = *l;
+    return;
 #endif
 
-
-    if((*l)) {
-        while ((*l) && (*l)->nast) l = &(*l)->nast;
+    // Dla zwykłej listy
+    if ((*l)->nast == NULL) {
         free(*l);
-        *l = 0;
-        }
+        *l = NULL;
+        return;
+    }
+    lista cur = *l;
+    while (cur->nast && cur->nast->nast) {
+        cur = cur->nast;
+    }
+    // cur->nast wskazuje na ostatni element
+    free(cur->nast);
+    cur->nast = NULL;
+}
 
-
-};
-
-
-// Funkcja: Zwolnij liste
+// Zwolnij listę (usuń wszystkie elementy)
 void ZL(lista *l) {
+    if (l == NULL) return;
+    while (*l) {
+        UOEL(l);
+    }
+}
 
-	while((*l)) UOEL(l);
+// Sprawdza, czy element o kluczu 'arg' występuje w liście 'lst'
+static bool istnieje_w(lista lst, int arg) {
+    for (lista i = lst; i != NULL; i = i->nast) {
+        if (i->klucz == arg) return true;
+    }
+    return false;
+}
 
-};
-
-
-// Funkcja sprawdza, czy element istnieje w obu listach
+// Funkcja sprawdza, czy element istnieje w obu listach (zwraca 1 jeśli tak)
 int CzyIstnieje(lista l1, lista l2, int arg) {
-    int w1 = 0, w2 = 0;
-
-    for (lista i = l1; i != NULL; i = i->nast) {
-        if (i->klucz == arg) {
-            w1 = 1;
-            break;
-        }
-    }
-
-    for (lista i = l2; i != NULL; i = i->nast) {
-        if (i->klucz == arg) {
-            w2 = 1;
-            break;
-        }
-    }
-
-    if (w1 == 1 && w2 == 1) return 1;
+    if (istnieje_w(l1, arg) && istnieje_w(l2, arg)) return 1;
     return 0;
 }
 
-// Funkcja porównuje dwie listy
-void* porownaj(lista l1, lista l2) {
-    lista w1 = NULL, w2 = NULL;
+// Porównaj dwie listy: wynik to tablica dwóch list (unika­towe elementy w l1 i w l2)
+lista* porownaj(lista l1, lista l2) {
+    lista w1 = NULL;
+    lista w2 = NULL;
 
+    // elementy unikatowe w l1 (występują w l1, ale nie w l2)
     for (lista i = l1; i != NULL; i = i->nast) {
-        if (!CzyIstnieje(l1, l2, i->klucz)) {
+        if (!istnieje_w(l2, i->klucz)) {
             DNKL(&w1, i->klucz);
         }
     }
 
+    // elementy unikatowe w l2 (występują w l2, ale nie w l1)
     for (lista i = l2; i != NULL; i = i->nast) {
-        if (!CzyIstnieje(l1, l2, i->klucz)) {
+        if (!istnieje_w(l1, i->klucz)) {
             DNKL(&w2, i->klucz);
         }
     }
@@ -106,344 +123,276 @@ void* porownaj(lista l1, lista l2) {
     printf("\nLista w2 (unikatowe w l2): ");
     WyswietlListe(w2);
 
-    // Wskaźnik na tablicę dwóch list
+    // Zwracamy tablicę dwóch wskaźników typu lista
     lista* wynik = (lista*)malloc(2 * sizeof(lista));
+    if (!wynik) {
+        // w razie błędu zwracamy NULL (użytkownik powinien to obsłużyć)
+        return NULL;
+    }
     wynik[0] = w1;
     wynik[1] = w2;
-
     return wynik;
 }
 
-// Funkcja odczytuje listę z pliku
+// Wczytaj listę z pliku (zastępuje dotychczasową)
 void Wczytaj(lista* l) {
+    if (l == NULL) return;
     ZL(l);
     FILE* file = fopen("lista.txt", "r");
     if (file == NULL) {
-        printf("Nie można otworzyc pliku lista.txt\n");
+        printf("Nie można otworzyć pliku lista.txt\n");
         return;
     }
 
     int value;
     while (fscanf(file, "%d", &value) == 1) {
-        DNKL(l, value);   // zmiana: DNKL zamiast DL
+        DNKL(l, value);
     }
 
     fclose(file);
 }
 
-// Funkcja zapisuje listę do pliku
+// Zapisz listę do pliku
 void Zapisz(lista* l) {
+    if (l == NULL) return;
     FILE* file = fopen("lista.txt", "w");
     if (file == NULL) {
-        printf("Nie można otworzyc pliku lista.txt do zapisu\n");
+        printf("Nie można otworzyć pliku lista.txt do zapisu\n");
         return;
     }
 
-    lista i = *l;
-    while (i) {
+    for (lista i = *l; i != NULL; i = i->nast) {
         fprintf(file, "%d\n", i->klucz);
-        i = i->nast;
     }
 
     fclose(file);
 }
 
-
-
-// Funkcja: iteracyjne odwracanie listy
+// Iteracyjne odwrócenie listy
 void odwroc(lista *l) {
+    if (l == NULL || *l == NULL) return;
 
     lista prev = NULL;
     lista cur = *l;
     lista next = NULL;
 
-    while(cur){
-        next=cur->nast;
-        cur -> nast = prev;
+    while (cur) {
+        next = cur->nast;
+        cur->nast = prev;
         prev = cur;
         cur = next;
     }
-    *l=prev;
-    return;
-
+    *l = prev;
 }
 
-
-lista odwroc_r(lista l, lista prev, lista next) {
-    if (l) {
-        next = l->nast;
-        l->nast = prev;
-        return odwroc_r(next, l, NULL);
-    } else {
-        return prev;
-    }
+// Rekurencyjne odwrócenie listy (zwraca nową głowę)
+lista odwroc_r(lista l) {
+    if (l == NULL || l->nast == NULL) return l;
+    lista newHead = odwroc_r(l->nast);
+    l->nast->nast = l;
+    l->nast = NULL;
+    return newHead;
 }
 
-
- /* 
- Funkcja: Przesun wskaznik na liste na lub za wskazany element
- 1 - Na. Domyslna opcja.
-    kiedy jest "na" a nie "przed", prosciej zaimplementowac dodawanie el. przed lub za wskazanym
-
- */
+/*
+ Przesuń wskaźnik na element o kluczu k (zwraca wskaźnik do pola wskazującego na ten element).
+ side == 1 -> "na" (czyli na sam element)
+ side != 1 -> "za" (jeśli istnieje nast)
+*/
 lista* przesun(lista *l, int k, int side) {
-
-    if(!(*l)) return l;
+    if (l == NULL) return NULL;
     lista *ret = l;
 
-
-    while ((*ret) && (*ret)->nast && (*ret)->klucz != k) {
+    // Szukamy elementu o kluczu k
+    while (*ret && (*ret)->klucz != k) {
         ret = &(*ret)->nast;
     }
 
-
-    // Sprawdzamy, czy znaleziono element z kluczem k
-    if ((*ret) && (*ret)->klucz == k) {
-        if (side != 1) {
-            if ((*ret)->nast) ret = &(*ret)->nast;
-        }
-    } else {
-        printf("\n Nie znaleziono elementu o kluczu %d\n", k);
-        return l;
-    };
-
-
-  return ret;
-
-};
-
-/*
-Funkcja: Odszukaj
-Wynik: numer elementu z kluczem równym k.
-*/
-
-int odszukaj(lista *l, int k) {
-  int ret = 1;
-  lista _l = *l;
-#ifdef wart
- while(_l->klucz != INT_MAX) {
-  if(_l->klucz == k) return ret;
-  _l = _l->nast; ret++;
-}
-#else
-  while(_l) {
-    if(_l->klucz == k) return ret;
-    _l = _l->nast;
-    ret++;
-  };
-#endif
-  return -1;
-
-};
-
-// Funkcja: wyświetl listę w odwrotnej kolejności
-#ifndef wart
-void WyswietlOdTylu(lista l) {
-    if (l == NULL) {
-        return;  
+    if (*ret == NULL) {
+        printf("\nNie znaleziono elementu o kluczu %d\n", k);
+        return l; // zwracamy oryginalny wskaźnik (bez zmiany)
     }
 
-    WyswietlOdTylu(l->nast);  
-    printf("%d-", l->klucz);
-};
-#endif
-
-void WyswietlListe( lista _lista)  { 
-  lista l = _lista;
-
-#ifdef wart
-  while (l->klucz != INT_MAX) {
-    printf ("%d-", l->klucz);
-    l = l->nast;
-  }
-
-#elifdef cykliczna
-  lista glowa = _lista;
-  do {
-      printf("%d-", l->klucz);
-      l = l->nast;
-  } while (l != glowa);
- 
-#else
-     while (l){ 
-         printf ("%d-", l->klucz);
-         l = l->nast;
-         } ;
-#endif
-
-
-printf ("|\n");
- };
-
-
-void Wyswietl_Pierwszy(lista *l)
- { 
-    if (l==0) return;
-    printf("\n %d", (*l)->klucz);
- };
-
-
-void Wyswietl_Ostatni(lista *l)  { 
-    if(l==0) return;
-#ifdef wart
-    while ( (*l)->nast->klucz != INT_MAX ) l = &(*l)->nast;
-#else
-    while ( (*l)->nast ) l = &(*l)->nast;
-#endif
-    printf("\n %d", (*l)->klucz);
- };
+    if (side != 1) {
+        // chcemy "za" — jeśli istnieje nast, ustawiamy wskaźnik na pole nast
+        if ((*ret)->nast) return &(*ret)->nast;
+    }
+    return ret;
+}
 
 /*
-Funkcja: Dodaj do Listy
-Dodaje element za wskazany element
-///Powinno być kompatobilne zarówno z posortowaną jak nie
-1 - za element
-0 - przed
+ Odszukaj: zwraca numer pozycji elementu o kluczu k (1-based), -1 jeśli nie znaleziono.
+*/
+int odszukaj(lista *l, int k) {
+    if (l == NULL || *l == NULL) return -1;
+    int pos = 1;
+    for (lista cur = *l; cur != NULL; cur = cur->nast, pos++) {
+        if (cur->klucz == k) return pos;
+    }
+    return -1;
+}
+
+// Wyświetl listę od tylu (rekurencyjnie)
+#ifndef wart
+void WyswietlOdTylu(lista l) {
+    if (l == NULL) return;
+    WyswietlOdTylu(l->nast);
+    printf("%d-", l->klucz);
+}
+#endif
+
+// Wyświetl listę (różne tryby: z wartownikiem, cykliczna, zwykła)
+void WyswietlListe(lista _lista) {
+    lista l = _lista;
+#ifdef wart
+    while (l && l->klucz != INT_MAX) {
+        printf("%d-", l->klucz);
+        l = l->nast;
+    }
+#elif defined(cykliczna)
+    if (l == NULL) {
+        printf("|\n");
+        return;
+    }
+    lista glowa = l;
+    do {
+        printf("%d-", l->klucz);
+        l = l->nast;
+    } while (l != glowa && l != NULL);
+#else
+    while (l) {
+        printf("%d-", l->klucz);
+        l = l->nast;
+    }
+#endif
+    printf("|\n");
+}
+
+// Wyświetl pierwszy element (z wskaźnika na listę)
+void Wyswietl_Pierwszy(lista *l) {
+    if (l == NULL || *l == NULL) return;
+    printf("\n%d", (*l)->klucz);
+}
+
+// Wyświetl ostatni element
+void Wyswietl_Ostatni(lista *l) {
+    if (l == NULL || *l == NULL) return;
+#ifdef wart
+    lista cur = *l;
+    while (cur->nast && cur->nast->klucz != INT_MAX) cur = cur->nast;
+    printf("\n%d", cur->klucz);
+#else
+    lista cur = *l;
+    while (cur->nast) cur = cur->nast;
+    printf("\n%d", cur->klucz);
+#endif
+}
+
+/*
+ DL: dodaj element 'nowy' przed lub za elementem o kluczu 'szukany'
+ side == 1 -> za elementem
+ side == 0 -> przed elementem
 */
 void DL(lista *l, int szukany, int nowy, int side) {
+    if (l == NULL) return;
 
-    if(*l==0) return;
+    // Dodawanie na początek jeśli szukany jest pierwszy i side==0
+    if (*l && (*l)->klucz == szukany && side == 0) {
+        DNPL(l, nowy);
+        return;
+    }
 
-    lista p = *l;
-    while(p && p->nast && p->nast->klucz != szukany) p = p->nast;
+    // Szukamy elementu z kluczem szukany
+    lista prev = NULL;
+    lista cur = *l;
+    while (cur && cur->klucz != szukany) {
+        prev = cur;
+        cur = cur->nast;
+    }
 
- // Nie znaleziono
-    if(!(p->nast) || p->nast->klucz != szukany) return; 
+    if (cur == NULL) {
+        // Nie znaleziono elementu docelowego
+        return;
+    }
 
-    lista k = (lista) malloc(sizeof(elListy));
+    lista k = (lista)malloc(sizeof(elListy));
+    if (!k) return;
     k->klucz = nowy;
 
     if (side == 1) {
-        p = p->nast;
-        k->nast = p->nast;
-        p->nast = k;
-    } else if (side == 0) {
-        k->nast = p->nast;
-        p->nast = k;
-    };
-};
-
+        // wstaw za cur
+        k->nast = cur->nast;
+        cur->nast = k;
+    } else {
+        // wstaw przed cur (tu prev może być NULL gdy cur to pierwszy element, ale to obsłużyliśmy wyżej)
+        k->nast = cur;
+        if (prev) prev->nast = k;
+        else *l = k;
+    }
+}
 
 /*
-Funkcja: Usun Element Listy - k
-
-Usuwa z kolejki element/-y z kluczem równym k.
-
-Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
-                     -1 oznacza każde wystąpienie
-
-
-Wersja iteracyjna
-
+ Usuń wszystkie/podaną liczbę wystąpień elementu o kluczu k (iteracyjnie)
+ ilosc_razy == -1 -> usuń wszystkie
 */
+void UEL_k(lista *l, int k, int ilosc_razy) {
+    if (l == NULL || *l == NULL) {
+        printf("\nLista pusta\n");
+        return;
+    }
 
-void UEL_k( lista *l, int k, int ilosc_razy) {
+    lista cur = *l;
+    lista prev = NULL;
 
-  if(!(*l)) {
-   printf("\n Lista pusta"); 
-   return;
-  };
-
-
-  lista obecny = *l;
-  lista poprzedni = NULL;
-
-    while(obecny && ilosc_razy != 0) {
-
-        if(obecny->klucz == k) {
-            if(ilosc_razy != -1) ilosc_razy--;
-
-            if (poprzedni)
-                    poprzedni->nast = obecny->nast;
-            else 
-                   *l = obecny->nast;
-
-
-            lista rem = obecny;
-            obecny = obecny->nast;
+    while (cur && ilosc_razy != 0) {
+        if (cur->klucz == k) {
+            if (ilosc_razy != -1) ilosc_razy--;
+            lista rem = cur;
+            if (prev) prev->nast = cur->nast;
+            else *l = cur->nast;
+            cur = cur->nast;
             free(rem);
             continue;
         }
-
-        poprzedni = obecny;
-        obecny = obecny->nast;
-    }}
-
+        prev = cur;
+        cur = cur->nast;
+    }
+}
 
 /*
-Funkcja: Usun Element Listy - k
-
-Usuwa z kolejki element/-y z kluczem równym k.
-
-Opcjonalny argument: Liczba wystąpień k, które mają zostać usunięte.
-                     -1 oznacza każde wystąpienie
-
-
-Wersja rekurencyjna
+ Usuń elementy o kluczu k (rekurencyjnie)
 */
+void UELR_k(lista *l, int k, int ilosc_razy) {
+    if (l == NULL || *l == NULL) return;
+    if (ilosc_razy == 0) return;
 
-void UELR_k( lista *l, int k, int ilosc_razy) {
-
-  if(!(*l)) {
-   return;
-  };  
-
-if (ilosc_razy == 0) return;
-
-    if((*l)->klucz == k) {
-        UPEL(l);
+    if ((*l)->klucz == k) {
+        lista rem = *l;
+        *l = (*l)->nast;
+        free(rem);
         if (ilosc_razy != -1) ilosc_razy--;
         UELR_k(l, k, ilosc_razy);
+    } else {
+        UELR_k(&(*l)->nast, k, ilosc_razy);
     }
+}
 
-    else 
-    {
-        l = &(*l)->nast;
-        UELR_k(l, k, ilosc_razy);
-    };
-
-
-};
-
- /* 
- Funkcja: Usun Pierwszy Element Listy
-
- Usuwa pierwszy element wskazany przez wskaznik l.
-
-
- */
-
+// Usuń Pierwszy Element Listy
 void UPEL(lista *l) {
+    if (l == NULL || *l == NULL) return;
+    lista p = *l;
+    *l = (*l)->nast;
+    free(p);
+}
 
-    if(*l) {
-        lista p;         // lista to wskaznik, a nie struktura
-        p = *l;
-        *l = (*l)->nast;
-        free(p);
-    };
-
-};
-
-
- /*
-  Funkcja: Usun wskazany element listy
-
-  Usuwa k-ty element
-
-*/
-
+// Usuń k-ty element listy (1-based)
 void U_wsk(lista *l, int k) {
-    if(l==0) return;
+    if (l == NULL || k <= 0) return;
     int i = 1;
     lista *p = l;
-    while(i != k && (*p)) {
-        p=&(*p)->nast;
+    while (i != k && *p) {
+        p = &(*p)->nast;
         i++;
-    };
-    UPEL(p);
-
-};
-
-
-
-
+    }
+    if (*p) UPEL(p);
+}

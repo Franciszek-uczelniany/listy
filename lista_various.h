@@ -29,7 +29,7 @@ typedef elListy *lista;
 void ZL(lista *l);
 
 int CzyIstnieje(lista l1, lista l2, int arg);
-void* porownaj(lista l1, lista l2);
+lista* porownaj(lista l1, lista l2);
 void Wczytaj(lista* l);
 
 void Zapisz(lista* l);
