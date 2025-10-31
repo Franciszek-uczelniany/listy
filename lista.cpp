@@ -16,7 +16,7 @@ void DL_sort(lista *l, int klucz) {
 	// Dodajemy pierwszy element listy
 	if (*l == 0) {
 		*l = nowy;
-		nowy->nast == NULL;
+		nowy->nast = NULL;
 		return;
 	}
 

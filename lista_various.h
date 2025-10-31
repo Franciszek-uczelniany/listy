@@ -35,7 +35,7 @@ void Wczytaj(lista* l);
 void Zapisz(lista* l);
 void odwroc(lista *l);
 
-lista odwroc_r(lista l, lista prev, lista next);
+lista odwroc_r(lista l);
 lista* przesun(lista *l, int k, int side);
 int odszukaj(lista *l, int k);
 void WyswietlOdTylu(lista l); 

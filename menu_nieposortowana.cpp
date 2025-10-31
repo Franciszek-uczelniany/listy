@@ -155,7 +155,7 @@ int main(void) {
                 break;
 
             case 13:
-                _l = odwroc_r(_l, NULL, NULL);
+                _l = odwroc_r(_l);
                 printf("\nLista po odwroceniu rekurencyjnym:\n");
                 WyswietlListe(_l);
                 break;
