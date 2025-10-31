@@ -26,10 +26,6 @@
 			" 10 - Wyswietl zawartosc listy \n"
 			" 0 - Zakoncz dzialanie programu \n"
 		);
-// 5 odszukaj zadany element - bez zmian
-// 6 tutaj duzo zmian
-// 7 chyba nie za duzo zmian, usuwajac musimy ustawic przed->nast na nastepny po usuwanym
-// I nastepny->pop na przed. Cale zadanie sprowadza sie do aktualizacji wskaznika pop
 
 		printf("\n wybor = ");
 		scanf("%d", &wybor);
@@ -98,15 +94,11 @@
 			break;
 
 			case 13:
-			_l = odwroc_r(_l, NULL, NULL);
+			_l = odwroc_r(_l);
 			break;
-
-
-
 
 			case 10:
 			WyswietlListe(_l);
-//			WyswietlListe(__l);
 			break;
 
 			case 0:

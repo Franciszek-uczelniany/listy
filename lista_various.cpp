@@ -6,27 +6,31 @@
 #include "lista_various.h"
 
 // Dodaj Na Koniec Listy
-void DNKL(lista *l, int i) {
+void DNKL(lista* l, int i) {
     if (l == NULL) return;
 
     lista p = (lista)malloc(sizeof(elListy));
     if (!p) return;
     p->klucz = i;
     p->nast = NULL;
-
-#ifdef wart
-    // Dla list z wartownikiem (wartownikiem ma być element z kluczem INT_MAX)
-    while (*l && (*l)->klucz != INT_MAX) {
-        l = &(*l)->nast;
-    }
-#else
-    // Dla zwykłej listy idziemy do końca
-    while (*l) {
-        l = &(*l)->nast;
-    }
+#ifdef dwukierunkowa
+    p->pop = NULL;
 #endif
 
-    *l = p;
+    if (*l == NULL) {
+        *l = p;
+        return;
+    }
+
+    lista cur = *l;
+    while (cur->nast) cur = cur->nast;
+
+#ifdef dwukierunkowa
+    cur->nast = p;
+    p->pop = cur;
+#else
+    cur->nast = p;
+#endif
 }
 
 // Dodaj Na Poczatek Listy
@@ -37,46 +41,46 @@ void DNPL(lista* l, int i) {
     if (!p) return;
     p->klucz = i;
     p->nast = *l;
-    *l = p;
+#ifdef dwukierunkowa
+    p->pop = NULL;
+    if (*l) (*l)->pop = p;
+#endif
+    * l = p;
 }
+
 
 // Usuń Ostatni Element Listy
-void UOEL(lista *l) {
+void UOEL(lista* l) {
     if (l == NULL || *l == NULL) return;
 
-#ifdef cykliczna
-    // Dla list cyklicznych: jeśli tylko jeden element -> usuń i ustaw na NULL
-    if ((*l)->nast == *l) {
-        free(*l);
-        *l = NULL;
-        return;
-    }
-    // znajdź przedostatni element
     lista cur = *l;
-    while (cur->nast && cur->nast->nast && cur->nast != *l) {
-        cur = cur->nast;
-    }
-    // cur->nast to ostatni element
-    free(cur->nast);
-    cur->nast = *l;
-    return;
-#endif
 
-    // Dla zwykłej listy
-    if ((*l)->nast == NULL) {
-        free(*l);
+#ifdef dwukierunkowa
+    // Jeśli tylko jeden element
+    if (cur->nast == NULL) {
+        free(cur);
         *l = NULL;
         return;
     }
-    lista cur = *l;
-    while (cur->nast && cur->nast->nast) {
-        cur = cur->nast;
+
+    while (cur->nast) cur = cur->nast;  // idziemy na koniec
+    lista prev = cur->pop;
+    prev->nast = NULL;
+    free(cur);
+#else
+    // jednokierunkowa wersja
+    if (cur->nast == NULL) {
+        free(cur);
+        *l = NULL;
+        return;
     }
-    // cur->nast wskazuje na ostatni element
+
+    while (cur->nast->nast) cur = cur->nast;
     free(cur->nast);
     cur->nast = NULL;
+#endif
 }
-
+ 
 // Zwolnij listę (usuń wszystkie elementy)
 void ZL(lista *l) {
     if (l == NULL) return;
@@ -233,11 +237,23 @@ int odszukaj(lista *l, int k) {
 }
 
 // Wyświetl listę od tylu (rekurencyjnie)
-#ifndef wart
+#ifndef wart and ifndef dwukierunkowa
 void WyswietlOdTylu(lista l) {
     if (l == NULL) return;
     WyswietlOdTylu(l->nast);
     printf("%d-", l->klucz);
+}
+#endif
+
+#ifdef dwukierunkowa
+void WyswietlOdTylu(lista l) {
+    if (!l) return;
+    while (l->nast) l = l->nast; // idź na koniec
+    while (l) {
+        printf("%d-", l->klucz);
+        l = l->pop;
+    }
+    printf("|\n");
 }
 #endif
 
@@ -293,68 +309,90 @@ void Wyswietl_Ostatni(lista *l) {
  side == 1 -> za elementem
  side == 0 -> przed elementem
 */
-void DL(lista *l, int szukany, int nowy, int side) {
+void DL(lista* l, int szukany, int nowy, int side) {
     if (l == NULL) return;
 
-    // Dodawanie na początek jeśli szukany jest pierwszy i side==0
-    if (*l && (*l)->klucz == szukany && side == 0) {
-        DNPL(l, nowy);
-        return;
-    }
-
-    // Szukamy elementu z kluczem szukany
-    lista prev = NULL;
     lista cur = *l;
-    while (cur && cur->klucz != szukany) {
-        prev = cur;
+    while (cur && cur->klucz != szukany)
         cur = cur->nast;
-    }
 
-    if (cur == NULL) {
-        // Nie znaleziono elementu docelowego
-        return;
-    }
+    if (!cur) return;
 
     lista k = (lista)malloc(sizeof(elListy));
     if (!k) return;
     k->klucz = nowy;
 
-    if (side == 1) {
-        // wstaw za cur
+#ifdef dwukierunkowa
+    if (side == 1) { // ZA
+        k->nast = cur->nast;
+        k->pop = cur;
+        if (cur->nast) cur->nast->pop = k;
+        cur->nast = k;
+    }
+    else { // PRZED
+        k->pop = cur->pop;
+        k->nast = cur;
+        if (cur->pop) cur->pop->nast = k;
+        else *l = k;
+        cur->pop = k;
+    }
+#else
+    if (side == 1) { // za
         k->nast = cur->nast;
         cur->nast = k;
-    } else {
-        // wstaw przed cur (tu prev może być NULL gdy cur to pierwszy element, ale to obsłużyliśmy wyżej)
-        k->nast = cur;
-        if (prev) prev->nast = k;
-        else *l = k;
     }
+    else { // przed
+        if (*l == cur) {
+            k->nast = cur;
+            *l = k;
+        }
+        else {
+            lista prev = *l;
+            while (prev && prev->nast != cur) prev = prev->nast;
+            if (prev) {
+                k->nast = cur;
+                prev->nast = k;
+            }
+        }
+    }
+#endif
 }
+
 
 /*
  Usuń wszystkie/podaną liczbę wystąpień elementu o kluczu k (iteracyjnie)
  ilosc_razy == -1 -> usuń wszystkie
-*/
-void UEL_k(lista *l, int k, int ilosc_razy) {
-    if (l == NULL || *l == NULL) {
-        printf("\nLista pusta\n");
-        return;
-    }
+*/void UEL_k(lista* l, int k, int ilosc_razy) {
+    if (l == NULL || *l == NULL) return;
 
     lista cur = *l;
-    lista prev = NULL;
 
     while (cur && ilosc_razy != 0) {
         if (cur->klucz == k) {
             if (ilosc_razy != -1) ilosc_razy--;
             lista rem = cur;
-            if (prev) prev->nast = cur->nast;
+#ifdef dwukierunkowa
+            if (cur->pop) cur->pop->nast = cur->nast;
             else *l = cur->nast;
+            if (cur->nast) cur->nast->pop = cur->pop;
             cur = cur->nast;
             free(rem);
+#else
+            if (cur == *l) {
+                *l = cur->nast;
+                free(rem);
+                cur = *l;
+            }
+            else {
+                lista prev = *l;
+                while (prev->nast != rem) prev = prev->nast;
+                prev->nast = cur->nast;
+                cur = cur->nast;
+                free(rem);
+            }
+#endif
             continue;
         }
-        prev = cur;
         cur = cur->nast;
     }
 }
@@ -377,13 +415,16 @@ void UELR_k(lista *l, int k, int ilosc_razy) {
     }
 }
 
-// Usuń Pierwszy Element Listy
-void UPEL(lista *l) {
+void UPEL(lista* l) {
     if (l == NULL || *l == NULL) return;
-    lista p = *l;
+    lista rem = *l;
     *l = (*l)->nast;
-    free(p);
+#ifdef dwukierunkowa
+    if (*l) (*l)->pop = NULL;
+#endif
+    free(rem);
 }
+
 
 // Usuń k-ty element listy (1-based)
 void U_wsk(lista *l, int k) {

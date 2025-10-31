@@ -4,20 +4,14 @@
 
 //TODO: czy lista cykliczna zawiera we wlasnym eL wskaznik na glowe i na koniec?
 
-#ifndef dwukierunkowa
-struct el { 
-	 int klucz ;
-	 struct el *nast;
- };
-#else
-struct el { 
-	 int klucz ;
-	 struct el *nast;
-	 struct el *pop;
- };
+typedef struct elListy {
+    int klucz;
+    struct elListy* nast;
+#ifdef dwukierunkowa
+    struct elListy* pop;
 #endif
+} elListy;
 
-typedef struct el elListy;
 typedef elListy *lista;
 // mozna dac wskaznik na poczatek, koniec jesli czesto wykonujemy dzialania aby nie przechodzic
 // przez cala liste.

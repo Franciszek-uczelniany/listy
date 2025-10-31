@@ -97,7 +97,7 @@
 			break;
 
 			case 13:
-			l[i] = odwroc_r(l[i], NULL, NULL);
+			l[i] = odwroc_r(l[i]);
 			break;
 
 
