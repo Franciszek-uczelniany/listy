@@ -18,7 +18,9 @@ void usun_i(lista* l) {
                 p->nast = rem->nast;
                 free(rem);
             }; 
-            // kończymy tą pętle i zapisujemy 
+            // kończymy tą pętle i zapisujemy do p kopię wsk.
+			// przechodzimy na nastepny (byc moze nie powtarzający sie) element
+			t = t->nast; 
             p = t;
     }
 
