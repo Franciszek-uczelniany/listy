@@ -8,6 +8,28 @@ void usun_i(lista* l) {
     if(*l==NULL) return;
     lista t = *l; //aby nie modyfikować głowy
     lista rem;
+    lista p = t;
+    // musimy miec p bo nie mozemy zwyczajnie przeskakiwac na nastepny el, bo nie wiem czy on nie jest przypadkiem taki sam
+     
+    while (t->nast) {
+            while(p->nast && p->nast->klucz == t->klucz) {
+                // usuń następny element
+                rem = p->nast;
+                p->nast = rem->nast;
+                free(rem);
+            }; 
+            // kończymy tą pętle i zapisujemy 
+            p = t;
+    }
+
+}
+
+
+
+/*void usun_i(lista* l) {
+    if(*l==NULL) return;
+    lista t = *l; //aby nie modyfikować głowy
+    lista rem;
     while (t->nast) {
             if(t->nast->klucz == t->klucz) {
                 // usuń następny element
@@ -28,7 +50,7 @@ void usun_i(lista* l) {
     }
 
 }}
-
+*/
  int main(int argc, char* argv [])  {
 	 lista l[NR] = {0, 0};
 	int wybor = 0;
