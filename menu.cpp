@@ -4,6 +4,30 @@
 
 #define NR 2
 
+void usun_i(lista* l) {
+    if(*l==NULL) return;
+    lista t = *l; //aby nie modyfikować głowy
+    lista rem;
+    while (t->nast) {
+            if(t->nast->klucz == t->klucz) {
+                // usuń następny element
+                rem = t->nast;
+				//
+                if(t->nast->klucz != t->klucz) {
+					 t->nast = rem->nast;
+					 free(rem);
+					continue;}
+				else if(t->nast->nast && t->nast->nast->klucz == t->klucz) {
+
+				t->nast = rem->nast->nast;
+                free(rem->nast);
+				free(rem);
+				continue;
+            }
+            t = t->nast;
+    }
+
+}}
 
  int main(int argc, char* argv [])  {
 	 lista l[NR] = {0, 0};
@@ -21,7 +45,7 @@
        " 3 - Pobierz pierwszy element listy \n" 
        " 4 - Pobierz ostatni element listy \n"
        " 5 - Odszukaj zadany element \n"
-
+		"6 - usun powtarzajace sie elementy iteracyjnie"
        " 7 - Usun wskazany element / elementy \n"
        " 8 - Wczytaj zawartosc listy z pliku \n"
        " 9 - Zapisz zawartosc listy do pliku \n"
@@ -72,6 +96,11 @@
 			ret = odszukaj(&l[i], wybor);
 			if(ret > 0) printf("\n zadany el. jest %d w liscie", ret); else 
 			printf("\n nie znaleziono tego elementu");
+			break;
+
+			case 6:
+			usun_i(&l[i]);
+						WyswietlListe(l[i]);
 			break;
 
 			case 7:
