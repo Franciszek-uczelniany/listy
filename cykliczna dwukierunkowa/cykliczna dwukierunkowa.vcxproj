@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3aa79870-9284-44d1-8413-563392164cc9}</ProjectGuid>
-    <RootNamespace>Listadwukierunkowa</RootNamespace>
+    <ProjectGuid>{26f4203f-3a72-48c0-8d55-1f19cd3ef1e7}</ProjectGuid>
+    <RootNamespace>cyklicznadwukierunkowa</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Lista dwukierunkowa nieposortowana</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -101,7 +100,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>dwukierunkowa;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>dwukierunkowa;cykliczna;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -124,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lista_nieposortowana.cpp" />
     <ClCompile Include="..\lista_various.cpp" />
     <ClCompile Include="..\menu_dwu_niepo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lista_nieposortowana.h" />
     <ClInclude Include="..\lista_various.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

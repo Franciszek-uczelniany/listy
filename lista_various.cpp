@@ -6,6 +6,7 @@
 #include "lista_various.h"
 
 // Dodaj Na Koniec Listy
+#ifndef cykliczna
 void DNKL(lista* l, int i) {
     if (l == NULL) return;
 
@@ -33,6 +34,41 @@ void DNKL(lista* l, int i) {
 #endif
 }
 
+#else
+// Poniższy kod jest dla cyklicznej listy, dwukierunkowej lub nie
+void DNKL(lista* l, int i) {
+    if (l == NULL) return;
+    lista head = *l;
+
+    lista p = (lista)malloc(sizeof(elListy));
+    if (!p) return;
+    p->klucz = i;
+    p->nast = head;
+#ifdef dwukierunkowa
+    p->pop = NULL;
+#endif
+
+    // Lista jest pusta. Dodajemy jeden element do listy cyklicznej.
+    if (*l == NULL) {
+        *l = p;
+        p->nast = p;
+        p->pop = p;
+        return;
+    }
+
+    lista cur = *l;
+    while (cur->nast!=head) cur = cur->nast;
+
+#ifdef dwukierunkowa
+    cur->nast = p;
+    p->pop = cur;
+#else
+    cur->nast = p;
+    // Warto w tym miejscu przypomnieć, że p->nast = head zrobiliśmy zaraz po alokacji pamięci
+#endif
+}
+#endif
+
 // Dodaj Na Poczatek Listy
 void DNPL(lista* l, int i) {
     if (l == NULL) return;
@@ -40,12 +76,22 @@ void DNPL(lista* l, int i) {
     lista p = (lista)malloc(sizeof(elListy));
     if (!p) return;
     p->klucz = i;
-    p->nast = *l;
+    if (*l == NULL)  *l = p;
+    else p->nast = *l;
 #ifdef dwukierunkowa
+#ifndef cykliczna
+    // dla cyklicznej p->pop=tail  i tail->nast = p
     p->pop = NULL;
-    if (*l) (*l)->pop = p;
+    if (*l && *l != p) (*l)->pop = p;
 #endif
-    * l = p;
+    lista tail;
+    if(*l != p) for (tail = (*l); tail->nast != (*l); tail = tail->nast);
+    p->pop = tail;
+    tail->nast = p;
+#endif
+   
+
+    *l = p;
 }
 
 
@@ -56,7 +102,24 @@ void UOEL(lista* l) {
     lista cur = *l;
 
 #ifdef dwukierunkowa
-    // Jeśli tylko jeden element
+#ifdef cykliczna
+    lista head = cur;
+
+    // Jeśli jesli składa się tylko z jednego elementu
+    if (cur->nast == cur) {
+        free(cur);
+        *l = NULL;
+        return;
+    }
+
+    while (cur->nast != head) cur = cur->nast;  // idziemy na koniec
+    lista prev = cur->pop;
+    prev->nast = head;
+    free(cur);
+
+#else  // Jest to lista dwukierunkowa ale nie cykliczna
+
+
     if (cur->nast == NULL) {
         free(cur);
         *l = NULL;
@@ -67,6 +130,7 @@ void UOEL(lista* l) {
     lista prev = cur->pop;
     prev->nast = NULL;
     free(cur);
+#endif
 #else
     // jednokierunkowa wersja
     if (cur->nast == NULL) {
@@ -237,12 +301,14 @@ int odszukaj(lista *l, int k) {
 }
 
 // Wyświetl listę od tylu (rekurencyjnie)
-#ifndef wart and ifndef dwukierunkowa
+#ifndef wart
+#ifndef dwukierunkowa
 void WyswietlOdTylu(lista l) {
     if (l == NULL) return;
     WyswietlOdTylu(l->nast);
     printf("%d-", l->klucz);
 }
+#endif
 #endif
 
 #ifdef dwukierunkowa
@@ -417,12 +483,20 @@ void UELR_k(lista *l, int k, int ilosc_razy) {
 
 void UPEL(lista* l) {
     if (l == NULL || *l == NULL) return;
-    lista rem = *l;
+    lista head = *l;
     *l = (*l)->nast;
 #ifdef dwukierunkowa
+#ifndef cykliczna
     if (*l) (*l)->pop = NULL;
+#else // dla cyklicznej:
+    if (*l != head) {
+        lista tail;
+        for (tail = head; tail->nast != head; tail = tail->nast);
+        (*l)->pop = tail;
+}
 #endif
-    free(rem);
+#endif
+    free(head);
 }
 
 
