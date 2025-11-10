@@ -132,11 +132,11 @@ int main(void) {
                 break;
 
             case 8:
-                Wczytaj(&_l);
+                Wczytaj(&_l, "lista.txt");
                 break;
 
             case 9:
-                Zapisz(&_l);
+                Zapisz(&_l, "lista.txt");
                 break;
 
             case 10:

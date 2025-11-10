@@ -203,12 +203,12 @@ lista* porownaj(lista l1, lista l2) {
 }
 
 // Wczytaj listę z pliku (zastępuje dotychczasową)
-void Wczytaj(lista* l) {
+void Wczytaj(lista* l, const char* filename) {
     if (l == NULL) return;
     ZL(l);
-    FILE* file = fopen("lista.txt", "r");
+    FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        printf("Nie można otworzyć pliku lista.txt\n");
+        printf("Nie można otworzyć pliku %s\n", filename);
         return;
     }
 
@@ -221,11 +221,11 @@ void Wczytaj(lista* l) {
 }
 
 // Zapisz listę do pliku
-void Zapisz(lista* l) {
+void Zapisz(lista* l, const char* filename) {
     if (l == NULL) return;
-    FILE* file = fopen("lista.txt", "w");
+    FILE* file = fopen(filename, "w");
     if (file == NULL) {
-        printf("Nie można otworzyć pliku lista.txt do zapisu\n");
+        printf("Nie można otworzyć pliku %s do zapisu\n", filename);
         return;
     }
 
