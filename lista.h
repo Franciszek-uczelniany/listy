@@ -6,6 +6,6 @@
 
 
 void DL_sort(lista *l, int klucz);
-void merge(lista* p, lista* q);
+void DNPL(lista *l, int i);
 
 #endif // LISTA_H

@@ -24,9 +24,9 @@ void ZL(lista *l);
 
 int CzyIstnieje(lista l1, lista l2, int arg);
 lista* porownaj(lista l1, lista l2);
-void Wczytaj(lista* l, const char* filename);
+void Wczytaj(lista* l);
 
-void Zapisz(lista* l, const char* filename);
+void Zapisz(lista* l);
 void odwroc(lista *l);
 
 lista odwroc_r(lista l);

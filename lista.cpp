@@ -6,10 +6,10 @@
 
 
 //Funkcja: Dodaj do posortowanej Listy
-void DL_sort(lista* l, int klucz) {
-	if (l == NULL) return;
+void DL_sort(lista *l, int klucz) {
+	assert(l != NULL);
 
-	lista nowy = (lista)malloc(sizeof(elListy));
+	lista nowy  = (lista) malloc(sizeof(elListy));
 	assert(nowy != NULL);
 	nowy->klucz = klucz;
 
@@ -21,66 +21,21 @@ void DL_sort(lista* l, int klucz) {
 	}
 
 	// Jeœli element który dodajemy jest mniejszy od nastêpnego elementu, dodajemy go przed nim
-	if (klucz < (*l)->klucz) {
-		nowy->nast = *l;
-		*l = nowy;
-		return;
+	if( klucz < (*l)->klucz) {
+		nowy->nast  = *l;
+		*l       = nowy;
+		return; 
 	}
-	lista pop, nast;
-	pop = (*l);
-	nast = (*l)->nast;
+	lista obecny = *l;
+	while (obecny != NULL && obecny->nast != NULL) {
+			if (obecny->klucz < klucz) {
+				obecny = obecny->nast;
+		} else break;
+	}; // koñczymy pêtlê kiedy element który chcemy dodaæ jest wiêkszy równy "obecny" el.
 
-	for (nast = (*l)->nast; nast && nast->klucz < klucz; nast = nast->nast) {
-		pop = nast;
-	}
 
-	pop->nast = nowy;
-	nowy->nast = nast;
-
-	return;
+		nowy->nast  = obecny->nast;
+		obecny->nast = nowy;
+		return; 
 };
 
-
-
-void doklej(lista* q, lista pNast) {
-	if (pNast == NULL || *q == NULL) return;
-	lista t = *q;
-	lista schowek;
-	while (t->nast && t->nast->klucz < pNast->klucz)
-		t = t->nast;
-	schowek = t->nast;  // Zapisujemy do schowka nastêpny element listy q, ten którego juz nie
-	// doklejamy do listy p
-	t->nast = pNast;
-	(*q) = schowek;
-}
-
-// Funkcja z dwóch list posortowanych tworzy jedn¹ posortowan¹ listê
-// lista q jest doklejana do listy p
-// to do: przetestowac jak zachowa siê funkcja po odwroceniu argumentow...
-void merge(lista* q, lista* p) {
-	if (*p == NULL || *q == NULL) return;
-
-	printf("\n Lista p:");
-	WyswietlListe(*p);
-	printf("\n Lista q:");
-	WyswietlListe(*q);
-
-	lista t = *p;
-	lista schowek;
-
-	// Je¿eli q->klucz jest mniejsze od g³owy listy p, doklej go na pocz¹tek
-
-	if ((*q)->klucz < (*p)->klucz) {
-		schowek = *q;
-		doklej(q, *p);
-		*p = schowek;
-	}
-
-	while (*q && t->nast && t->nast->klucz < (*q)->klucz) {
-		t = t->nast;
-	}
-	schowek = t->nast;
-//	t->nast = (*q);
-	doklej(q, schowek);
-	merge(p, q);
-}
