@@ -65,7 +65,7 @@ void usun_i(lista* l) {
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
        " 1 - Dodaj do posortowanej listy\n"
-
+		" 2 - laczenie dwoch list \n"
        " 3 - Pobierz pierwszy element listy \n" 
        " 4 - Pobierz ostatni element listy \n"
        " 5 - Odszukaj zadany element \n"
@@ -104,6 +104,14 @@ void usun_i(lista* l) {
 			printf("\n klucz=");
 			scanf("%d", &wybor);
 			DL_sort(&l[i], wybor);
+			break;
+
+			case 2:
+			merge(&l[0], &l[1]);
+			printf("\n Lista 0:");
+			WyswietlListe(l[0]);
+			printf("\n Lista 1:");
+			WyswietlListe(l[1]);
 			break;
 
 			case 3:

@@ -6,10 +6,10 @@
 
 
 //Funkcja: Dodaj do posortowanej Listy
-void DL_sort(lista *l, int klucz) {
-	assert(l != NULL);
+void DL_sort(lista* l, int klucz) {
+	if (l == NULL) return;
 
-	lista nowy  = (lista) malloc(sizeof(elListy));
+	lista nowy = (lista)malloc(sizeof(elListy));
 	assert(nowy != NULL);
 	nowy->klucz = klucz;
 
@@ -21,21 +21,59 @@ void DL_sort(lista *l, int klucz) {
 	}
 
 	// Jeœli element który dodajemy jest mniejszy od nastêpnego elementu, dodajemy go przed nim
-	if( klucz < (*l)->klucz) {
-		nowy->nast  = *l;
-		*l       = nowy;
-		return; 
+	if (klucz < (*l)->klucz) {
+		nowy->nast = *l;
+		*l = nowy;
+		return;
 	}
-	lista obecny = *l;
-	while (obecny != NULL && obecny->nast != NULL) {
-			if (obecny->klucz < klucz) {
-				obecny = obecny->nast;
-		} else break;
-	}; // koñczymy pêtlê kiedy element który chcemy dodaæ jest wiêkszy równy "obecny" el.
+	lista pop, nast;
+	pop = (*l);
+	nast = (*l)->nast;
 
+	for (nast = (*l)->nast; nast && nast->klucz < klucz; nast = nast->nast) {
+		pop = nast;
+	}
 
-		nowy->nast  = obecny->nast;
-		obecny->nast = nowy;
-		return; 
+	pop->nast = nowy;
+	nowy->nast = nast;
+
+	return;
 };
 
+
+
+void doklej(lista* q, lista pNast) {
+	if (pNast == NULL || *q == NULL) return;
+	lista t = *q;
+	lista schowek;
+	while (t->klucz < pNast->klucz)
+		t = t->nast;
+	schowek = t->nast;  // Zapisujemy do schowka nastêpny element listy q, ten którego juz nie
+	// doklejamy do listy p
+	t->nast = pNast;
+	(*q) = schowek;
+}
+
+// Funkcja z dwóch list posortowanych tworzy jedn¹ posortowan¹ listê
+// lista q jest doklejana do listy p
+// to do: przetestowac jak zachowa siê funkcja po odwroceniu argumentow...
+void merge(lista* p, lista* q) {
+	if (*p == NULL || *q == NULL) return;
+	lista t = *p;
+	lista schowek;
+
+	// Je¿eli q->klucz jest mniejsze od g³owy listy p, doklej go na pocz¹tek
+
+	if ((*q)->klucz < (*p)->klucz) {
+		doklej(q, *p);
+		*p = *q;
+	}
+
+	while (*q && t->nast && t->nast->klucz < (*q)->klucz) {
+		t = t->nast;
+	}
+	schowek = t->nast;
+	t->nast = (*q);
+	doklej(q, schowek);
+	merge(p, q);
+}
