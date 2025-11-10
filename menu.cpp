@@ -53,11 +53,12 @@ void usun_i(lista* l) {
 
 }}
 */
+int nr_listy = 0;
  int main(int argc, char* argv [])  {
 	 lista l[NR] = {0, 0};
 	int wybor = 0;
 	int w2;
-	int i=0;
+	
 	int ret;
 
 	while(1) {
@@ -65,7 +66,7 @@ void usun_i(lista* l) {
 	printf("\n Wybierz operacje: \n"
        " 0 - wyjscie \n"
        " 1 - Dodaj do posortowanej listy\n"
-
+		" 2 - laczenie dwoch list \n"
        " 3 - Pobierz pierwszy element listy \n" 
        " 4 - Pobierz ostatni element listy \n"
        " 5 - Odszukaj zadany element \n"
@@ -83,7 +84,7 @@ void usun_i(lista* l) {
        " 44 - Zmien zlapana liste \n"
 
 
-	" Obecnie zlapana lista: %d \n", i);
+	" Obecnie zlapana lista: %d \n", nr_listy);
 
 
 
@@ -93,7 +94,7 @@ void usun_i(lista* l) {
 		switch(wybor) {
 
 			case 44:
-			i=++i%NR;
+			nr_listy=++nr_listy%NR;
 			break;
 
 			case 0:
@@ -103,28 +104,36 @@ void usun_i(lista* l) {
 			case 1:
 			printf("\n klucz=");
 			scanf("%d", &wybor);
-			DL_sort(&l[i], wybor);
+			DL_sort(&l[nr_listy], wybor);
+			break;
+
+			case 2:
+			merge(&l[0], &l[1]);
+			printf("\n Lista 0:");
+			WyswietlListe(l[0]);
+			printf("\n Lista 1:");
+			WyswietlListe(l[1]);
 			break;
 
 			case 3:
-			Wyswietl_Pierwszy(&l[i]);
+			Wyswietl_Pierwszy(&l[nr_listy]);
 			break;
 
 			case 4:
-			Wyswietl_Ostatni(&l[i]);
+			Wyswietl_Ostatni(&l[nr_listy]);
 			break;
 
 			case 5:
 			printf("\n klucz =");
 			scanf("%d", &wybor);
-			ret = odszukaj(&l[i], wybor);
+			ret = odszukaj(&l[nr_listy], wybor);
 			if(ret > 0) printf("\n zadany el. jest %d w liscie", ret); else 
 			printf("\n nie znaleziono tego elementu");
 			break;
 
 			case 6:
-			usun_i(&l[i]);
-						WyswietlListe(l[i]);
+			usun_i(&l[nr_listy]);
+						WyswietlListe(l[nr_listy]);
 			break;
 
 			case 7:
@@ -133,44 +142,44 @@ void usun_i(lista* l) {
 			printf("\n Podaj liczbe el do usuniecia, 0 oznacza wszystkie \n :");
 			scanf("%d", &w2);
 			if(w2==0) w2--;
-			UEL_k(&l[i], wybor, w2);
+			UEL_k(&l[nr_listy], wybor, w2);
 			break;
 
 			case 8:
-			Wczytaj(&l[i]);
+				Wczytaj(&l[nr_listy], nr_listy == 0 ? "lista.txt" : "lista2.txt");
 			break;
 
 			case 9:
-			Zapisz(&l[i]);
+			Zapisz(&l[nr_listy], nr_listy == 0 ? "lista.txt" : "lista2.txt");
 			break;
 
 
 			case 12:
-			odwroc(&l[i]);
+			odwroc(&l[nr_listy]);
 			break;
 
 			case 13:
-			l[i] = odwroc_r(l[i]);
+			l[nr_listy] = odwroc_r(l[nr_listy]);
 			break;
 
 
 
 
 			case 10:
-			WyswietlListe(l[i]);
+			WyswietlListe(l[nr_listy]);
 			break;
 
 			case 11:
-			WyswietlOdTylu(l[i]);
+			WyswietlOdTylu(l[nr_listy]);
 			break;
 
 			case 14:
 			//undeclared join(l[0], l[1]);
-			i=0;
+			nr_listy=0;
 			break;
 
 			case 20:
-			UPEL(&l[i]);
+			UPEL(&l[nr_listy]);
 			break;
 
 			case 21:
