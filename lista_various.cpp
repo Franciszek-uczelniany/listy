@@ -43,7 +43,6 @@ void DNKL(lista* l, int i) {
     if (!p) return;
     p->klucz = i;
     p->nast = head;
-    p->pop = NULL;
 
     // Lista jest pusta. Dodajemy jeden element do listy cyklicznej.
     if (*l == NULL) {
