@@ -14,23 +14,22 @@ void DNKL(lista* l, int i) {
     if (!p) return;
     p->klucz = i;
     p->nast = NULL;
-#ifdef dwukierunkowa
-    p->pop = NULL;
-#endif
+
 
     if (*l == NULL) {
         *l = p;
+#ifdef dwukierunkowa
+        p->pop = NULL;
+#endif
         return;
     }
 
     lista cur = *l;
-    while (cur->nast) cur = cur->nast;
+    while (cur->nast) cur = cur->nast;      // Idziemy na koniec listy.
+    cur->nast = p;
 
 #ifdef dwukierunkowa
-    cur->nast = p;
     p->pop = cur;
-#else
-    cur->nast = p;
 #endif
 }
 
@@ -44,26 +43,24 @@ void DNKL(lista* l, int i) {
     if (!p) return;
     p->klucz = i;
     p->nast = head;
-#ifdef dwukierunkowa
     p->pop = NULL;
-#endif
 
     // Lista jest pusta. Dodajemy jeden element do listy cyklicznej.
     if (*l == NULL) {
         *l = p;
         p->nast = p;
+#ifdef dwukierunkowa
         p->pop = p;
+#endif
         return;
     }
 
     lista cur = *l;
     while (cur->nast!=head) cur = cur->nast;
+    cur->nast = p;
 
-#ifdef dwukierunkowa
-    cur->nast = p;
+#ifdef dwukierunkowa   
     p->pop = cur;
-#else
-    cur->nast = p;
     // Warto w tym miejscu przypomnieć, że p->nast = head zrobiliśmy zaraz po alokacji pamięci
 #endif
 }
@@ -119,17 +116,12 @@ void UOEL(lista* l) {
 
 #else  // Jest to lista dwukierunkowa ale nie cykliczna
 
-
-    if (cur->nast == NULL) {
-        free(cur);
-        *l = NULL;
-        return;
-    }
-
     while (cur->nast) cur = cur->nast;  // idziemy na koniec
     lista prev = cur->pop;
-    prev->nast = NULL;
+    if (prev) prev->nast = NULL;
+    else *l = NULL;     // poprzedni element nie istnieje - jesteśmy na głowie listy i usuwamy poprzedni, czyli zostanie pusta lista
     free(cur);
+    return;
 #endif
 #else
     // jednokierunkowa wersja
