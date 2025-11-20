@@ -278,32 +278,6 @@ lista odwroc_r(lista l) {
 }
 
 /*
- Przesuń wskaźnik na element o kluczu k (zwraca wskaźnik do pola wskazującego na ten element).
- side == 1 -> "na" (czyli na sam element)
- side != 1 -> "za" (jeśli istnieje nast)
-*/
-lista* przesun(lista *l, int k, int side) {
-    if (l == NULL) return NULL;
-    lista *ret = l;
-
-    // Szukamy elementu o kluczu k
-    while (*ret && (*ret)->klucz != k) {
-        ret = &(*ret)->nast;
-    }
-
-    if (*ret == NULL) {
-        printf("\nNie znaleziono elementu o kluczu %d\n", k);
-        return l; // zwracamy oryginalny wskaźnik (bez zmiany)
-    }
-
-    if (side != 1) {
-        // chcemy "za" — jeśli istnieje nast, ustawiamy wskaźnik na pole nast
-        if ((*ret)->nast) return &(*ret)->nast;
-    }
-    return ret;
-}
-
-/*
  Odszukaj: zwraca numer pozycji elementu o kluczu k (1-based), -1 jeśli nie znaleziono.
 */
 int odszukaj(lista *l, int k) {
@@ -421,7 +395,7 @@ void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona
             schowek->nast = wstawiany_el;
             wstawiany_el->pop = schowek;
         }
-        else *p = wstawiany_el;							// W linijce 103 robimy lokalną kopię wskaźnika na listę do lokalnej zmiennej 'szukany', ale jeśli szukany jest pierwszym elementem to musimy zaaktualizować głowę listy														
+        else *p = wstawiany_el;							//zrobilismy lokalną kopię wskaźnika na listę do lokalnej zmiennej 'szukany', ale jeśli szukany jest pierwszym elementem to musimy zaaktualizować głowę listy														
         break;
 
     case 0:
