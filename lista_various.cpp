@@ -66,29 +66,54 @@ void DNKL(lista* l, int i) {
 #endif
 
 // Dodaj Na Poczatek Listy
-void DNPL(lista* l, int i) {
-    if (l == NULL) return;
+// zwracamy wskaźnik na nowo utworzony element
+#ifndef dwukierunkowa
+lista DNPL(lista* l, int i) {
+    if (l == NULL) return NULL;
 
     lista p = (lista)malloc(sizeof(elListy));
-    if (!p) return;
+    if (!p) return NULL;
     p->klucz = i;
+
+
     if (*l == NULL)  *l = p;
     else p->nast = *l;
+
+#ifdef cykliczna
+    lista tail = p;
+    if (*l != p) for (tail = (*l); tail->nast != (*l); tail = tail->nast);
+    tail->nast = p;
+#endif
+
+    *l = p;
+    return p;
+}
+#endif
+
 #ifdef dwukierunkowa
+lista DNPL(lista* l, int i) {
+    if (l == NULL) return NULL;
+
+    lista p = (lista)malloc(sizeof(elListy));
+    if (!p) return NULL;
+    p->klucz = i;
+
+
+    if (*l == NULL)  *l = p;
+    else p->nast = *l;
 #ifndef cykliczna
-    // dla cyklicznej p->pop=tail  i tail->nast = p
     p->pop = NULL;
     if (*l && *l != p) (*l)->pop = p;
-#endif
-    lista tail;
-    if(*l != p) for (tail = (*l); tail->nast != (*l); tail = tail->nast);
+#else
+    lista tail = p;
+    if (*l != p) for (tail = (*l); tail->nast != (*l); tail = tail->nast);
     p->pop = tail;
     tail->nast = p;
 #endif
-   
-
-    *l = p;
+    * l = p;
+    return p;
 }
+#endif
 
 
 // Usuń Ostatni Element Listy
@@ -291,6 +316,21 @@ int odszukaj(lista *l, int k) {
     return -1;
 }
 
+
+// Znajdź() działa tak jak odszukaj(), ale zwraca wskaźnik
+lista znajdz(int klucz, lista wel) {
+    if (!wel) return NULL;
+
+    lista ret = wel;
+    while (ret && ret->klucz != klucz) {
+        ret = ret->nast;
+    };
+    if (ret) return ret;
+
+    printf("\n Nie znaleziono szukanego klucza.");
+    return NULL;
+}
+
 // Wyświetl listę od tylu (rekurencyjnie)
 #ifndef wart
 #ifndef dwukierunkowa
@@ -361,60 +401,49 @@ void Wyswietl_Ostatni(lista *l) {
 #endif
 }
 
-/*
- DL: dodaj element 'nowy' przed lub za elementem o kluczu 'szukany'
- side == 1 -> za elementem
- side == 0 -> przed elementem
-*/
-void DL(lista* l, int szukany, int nowy, int side) {
-    if (l == NULL) return;
 
-    lista cur = *l;
-    while (cur && cur->klucz != szukany)
-        cur = cur->nast;
-
-    if (!cur) return;
-
-    lista k = (lista)malloc(sizeof(elListy));
-    if (!k) return;
-    k->klucz = nowy;
-
+// Strona: -1 czyli przed wskazanym elementem,
+// 0 czyli zastąp dany element
+// 1 to za danym elementem
 #ifdef dwukierunkowa
-    if (side == 1) { // ZA
-        k->nast = cur->nast;
-        k->pop = cur;
-        if (cur->nast) cur->nast->pop = k;
-        cur->nast = k;
-    }
-    else { // PRZED
-        k->pop = cur->pop;
-        k->nast = cur;
-        if (cur->pop) cur->pop->nast = k;
-        else *l = k;
-        cur->pop = k;
-    }
-#else
-    if (side == 1) { // za
-        k->nast = cur->nast;
-        cur->nast = k;
-    }
-    else { // przed
-        if (*l == cur) {
-            k->nast = cur;
-            *l = k;
-        }
-        else {
-            lista prev = *l;
-            while (prev && prev->nast != cur) prev = prev->nast;
-            if (prev) {
-                k->nast = cur;
-                prev->nast = k;
-            }
-        }
-    }
-#endif
-}
+void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona) {
+    if (!*p) return;
+    lista schowek, szukany, wstawiany_el;
 
+    switch (strona) {
+
+    case -1:
+        szukany = znajdz(wskazany, *p);
+        if (!szukany) return;
+        schowek = szukany->pop;							// zapisujemy wartość wskaznika przed wskazanym elemente, poniewaz do funkcji dodaj_na_poczatek przekazujemy wskaznik na wskaznik, wiec ulegnie zmianie wsk 'szukany'
+        // zapisujemy szukany->pop poniewaz nas interesuje ściśle mówiąc element przed tym szukanym elementem.
+        wstawiany_el = DNPL(&szukany, wstawiany);
+        if (schowek) {
+            schowek->nast = wstawiany_el;
+            wstawiany_el->pop = schowek;
+        }
+        else *p = wstawiany_el;							// W linijce 103 robimy lokalną kopię wskaźnika na listę do lokalnej zmiennej 'szukany', ale jeśli szukany jest pierwszym elementem to musimy zaaktualizować głowę listy														
+        break;
+
+    case 0:
+        szukany = znajdz(wskazany, *p);
+        if (!szukany) return;
+        szukany->klucz = wstawiany;
+        break;
+
+    case 1:
+        szukany = znajdz(wskazany, *p);
+        if (!szukany) return;
+        wstawiany_el = DNPL(&szukany->nast, wstawiany);
+        wstawiany_el->pop = szukany;
+        break;
+
+    default:
+        printf("\n Niepoprawny argument");
+        break;
+    }
+}
+#endif
 
 /*
  Usuń wszystkie/podaną liczbę wystąpień elementu o kluczu k (iteracyjnie)

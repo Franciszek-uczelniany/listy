@@ -35,10 +35,11 @@ void WyswietlListe( lista _lista);
 void Wyswietl_Pierwszy(lista *l);
 
 void Wyswietl_Ostatni(lista *l); 
+void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona);
+
 
 void DNKL(lista *l, int i);
-void DNPL(lista* l, int i); 
-void DL(lista *l, int szukany, int nowy, int side);
+lista DNPL(lista* l, int i); 
 
 void UEL_k( lista *l, int k, int ilosc_razy);
 

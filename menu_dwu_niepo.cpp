@@ -60,13 +60,13 @@
 			break;
 
 			case 6:
-			printf("\n klucz el do odszukania=");
-			scanf("%d", &wybor);
-			printf("\n klucz do wpisania=");
-			scanf("%d", &w2);
-			printf("\n 0 - przed,  1 - za szukany element\n");
-			scanf("%d", &w3);
-			DL(&_l, wybor, w2, w3);
+				printf("\n klucz el do odszukania=");
+				scanf("%d", &wybor);
+				printf("\n klucz do wpisania=");
+				scanf("%d", &w2);
+				printf("\n -1 przed, 0 nadpisuje, 1 za \n");
+				scanf("%d", &w3);
+				dodaj_we_wskazane_miejsce(wybor, &_l, w2, w3);
 			break;
 
 			case 7:
@@ -81,11 +81,11 @@
 
 
 			case 8:
-			Wczytaj(&_l);
+			Wczytaj(&_l, "lista.txt");
 			break;
 
 			case 9:
-			Zapisz(&_l);
+			Zapisz(&_l, "lista.txt");
 			break;
 
 

@@ -3,7 +3,6 @@
 
 #include "lista_various.h"
 
-void DNPL(lista *l, int i);
 
 #endif /* LISTA_niesort */
 
