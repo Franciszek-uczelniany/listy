@@ -115,52 +115,51 @@ lista DNPL(lista* l, int i) {
 }
 #endif
 
-
-// Usuń Ostatni Element Listy
+// Usuń Ostatni Element Listy 
+#ifndef cykliczna
+// dla niecyklicznej
 void UOEL(lista* l) {
     if (l == NULL || *l == NULL) return;
 
-    lista cur = *l;
-
-#ifdef dwukierunkowa
-#ifdef cykliczna
-    lista head = cur;
-
-    // Jeśli jesli składa się tylko z jednego elementu
-    if (cur->nast == cur) {
-        free(cur);
-        *l = NULL;
-        return;
+    lista obecny = *l;
+    lista poprzedni = *l;
+    while ((obecny->nast)) {
+        poprzedni = obecny;
+        obecny = obecny->nast;
     }
+    if (obecny == poprzedni) {
+        *l = NULL; // lista składa się wyłącznie z jednego elementu, który zostanie właśnie usunięty
+    }
+    poprzedni->nast = NULL;
+    free(obecny);
 
-    while (cur->nast != head) cur = cur->nast;  // idziemy na koniec
-    lista prev = cur->pop;
-    prev->nast = head;
-    free(cur);
-
-#else  // Jest to lista dwukierunkowa ale nie cykliczna
-
-    while (cur->nast) cur = cur->nast;  // idziemy na koniec
-    lista prev = cur->pop;
-    if (prev) prev->nast = NULL;
-    else *l = NULL;     // poprzedni element nie istnieje - jesteśmy na głowie listy i usuwamy poprzedni, czyli zostanie pusta lista
-    free(cur);
     return;
-#endif
-#else
-    // jednokierunkowa wersja
-    if (cur->nast == NULL) {
-        free(cur);
-        *l = NULL;
-        return;
-    }
-
-    while (cur->nast->nast) cur = cur->nast;
-    free(cur->nast);
-    cur->nast = NULL;
-#endif
 }
- 
+#else
+//  dla cyklicznej
+void UOEL(lista* l) {
+    if (l == NULL || *l == NULL) return;
+
+    lista glowa = *l;
+    lista obecny = *l;
+    lista poprzedni = *l;
+    while ((obecny->nast)) {
+        poprzedni = obecny;
+        obecny = obecny->nast;
+    }
+    if (obecny == poprzedni) {
+        *l = NULL; // lista składa się wyłącznie z jednego elementu, który zostanie właśnie usunięty
+    }
+    poprzedni->nast = glowa;
+#ifdef dwukierunkowa
+    glowa->pop = poprzedni;
+#endif
+    free(obecny);
+
+    return;
+}
+#endif
+
 // Zwolnij listę (usuń wszystkie elementy)
 void ZL(lista *l) {
     if (l == NULL) return;
