@@ -45,6 +45,7 @@ void UEL_k( lista *l, int k, int ilosc_razy);
 void UELR_k( lista *l, int k, int ilosc_razy);
 
 void UPEL(lista *l);
+void zostaw_unikalne(lista* l1, lista l2);
 
 void UOEL(lista *l);
 

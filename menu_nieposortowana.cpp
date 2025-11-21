@@ -59,6 +59,10 @@ int main(void) {
             " 11 - Wyswietl od konca\n"
             " 12 - Odwroc iteracyjnie\n"
             " 13 - Odwroc rekurencyjnie\n"
+#ifdef cykliczna
+            "20 - "
+
+#endif
         );
 
         printf("\nwybor = ");
@@ -110,7 +114,7 @@ int main(void) {
                 printf("\n0 - przed,  1 - za szukany element\n");
                 int side;
                 scanf("%d", &side);
-                DL(&_l, w2, w3, side);
+             //   DL(&_l, w2, w3, side);
                 break;
 
             case 7:

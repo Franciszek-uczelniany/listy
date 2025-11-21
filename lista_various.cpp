@@ -217,6 +217,25 @@ lista* porownaj(lista l1, lista l2) {
     return wynik;
 }
 
+
+
+
+ void zostaw_unikalne(lista* l1, lista l2) {
+   if (!*l1) return;
+   lista pop = *l1;       
+   for (lista* i = l1; i != NULL; i = &(*i)->nast) {
+        pop = *i;
+        if (istnieje_w(l2, (*i)->klucz)) {
+            pop->nast = &(*i)->nast;
+            UPEL(i);
+            ///// usun klucz 'i' wystepujacy w l1 poprzez wywolanie usun_pierwszy_element_listy i poprzez
+            ///// aktualizacje poprzedni->nast
+        }
+    }
+}
+
+
+
 // Wczytaj listę z pliku (zastępuje dotychczasową)
 void Wczytaj(lista* l, const char* filename) {
     if (l == NULL) return;
