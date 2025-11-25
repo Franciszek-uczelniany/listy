@@ -170,9 +170,18 @@ void ZL(lista *l) {
 
 // Sprawdza, czy element o kluczu 'arg' występuje w liście 'lst'
 static bool istnieje_w(lista lst, int arg) {
+    if (!lst) return false;
+#ifndef cykliczna
     for (lista i = lst; i != NULL; i = i->nast) {
         if (i->klucz == arg) return true;
     }
+#else 
+    lista glowa = lst, i = lst;
+    do {
+        if (i->klucz == arg) return true;
+        i = i->nast;
+    } while (i != glowa);
+#endif
     return false;
 }
 
@@ -223,16 +232,18 @@ lista* porownaj(lista l1, lista l2) {
  void zostaw_unikalne(lista* l1, lista l2) {
      // l1 jest wskaznikiem na wskaznik, aby mozna bylo w razie koniecznosci usunac glowe. 
    if (!*l1) return;
-   lista pop = *l1;       
-   for (lista* i = l1; i != NULL; i = &(*i)->nast) {
+   lista pop;
+   lista glowa = *l1;
+   lista* i = l1;
+    do {
         pop = *i;
         if (istnieje_w(l2, (*i)->klucz)) {
             pop->nast = (*i)->nast;
             UPEL(i);
-            ///// usun klucz 'i' wystepujacy w l1 poprzez wywolanie usun_pierwszy_element_listy i poprzez
-            ///// aktualizacje poprzedni->nast
+            continue;
         }
-    }
+        i = &(*i)->nast;
+    } while (*i != glowa);
 }
 #endif
 

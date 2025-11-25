@@ -171,6 +171,8 @@ int main(void) {
 #ifdef cykliczna
             case 20:
                 zostaw_unikalne(&l[0], l[1]);
+                printf("\n Gotowe. l[0]: ");
+                WyswietlListe(l[0]);
                 break;
 #endif
             case 44:
