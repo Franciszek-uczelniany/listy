@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista_various.h"
+#define NR 2
 
 /*
  * Funkcja: odwroc_el
@@ -36,7 +37,8 @@ void odwroc_el(lista* pp) {
 
 
 int main(void) {
-    lista _l = NULL;   // główna lista
+    int nr_listy = 0;
+    lista l[NR] = { 0, 0 };
     int wybor = 0;
     int w2, w3;
     int ret;
@@ -60,14 +62,14 @@ int main(void) {
             " 12 - Odwroc iteracyjnie\n"
             " 13 - Odwroc rekurencyjnie\n"
 #ifdef cykliczna
-            "20 - "
-
+            " 20 - Zostaw w pierwszej liscie elementy niewyst. w drugiej (zad 12)"
 #endif
-        );
+            " 44 - Zmien zlapana liste \n"
+            " Obecnie zlapana lista: %d \n", nr_listy);
 
         printf("\nwybor = ");
         if (scanf("%d", &wybor) != 1) {
-            printf("Błąd wejścia — zakończono.\n");
+            printf("Blad wejscia — zakonczono.\n");
             break;
         }
 
@@ -79,27 +81,27 @@ int main(void) {
             case 1:
                 printf("\nklucz = ");
                 scanf("%d", &w2);
-                DNPL(&_l, w2);
+                DNPL(&l[nr_listy], w2);
                 break;
 
             case 2:
                 printf("\nklucz = ");
                 scanf("%d", &w2);
-                DNKL(&_l, w2);
+                DNKL(&l[nr_listy], w2);
                 break;
 
             case 3:
-                UPEL(&_l);
+                UPEL(&l[nr_listy]);
                 break;
 
             case 4:
-                UOEL(&_l);
+                UOEL(&l[nr_listy]);
                 break;
 
             case 5:
                 printf("\nklucz = ");
                 scanf("%d", &w2);
-                ret = odszukaj(&_l, w2);
+                ret = odszukaj(&l[nr_listy], w2);
                 if (ret > 0)
                     printf("\nZadany element jest %d w liscie.\n", ret);
                 else
@@ -123,7 +125,7 @@ int main(void) {
                 printf("\nPodaj liczbe elementow do usuniecia (0 oznacza wszystkie): ");
                 scanf("%d", &w3);
                 if (w3 == 0) w3 = -1;
-                UEL_k(&_l, w2, w3);
+                UEL_k(&l[nr_listy], w2, w3);
                 break;
 
             case 71:
@@ -132,28 +134,28 @@ int main(void) {
                 printf("\nPodaj liczbe elementow do usuniecia (0 oznacza wszystkie): ");
                 scanf("%d", &w3);
                 if (w3 == 0) w3 = -1;
-                UELR_k(&_l, w2, w3);
+                UELR_k(&l[nr_listy], w2, w3);
                 break;
 
             case 8:
-                Wczytaj(&_l, "lista.txt");
+                Wczytaj(&l[nr_listy], nr_listy == 0 ? "lista.txt" : "lista2.txt");
                 break;
 
             case 9:
-                Zapisz(&_l, "lista.txt");
+                Zapisz(&l[nr_listy], nr_listy == 0 ? "lista.txt" : "lista2.txt");
                 break;
 
             case 10:
-                WyswietlListe(_l);
+                WyswietlListe(l[nr_listy]);
                 break;
 
             case 11:
-                WyswietlOdTylu(_l);
+                WyswietlOdTylu(l[nr_listy]);
                 printf("|\n");
                 break;
 
             case 12:
-                odwroc_el(&_l);
+                odwroc_el(&l[nr_listy]);
                 printf("\nLista po odwroceniu:\n");
                 WyswietlListe(_l);
                 break;
@@ -163,6 +165,16 @@ int main(void) {
                 printf("\nLista po odwroceniu rekurencyjnym:\n");
                 WyswietlListe(_l);
                 break;
+
+#ifdef cykliczna
+            case 20:
+                zostaw_unikalne(&l[0], l[1]);
+                break;
+#endif
+            case 44:
+                nr_listy = ++nr_listy % NR;
+                break;
+
 
             default:
                 printf("Niepoprawny wybor.\n");
