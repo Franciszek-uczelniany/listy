@@ -1,4 +1,3 @@
-
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -136,6 +135,7 @@ void UOEL(lista* l) {
     return;
 }
 #else
+
 //  dla cyklicznej
 void UOEL(lista* l) {
     if (l == NULL || *l == NULL) return;
@@ -143,7 +143,7 @@ void UOEL(lista* l) {
     lista glowa = *l;
     lista obecny = *l;
     lista poprzedni = *l;
-    while ((obecny->nast)) {
+    while (obecny->nast != glowa) {
         poprzedni = obecny;
         obecny = obecny->nast;
     }
@@ -162,7 +162,7 @@ void UOEL(lista* l) {
 
 // Zwolnij listę (usuń wszystkie elementy)
 void ZL(lista *l) {
-    if (l == NULL) return;
+    if (*l == NULL) return;
     while (*l) {
         UOEL(l);
     }
@@ -257,16 +257,25 @@ void Wczytaj(lista* l, const char* filename) {
 
 // Zapisz listę do pliku
 void Zapisz(lista* l, const char* filename) {
-    if (l == NULL) return;
+    if (*l == NULL) return;
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
         printf("Nie można otworzyć pliku %s do zapisu\n", filename);
         return;
     }
 
+#ifndef cykliczna
+    // Poniższy kod NIE jest dla cyklicznej. Dla cyklicznej musimy zapamiętać pozycję głowy
     for (lista i = *l; i != NULL; i = i->nast) {
         fprintf(file, "%d\n", i->klucz);
     }
+#else
+    lista i = *l;
+    do {
+        fprintf(file, "%d\n", i->klucz);
+        i = i->nast;
+    } while (i != *l);   
+#endif
 
     fclose(file);
 }
@@ -327,11 +336,13 @@ lista znajdz(int klucz, lista wel) {
 // Wyświetl listę od tylu (rekurencyjnie)
 #ifndef wart
 #ifndef dwukierunkowa
+#ifndef cykliczna
 void WyswietlOdTylu(lista l) {
     if (l == NULL) return;
     WyswietlOdTylu(l->nast);
     printf("%d-", l->klucz);
 }
+#endif
 #endif
 #endif
 

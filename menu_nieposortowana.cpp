@@ -58,11 +58,13 @@ int main(void) {
             " 8  - Wczytaj zawartosc listy z pliku\n"
             " 9  - Zapisz zawartosc listy do pliku\n"
             " 10 - Wyswietl zawartosc listy\n"
+#ifndef cykliczna
             " 11 - Wyswietl od konca\n"
+#endif
             " 12 - Odwroc iteracyjnie\n"
             " 13 - Odwroc rekurencyjnie\n"
 #ifdef cykliczna
-            " 20 - Zostaw w pierwszej liscie elementy niewyst. w drugiej (zad 12)"
+            " 20 - Zostaw w pierwszej liscie elementy niewyst. w drugiej (zad 12)\n"
 #endif
             " 44 - Zmien zlapana liste \n"
             " Obecnie zlapana lista: %d \n", nr_listy);
@@ -148,22 +150,22 @@ int main(void) {
             case 10:
                 WyswietlListe(l[nr_listy]);
                 break;
-
+#ifndef cykliczna
             case 11:
                 WyswietlOdTylu(l[nr_listy]);
                 printf("|\n");
                 break;
-
+#endif
             case 12:
                 odwroc_el(&l[nr_listy]);
                 printf("\nLista po odwroceniu:\n");
-                WyswietlListe(_l);
+                WyswietlListe(l[nr_listy]);
                 break;
 
             case 13:
-                _l = odwroc_r(_l);
+                l[nr_listy] = odwroc_r(l[nr_listy]);
                 printf("\nLista po odwroceniu rekurencyjnym:\n");
-                WyswietlListe(_l);
+                WyswietlListe(l[nr_listy]);
                 break;
 
 #ifdef cykliczna

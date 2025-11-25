@@ -145,7 +145,7 @@ void usun_i(lista* l) {
 			break;
 
 			case 8:
-				Wczytaj(&l[nr_listy], nr_listy == 0 ? "lista.txt" : "lista2.txt");
+			Wczytaj(&l[nr_listy], nr_listy == 0 ? "lista.txt" : "lista2.txt");
 			break;
 
 			case 9:
