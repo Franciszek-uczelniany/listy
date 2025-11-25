@@ -98,11 +98,17 @@ lista DNPL(lista* l, int i) {
     p->klucz = i;
 
 
-    if (*l == NULL)  *l = p;
+    if (*l == NULL) {
+        *l = p;
+        p->nast = NULL;
+        p->pop = NULL;
+        return p;
+    }
     else p->nast = *l;
 #ifndef cykliczna
     p->pop = NULL;
-    if (*l && *l != p) (*l)->pop = p;
+    if (*l && *l != p) (*l)->pop = p;  // Jezeli lista nie byla pusta to element ktory byl 
+                                       // poprzednio glowa listy ma miec pop->p
 #else
     lista tail = p;
     if (*l != p) for (tail = (*l); tail->nast != (*l); tail = tail->nast);

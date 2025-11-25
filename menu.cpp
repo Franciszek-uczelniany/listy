@@ -26,33 +26,6 @@ void usun_i(lista* l) {
 
 }
 
-
-
-/*void usun_i(lista* l) {
-    if(*l==NULL) return;
-    lista t = *l; //aby nie modyfikować głowy
-    lista rem;
-    while (t->nast) {
-            if(t->nast->klucz == t->klucz) {
-                // usuń następny element
-                rem = t->nast;
-				//
-                if(t->nast->klucz != t->klucz) {
-					 t->nast = rem->nast;
-					 free(rem);
-					continue;}
-				else if(t->nast->nast && t->nast->nast->klucz == t->klucz) {
-
-				t->nast = rem->nast->nast;
-                free(rem->nast);
-				free(rem);
-				continue;
-            }
-            t = t->nast;
-    }
-
-}}
-*/
  int main(int argc, char* argv [])  {
 	 lista l[NR] = {0, 0};
 	int wybor = 0;
@@ -84,9 +57,6 @@ void usun_i(lista* l) {
 
 
 	" Obecnie zlapana lista: %d \n", nr_listy);
-
-
-
 
 		printf("\n wybor = ");
 		scanf("%d", &wybor);

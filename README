@@ -5,12 +5,11 @@ Lista gotowych zadan:
 1. 
 2. 
 5.
-6. (bez wartownika)
+6. (bez wartownika, tzn niby jest ale trzeba przetestowac)
 8. Nie jest to zadanie obowiązkowe, nie jest dokonczone
 9. dwukierunkowa - wymaga testow ale raczej ok, pytanie gdzie mam korzystać z tego ze jest lista dwukier.
---> zadanie 6 ze dla posortowanej rosnąco, wartownik jako zmienna globalna, która jest doklejana..
-10. todo, co to dokładnie oznacza ze jest lista cykliczna
-
+10.
+12. 
 
 
 
@@ -21,14 +20,4 @@ Lista gotowych zadan:
 
  1, 2, 5, 6, 9, 10, 12, 14, 16, 21, 22, 25 
  
- 9. zadanie 
-  Powtórzyć zadanie 1 dla liniowej listy dwukierunkowej nieposortowanej oraz zadanie 6 dla
- takiej listy posortowanej rosnąco
- 
- 10. Powtórzyć zadanie 1 dla nieposortowanych list cyklicznych a) jednokierunkowej i b) dwukie
-runkowej
-
- 12. Napisz funkcję, która dla dwóch nieposortowanych jednokierunkowych list cyklicznych usunie
- z pierwszej z nich wszystkie wartości występujące w drugiej
- 
- reszta zadan jest juz z drzew.....
+ od 14 zadania z drzew
