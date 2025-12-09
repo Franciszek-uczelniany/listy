@@ -9,12 +9,14 @@
 
 	int wybor = 0;
 	int w, w2, w3;
-	
+	drzewo l[NR] = { 0, 0 };
+	int ii = 0;
 
 	drzewo d = NULL;
-	drzewo* i;
+	drzewo* i;   // Czy bêdziemy musieli kiedyœ uzywaæ podwójnego wskaŸnika? Kiedy korzeñ zmieniamy...
 
 
+	/*
 	DodajD(&d, 4);
 	DodajD(&d, 6);
 	DodajD(&d, 10);
@@ -22,8 +24,7 @@
 	DodajD(&d, 1);
 	DodajD(&d, 0);
 	DodajD(&d, 3);
-
-//	DrukujDrzewo(d);
+	DrukujDrzewo(d); */
 	
 
 	while(1) {
@@ -38,7 +39,9 @@
        " 5 - wyznacz maksimum\n"
        " 6 - wyznacz poprzednika\n"
        " 7 - wyznacz nastepnika\n\n"
-       " 10 - Drukuj");
+       " 10 - Drukuj\n"
+
+	" Obecnie zlapane drzewo: %d \n", ii);
 
 
 		printf("\n wybor = ");
@@ -83,6 +86,10 @@
 
 		case 10:
 			DrukujDrzewo(d);
+			break;
+
+		case 11:
+			ii = ++ii % NR;
 			break;
 };
 

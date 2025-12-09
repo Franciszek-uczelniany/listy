@@ -1,0 +1,7 @@
+﻿  drzewo.cpp
+  menu.cpp
+C:\Users\pk\drz\drzewo\menu.cpp(11,13): warning C4101: "w3": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\pk\drz\drzewo\menu.cpp(15,10): warning C4101: "i": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\pk\drz\drzewo\menu.cpp(11,9): warning C4101: "w2": lokalna zmienna, do której nie istnieje odwołanie
+  Generowanie kodu...
+  drzewo.vcxproj -> C:\Users\pk\drz\drzewo\x64\Debug\drzewo.exe

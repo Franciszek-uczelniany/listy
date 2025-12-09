@@ -2,6 +2,35 @@
 #include <stdlib.h>
 #include "drzewo.h"
 
+// n - maksymalna ilosc elementów w tablicy dst
+// poz - pozycja w tablicy od której mo¿emy zacz¹æ wpisywanie 
+// Zwracana wartoœæ to iloœæ zapisanych elementów do tablicy //////
+unsigned Zapisz_tab(drzewo d, int* dst, int n, int poz) {
+    if (d == NULL) return;
+
+    Zapisz_tab(d->lewy, dst, n);
+    Zapisz_tab(d, dst, n);
+    Zapisz_tab(d->prawy, dst, n);
+}
+
+///todo ^^^
+
+
+
+int czy_rowne(drzewo d, drzewo f) {
+    // Zapisujemy zawartoœæ obu drzew do dwóch tablic, nastêpnie porównujemy wartoœci
+    // Aby by³o szybciej nie sprawdzamy obu tablic element po elemencie, zamiast tego
+    // 1. Sprawdzamy czy iloœæ elementu w drzewie d jest równa iloœci w drzewie f
+    // 2. Sprawdzamy czy wartoœci minimalne i maksymalne s¹ sobie równe
+    // 3. Sprawdzamy tablicê element po elemencie
+
+    // problem: operujemy na drzewie ³añcuchów znakowych.....
+
+
+    int* d_vars = (int*) malloc(1000 * sizeof(int));
+    int* f_vars = (int*) malloc(1000 * sizeof(int));
+    unsigned d_count = 0, f_count = 0;
+}
 
 int max(drzewo d) {
 
