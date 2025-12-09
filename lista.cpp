@@ -6,6 +6,10 @@
 
 
 //Funkcja: Dodaj do posortowanej Listy
+/*
+todo: czy to dla dwukierunkowej czy nie, goto end zastosowac?
+todo: brak dla wartownika.
+*/
 void DL_sort(lista* l, int klucz) {
 	if (l == NULL) return;
 
@@ -17,6 +21,9 @@ void DL_sort(lista* l, int klucz) {
 	if (*l == 0) {
 		*l = nowy;
 		nowy->nast = NULL;
+#ifdef dwukierunkowa
+		nowy->pop = NULL
+#endif
 		return;
 	}
 
@@ -24,15 +31,27 @@ void DL_sort(lista* l, int klucz) {
 	if (klucz < (*l)->klucz) {
 		nowy->nast = *l;
 		*l = nowy;
+#ifdef dwukierunkowa
+		nowy->pop = NULL
+#endif
 		return;
 	}
 	lista pop, nast;
 	pop = (*l);
 	nast = (*l)->nast;
 
+	// Nastepnie ponizej my tylko szukany wskaznika na poprzedni element, ale nie 
+	// musimy tego robic bo mamy funkcje znajdz.
+
+#ifdef wartownik
+	for (nast = (*l)->nast; nast->klucz < klucz; nast = nast->nast) {
+		pop = nast;
+}
+#else
 	for (nast = (*l)->nast; nast && nast->klucz < klucz; nast = nast->nast) {
 		pop = nast;
 	}
+#endif
 
 	pop->nast = nowy;
 	nowy->nast = nast;
