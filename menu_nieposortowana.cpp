@@ -118,7 +118,7 @@ int main(void) {
                 printf("\n0 - przed,  1 - za szukany element\n");
                 int side;
                 scanf("%d", &side);
-             //   DL(&_l, w2, w3, side);
+                
                 break;
 
             case 7:

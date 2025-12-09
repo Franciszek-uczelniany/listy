@@ -426,16 +426,21 @@ void Wyswietl_Ostatni(lista *l) {
 // Strona: -1 czyli przed wskazanym elementem,
 // 0 czyli zastąp dany element
 // 1 to za danym elementem
-#ifdef dwukierunkowa
+
+
+// tutaj byla wspaniala optymalizacja ale nie zostala zapisana
+// takze todo napisac te lifehacki raz jeszcze
 void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona) {
     if (!*p) return;
     lista schowek, szukany, wstawiany_el;
 
-    switch (strona) {
+    szukany = znajdz(wskazany, *p);
+    if (!szukany) return;
+
+ switch (strona) {
 
     case -1:
-        szukany = znajdz(wskazany, *p);
-        if (!szukany) return;
+;
         schowek = szukany->pop;							// zapisujemy wartość wskaznika przed wskazanym elemente, poniewaz do funkcji dodaj_na_poczatek przekazujemy wskaznik na wskaznik, wiec ulegnie zmianie wsk 'szukany'
         // zapisujemy szukany->pop poniewaz nas interesuje ściśle mówiąc element przed tym szukanym elementem.
         wstawiany_el = DNPL(&szukany, wstawiany);
@@ -447,14 +452,10 @@ void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona
         break;
 
     case 0:
-        szukany = znajdz(wskazany, *p);
-        if (!szukany) return;
         szukany->klucz = wstawiany;
         break;
 
     case 1:
-        szukany = znajdz(wskazany, *p);
-        if (!szukany) return;
         wstawiany_el = DNPL(&szukany->nast, wstawiany);
         wstawiany_el->pop = szukany;
         break;
@@ -464,7 +465,7 @@ void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona
         break;
     }
 }
-#endif
+
 
 /*
  Usuń wszystkie/podaną liczbę wystąpień elementu o kluczu k (iteracyjnie)
