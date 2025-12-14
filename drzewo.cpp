@@ -5,13 +5,15 @@
 // n - maksymalna ilosc elementów w tablicy dst
 // poz - pozycja w tablicy od której mo¿emy zacz¹æ wpisywanie 
 // Zwracana wartoœæ to iloœæ zapisanych elementów do tablicy //////
+/*clear
+
 unsigned Zapisz_tab(drzewo d, int* dst, int n, int poz) {
-    if (d == NULL) return;
+    if (d == NULL) return 0;
 
     Zapisz_tab(d->lewy, dst, n);
     Zapisz_tab(d, dst, n);
     Zapisz_tab(d->prawy, dst, n);
-}
+} */
 
 ///todo ^^^
 
@@ -183,8 +185,11 @@ void poprzednik(drzewo d, int liczba) {
 
 void nastepnik(drzewo d, int liczba) {
 
-    drzewo i = d;
+    drzewo i = d;   //po co? drzewo to nie wsk na wskaznik
     int pop = -255;
+
+
+    // logika bled,a do napisania od nowa
 
     do {
         

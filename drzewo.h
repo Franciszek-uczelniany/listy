@@ -1,7 +1,43 @@
-
+#include <string>
 
 #ifndef DRZEWO_H
 #define DRZEWO_H
+
+using namespace std;
+
+struct weld
+{
+	char* wsp;
+	unsigned short len;
+	int licznik;
+	struct weld* l;
+	struct weld* p;
+	struct weld* o;
+	
+};
+
+class Drzewo {
+
+public:
+
+weld* l;
+weld* p;
+weld* o;	//o jak ojciec
+int licznik;
+char* x;
+unsigned short len;
+
+Drzewo();
+Drzewo(const char* );
+
+bool operator ==( const weld& );
+bool operator >( const weld& );
+bool operator >=( const weld& );
+bool operator <( const weld& );
+bool operator <=( const weld& );
+weld* nastepnik();
+weld* poprzednik();
+};
 
 struct elDrzewaB
 {
