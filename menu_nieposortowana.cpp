@@ -118,7 +118,7 @@ int main(void) {
                 printf("\n0 - przed,  1 - za szukany element\n");
                 int side;
                 scanf("%d", &side);
-                
+                dodaj_we_wskazane_miejsce(w2, &l[nr_listy], w3, side);
                 break;
 
             case 7:

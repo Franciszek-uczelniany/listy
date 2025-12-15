@@ -426,10 +426,6 @@ void Wyswietl_Ostatni(lista *l) {
 // Strona: -1 czyli przed wskazanym elementem,
 // 0 czyli zastąp dany element
 // 1 to za danym elementem
-
-
-// tutaj byla wspaniala optymalizacja ale nie zostala zapisana
-// takze todo napisac te lifehacki raz jeszcze
 void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona) {
     if (!*p) return;
     lista schowek, szukany, wstawiany_el;
@@ -437,27 +433,24 @@ void dodaj_we_wskazane_miejsce(int wskazany, lista* p, int wstawiany, int strona
     szukany = znajdz(wskazany, *p);
     if (!szukany) return;
 
+    wstawiany_el = (lista) malloc(sizeof(elListy));
+
  switch (strona) {
 
     case -1:
-;
-        schowek = szukany->pop;							// zapisujemy wartość wskaznika przed wskazanym elemente, poniewaz do funkcji dodaj_na_poczatek przekazujemy wskaznik na wskaznik, wiec ulegnie zmianie wsk 'szukany'
-        // zapisujemy szukany->pop poniewaz nas interesuje ściśle mówiąc element przed tym szukanym elementem.
-        wstawiany_el = DNPL(&szukany, wstawiany);
-        if (schowek) {
-            schowek->nast = wstawiany_el;
-            wstawiany_el->pop = schowek;
-        }
-        else *p = wstawiany_el;							//zrobilismy lokalną kopię wskaźnika na listę do lokalnej zmiennej 'szukany', ale jeśli szukany jest pierwszym elementem to musimy zaaktualizować głowę listy														
-        break;
+
+        wstawiany_el->klucz = szukany->klucz;
+        wstawiany_el->nast = szukany->nast;
+        szukany->klucz = wstawiany;
 
     case 0:
         szukany->klucz = wstawiany;
         break;
 
     case 1:
-        wstawiany_el = DNPL(&szukany->nast, wstawiany);
-        wstawiany_el->pop = szukany;
+        wstawiany_el->nast = szukany->nast;
+        szukany->nast = wstawiany_el;
+        wstawiany_el->klucz = wstawiany;
         break;
 
     default:
