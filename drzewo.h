@@ -25,7 +25,7 @@ weld* p;
 weld* o;	//o jak ojciec
 int licznik;
 char* x;
-unsigned short len;
+unsigned short len;	// dlugosc tablicy klucza
 
 Drzewo();
 Drzewo(const char* );
@@ -35,6 +35,8 @@ bool operator >( const weld& );
 bool operator >=( const weld& );
 bool operator <( const weld& );
 bool operator <=( const weld& );
+//todo: operator zwracający klucz w formie unsigned long...
+// jesli taka potrzeba ofc
 weld* nastepnik();
 weld* poprzednik();
 };

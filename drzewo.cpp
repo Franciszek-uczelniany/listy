@@ -1,6 +1,73 @@
-#include <stdio.h>
+#include <iostream>
+#include <cstring>
 #include <stdlib.h>
 #include "drzewo.h"
+
+Drzewo::Drzewo()
+{
+    l = p = o = nullptr;
+    licznik = 0;
+    x = nullptr;
+    len = 0;
+}
+
+Drzewo::Drzewo(const char* s)
+{
+    len = std::strlen(s);
+    x = new char[len + 1];
+    std::strcpy(x, s);
+
+    l = p = o = nullptr;
+    licznik = 1;
+}
+
+// 1 - A jest wieksze od B
+// 0, A == B
+// -1 A<B
+int porownaj(const char* a, unsigned short la,
+             const char* b, unsigned short lb)
+{
+    if (a == nullptr || b == nullptr) return -3;
+    if (la < lb) return -1;
+    if (la > lb) return 1;
+    unsigned short min = (la < lb) ? la : lb;
+
+    for (unsigned short i = 0; i < min; ++i)
+    {
+        // 9 to 71 miejsce w ascii, 0 przed nim
+        if (a[i] < b[i]) return -1;
+        if (a[i] > b[i]) return 1;
+    }
+
+
+    return 0;
+}
+
+bool Drzewo::operator==(const weld& w)
+{
+    return porownaj(x, len, w.wsp, w.len) == 0;
+}
+
+bool Drzewo::operator<(const weld& w)
+{
+    return porownaj(x, len, w.wsp, w.len) < 0;
+}
+
+bool Drzewo::operator>(const weld& w)
+{
+    return porownaj(x, len, w.wsp, w.len) > 0;
+}
+
+bool Drzewo::operator<=(const weld& w)
+{
+    return porownaj(x, len, w.wsp, w.len) <= 0;
+}
+
+bool Drzewo::operator>=(const weld& w)
+{
+    return porownaj(x, len, w.wsp, w.len) >= 0;
+}
+
 
 // n - maksymalna ilosc elementów w tablicy dst
 // poz - pozycja w tablicy od której mo¿emy zacz¹æ wpisywanie 
