@@ -1,4 +1,4 @@
-#include <algorithm>    //c++
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,7 +7,7 @@
 #define N 10000 // Rozmiar tablicy do posortowania
 #define M 1000  // Liczba powtórzeń dla każdego z algorytmów
 
-// Struktura do przechowywania statystyk
+
 struct stats {
     unsigned long long porownania;
     unsigned long long podstawienia;
@@ -36,7 +36,6 @@ void copy_array(int* source, int* dest, int size);
 // Funkcja do agregacji statystyk
 struct summary aggregate_stats(struct stats* results, int count);
 
-// Funkcja główna
 int main() {
     srand(time(NULL));
     int* original_array = (int*)malloc(sizeof(int) * N);
@@ -65,38 +64,35 @@ int main() {
 
         copy_array(original_array, working_array, N);
         quick_stats[i] = quick_sort(working_array, N);
+        
     }
 
-    /*
-    printf("\nAlgorytm\tMIN Podstawień\tMAX Podstawień\tŚR Podstawień\tMIN Porównań\tMAX Porównań\tŚR Porównań\n");
+    
 
-    struct stats bubble_summary = aggregate_stats(bubble_stats, M);
-    printf("Bąbelkowe\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\n",
-           bubble_summary.podstawienia, bubble_summary.podstawienia, bubble_summary.podstawienia,
-           bubble_summary.porownania, bubble_summary.porownania, bubble_summary.porownania);
-        //todo: logika w tym miejscu jest kompletnie schrzaniona.
+    struct summary bubble_summary = aggregate_stats(bubble_stats, M);
+    printf("\nsortowanie babelkowe \n ========= \n min podstawien: %lld\n max podstawien: %lld\n srednia podstawien: %Lf"
+        "\n min porownan: %lld\n max porownan: %lld\n srednia porownan: %Lf",
+        bubble_summary.min_podst, bubble_summary.max_podst, bubble_summary.sr_podst, bubble_summary.min_porownan, bubble_summary.max_porownan, bubble_summary.sr_porownan);
 
+    struct summary shell_summary = aggregate_stats(shell_stats, M);
+    printf("\nsortowanie shella \n ========= \n min podstawien: %lld\n max podstawien: %lld\n srednia podstawien: %Lf"
+        "\n min porownan: %lld\n max porownan: %lld\n srednia porownan: %Lf",
+        shell_summary.min_podst, shell_summary.max_podst, shell_summary.sr_podst, shell_summary.min_porownan, shell_summary.max_porownan, shell_summary.sr_porownan);
 
-    struct stats insertion_summary = aggregate_stats(insertion_stats, M);
-    printf("Wstawianie\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\n",
-           insertion_summary.podstawienia, insertion_summary.podstawienia, insertion_summary.podstawienia,
-           insertion_summary.porownania, insertion_summary.porownania, insertion_summary.porownania);
+    struct summary quick_summary = aggregate_stats(quick_stats, M);
+    printf("\nquick sort \n ========= \n min podstawien: %lld\n max podstawien: %lld\n srednia podstawien: %Lf"
+        "\n min porownan: %lld\n max porownan: %lld\n srednia porownan: %Lf",
+        quick_summary.min_podst, quick_summary.max_podst, quick_summary.sr_podst, quick_summary.min_porownan, quick_summary.max_porownan, quick_summary.sr_porownan);
 
-    struct stats shell_summary = aggregate_stats(shell_stats, M);
-    printf("Shell\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\n",
-           shell_summary.podstawienia, shell_summary.podstawienia, shell_summary.podstawienia,
-           shell_summary.porownania, shell_summary.porownania, shell_summary.porownania);
+    struct summary insertion_summary = aggregate_stats(insertion_stats, M);
+    printf("\nsortowanie przez wstawianie \n ================ \n min podstawien: %lld\n max podstawien: %lld\n srednia podstawien: %Lf"
+        "\n min porownan: %lld\n max porownan: %lld\n srednia porownan: %Lf",
+        insertion_summary.min_podst, insertion_summary.max_podst, insertion_summary.sr_podst, insertion_summary.min_porownan, insertion_summary.max_porownan, insertion_summary.sr_porownan);
 
-    struct stats quick_summary = aggregate_stats(quick_stats, M);
-    printf("QuickSort\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\n",
-           quick_summary.podstawienia, quick_summary.podstawienia, quick_summary.podstawienia,
-           quick_summary.porownania, quick_summary.porownania, quick_summary.porownania);
-
-    // Zwolnienie pamięci
     free(original_array);
     free(working_array);
 
-*/
+
 
     return 0;
 }
