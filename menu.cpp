@@ -8,19 +8,9 @@
 
 	int wybor = 0;
 	int w, w2, w3;
-	weld* l[NR] = { 0, 0 };
 	int ii = 0;
 
-	/*
-	DodajD(&d, 4);
-	DodajD(&d, 6);
-	DodajD(&d, 10);
-	DodajD(&d, 2);
-	DodajD(&d, 1);
-	DodajD(&d, 0);
-	DodajD(&d, 3);
-	DrukujDrzewo(d); */
-	
+	Drzewo l[NR];	
 
 	while(1) {
 		
@@ -49,7 +39,7 @@
 		case 1:
 			printf("\n i=");
 			scanf("%d", &w);
-		//todo	DodajD(&d, w);
+			l[ii].DodajD(w);
 			break;
 
 		case 2:
@@ -80,6 +70,7 @@
 			break;
 
 		case 10:
+			DrukujDrzewo(&l[ii]);
 			break;
 
 		case 11:
