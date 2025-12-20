@@ -1,19 +1,27 @@
+#include <algorithm>    //c++
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <limits.h>
 
-// Definicja stałych
-#define N 10000 // Rozmiar tablicy
-#define M 1000  // Liczba powtórzeń
+#define N 10000 // Rozmiar tablicy do posortowania
+#define M 1000  // Liczba powtórzeń dla każdego z algorytmów
 
 // Struktura do przechowywania statystyk
 struct stats {
-    long porownania;
-    long podstawienia;
+    unsigned long long porownania;
+    unsigned long long podstawienia;
 };
 
-// Funkcje sortujące
+struct summary {
+    unsigned long long min_porownan;
+    unsigned long long max_porownan;
+    long double sr_porownan;
+    unsigned long long min_podst;
+    unsigned long long max_podst;
+    long double sr_podst;
+};
+
 struct stats bubble_sort(int* tablica, int size);
 struct stats insertion_sort(int* tablica, int size);
 struct stats shell_sort(int* tablica, int size);
@@ -22,10 +30,11 @@ void quick_sort_recursive(int* A, int low, int high, struct stats* stat);
 int partition(int* A, int low, int high, struct stats* stat);
 
 // Funkcja pomocnicza do kopiowania tablicy
+// todo: zastapic funkcja memcpy
 void copy_array(int* source, int* dest, int size);
 
 // Funkcja do agregacji statystyk
-struct stats aggregate_stats(struct stats* results, int count);
+struct summary aggregate_stats(struct stats* results, int count);
 
 // Funkcja główna
 int main() {
@@ -33,13 +42,15 @@ int main() {
     int* original_array = (int*)malloc(sizeof(int) * N);
     int* working_array = (int*)malloc(sizeof(int) * N);
 
+    // Uwaga: my tutaj tworzymy TABLICĘ struktur przechowujące liczbę porównań i podstawień
+    // następnie funkcja agregująca dane zajmuje się np wyliczeniem wartości średnich
     struct stats bubble_stats[M], insertion_stats[M], shell_stats[M], quick_stats[M];
 
-    // Główna pętla testowa
+    // Główna pętla testowa, która zostaje wykonana M razy, aby przetestować wydajność każdego z algorytmów
     for (int i = 0; i < M; i++) {
-        // Generowanie losowej tablicy
+        // Generowanie losowych danych, które mają zostać posortowane
         for (int j = 0; j < N; j++) {
-            original_array[j] = rand() % 10000; // Losowe liczby 0-9999
+            original_array[j] = rand() % 10000;
         }
 
         // Sortowanie i zbieranie statystyk dla każdej metody
@@ -56,13 +67,15 @@ int main() {
         quick_stats[i] = quick_sort(working_array, N);
     }
 
-    // Wyliczanie i wyświetlanie wyników
+    /*
     printf("\nAlgorytm\tMIN Podstawień\tMAX Podstawień\tŚR Podstawień\tMIN Porównań\tMAX Porównań\tŚR Porównań\n");
 
     struct stats bubble_summary = aggregate_stats(bubble_stats, M);
     printf("Bąbelkowe\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\n",
            bubble_summary.podstawienia, bubble_summary.podstawienia, bubble_summary.podstawienia,
            bubble_summary.porownania, bubble_summary.porownania, bubble_summary.porownania);
+        //todo: logika w tym miejscu jest kompletnie schrzaniona.
+
 
     struct stats insertion_summary = aggregate_stats(insertion_stats, M);
     printf("Wstawianie\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\t\t%ld\n",
@@ -82,6 +95,8 @@ int main() {
     // Zwolnienie pamięci
     free(original_array);
     free(working_array);
+
+*/
 
     return 0;
 }
@@ -178,10 +193,27 @@ void copy_array(int* source, int* dest, int size) {
     }
 }
 
-struct stats aggregate_stats(struct stats* results, int count) {
-    struct stats summary = {LONG_MAX, LONG_MAX};
+struct summary aggregate_stats(struct stats* results, int count) {
+    struct summary podsu = {};
+    podsu.min_podst = results[0].podstawienia;
+    podsu.max_podst = results[0].podstawienia;
+    podsu.min_porownan = results[0].porownania;
+    podsu.max_porownan = results[0].porownania;
+
     for (int i = 0; i < count; i++) {
-        summary.podstawienia = results[i].podstawienia;
+            if(results[i].podstawienia > podsu.max_podst) podsu.max_podst = results[i].podstawienia;
+            if(results[i].porownania > podsu.max_porownan) podsu.max_porownan = results[i].porownania;
+            if(results[i].porownania < podsu.min_porownan) podsu.min_porownan = results[i].porownania;
+            if(results[i].podstawienia < podsu.min_podst) podsu.min_podst = results[i].podstawienia;
+
+            podsu.sr_podst += results[i].podstawienia;
+            podsu.sr_porownan += results[i].porownania;
+
+            //co 100 iteracji wykonaj dzielenie, aby uzyskać średnią arytmetyczną
+            if (i%100 == 0) {
+                podsu.sr_podst /= count;
+                podsu.sr_porownan /= count;
+            }
     }
-    return summary;
+    return podsu;
 }
