@@ -89,6 +89,7 @@ int main() {
         "\n min porownan: %lld\n max porownan: %lld\n srednia porownan: %Lf",
         insertion_summary.min_podst, insertion_summary.max_podst, insertion_summary.sr_podst, insertion_summary.min_porownan, insertion_summary.max_porownan, insertion_summary.sr_porownan);
 
+    printf("\n");
     free(original_array);
     free(working_array);
 
