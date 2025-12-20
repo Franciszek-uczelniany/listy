@@ -4,9 +4,6 @@
 
 #define NR 2
 
-
-
-
  int main(int argc, char* argv [])  {
 
 	int wybor = 0;
@@ -83,7 +80,6 @@
 			break;
 
 		case 10:
-//			DrukujDrzewo(d);
 			break;
 
 		case 11:
