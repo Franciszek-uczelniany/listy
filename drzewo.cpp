@@ -170,3 +170,19 @@ void DrukujDrzewo(Drzewo* d) {
     auto ret = treeToMatrix(d);
     drukuj(ret);
 }
+
+Drzewo* Drzewo::min() {
+    auto l = this->l;
+    while(l) l = this->l;
+    return l; 
+}
+
+Drzewo* Drzewo::max() {
+    auto p = this->p;
+    while(p) p = this->p;
+    return p; 
+}
+
+void Drzewo::Pokaz() {
+    if(data->wsp) printf("\n %s", data->wsp);
+}

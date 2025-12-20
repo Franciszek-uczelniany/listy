@@ -23,9 +23,10 @@ class Drzewo {
 
 public:
 
+// lewy, prawy, ojciec
 Drzewo* l;
 Drzewo* p;
-Drzewo* o;	//o jak ojciec
+Drzewo* o;
 weld* data;	// tutaj skladujemy obecna wartosc
 
 Drzewo();
@@ -45,6 +46,10 @@ bool operator <=( const weld& );
 // jesli taka potrzeba ofc
 weld* nastepnik();
 weld* poprzednik();
+Drzewo* min();
+Drzewo* max();
+
+void Pokaz();	// Funkcja sluzaca do pokazania klucza węzła lub drzewa
 };
 
 

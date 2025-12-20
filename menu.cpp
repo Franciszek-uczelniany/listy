@@ -10,6 +10,7 @@
 	int w, w2, w3;
 	int ii = 0;
 
+	Drzewo* s;
 	Drzewo l[NR];	
 
 	while(1) {
@@ -49,11 +50,13 @@
 			break;
 
 		case 4:
-//			min(d);
-			break;
+			s = l[ii].min();
+			s->Pokaz();
+		break;
 
 		case 5:
-//			max(d);
+			s = l[ii].max();
+			s->Pokaz();
 			break;
 
 
@@ -61,21 +64,21 @@
 			printf("\n i=");
 			scanf("%d", &w);
 //			poprzednik(d, w);
-			break;
+		break;
 
 		case 7:
 			printf("\n i=");
 			scanf("%d", &w);
 //			nastepnik(d, w);
-			break;
+		break;
 
 		case 10:
 			DrukujDrzewo(&l[ii]);
-			break;
+		break;
 
 		case 11:
 			ii = ++ii % NR;
-			break;
+		break;
 };
 
 	};
