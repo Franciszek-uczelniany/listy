@@ -41,18 +41,7 @@ weld* nastepnik();
 weld* poprzednik();
 };
 
-struct elDrzewaB
-{
-	char klucz[10];
-	int licznik;
-	struct elDrzewaB *lewy;
-	struct elDrzewaB *prawy;
-	struct elDrzewaB *ojciec;
-	
-};
-typedef struct elDrzewaB wDrzewaB;
-typedef wDrzewaB* drzewo;
-
+/*
 void DrukujDrzewo0(drzewo d, int glebokosc);
 void DrukujDrzewo(drzewo d);
 void DodajD(drzewo* d, int klucz);
@@ -68,5 +57,7 @@ drzewo* el_Max(drzewo* d);
 
 void poprzednik(drzewo d, int liczba);
 void nastepnik(drzewo d, int liczba);
+
+*/
 
 #endif // DRZEWO_H

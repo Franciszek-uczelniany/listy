@@ -5,16 +5,14 @@
 #define NR 2
 
 
+
+
  int main(int argc, char* argv [])  {
 
 	int wybor = 0;
 	int w, w2, w3;
-	drzewo l[NR] = { 0, 0 };
+	weld* l[NR] = { 0, 0 };
 	int ii = 0;
-
-	drzewo d = NULL;
-	drzewo* i;   // Czy bêdziemy musieli kiedyœ uzywaæ podwójnego wskaŸnika? Kiedy korzeñ zmieniamy...
-
 
 	/*
 	DodajD(&d, 4);
@@ -54,38 +52,38 @@
 		case 1:
 			printf("\n i=");
 			scanf("%d", &w);
-			DodajD(&d, w);
+		//todo	DodajD(&d, w);
 			break;
 
 		case 2:
 			printf("\n i=");
 			scanf("%d", &w);
-			UsunD(&d, w);
+	//todo		UsunD(&d, w);
 			break;
 
 		case 4:
-			min(d);
+//			min(d);
 			break;
 
 		case 5:
-			max(d);
+//			max(d);
 			break;
 
 
 		case 6:
 			printf("\n i=");
 			scanf("%d", &w);
-			poprzednik(d, w);
+//			poprzednik(d, w);
 			break;
 
 		case 7:
 			printf("\n i=");
 			scanf("%d", &w);
-			nastepnik(d, w);
+//			nastepnik(d, w);
 			break;
 
 		case 10:
-			DrukujDrzewo(d);
+//			DrukujDrzewo(d);
 			break;
 
 		case 11:

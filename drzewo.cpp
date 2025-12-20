@@ -2,6 +2,9 @@
 #include <cstring>
 #include <stdlib.h>
 #include "drzewo.h"
+#include <bits/stdc++.h>
+
+vector<vector<char*>> treeToMatrix(weld* root);
 
 Drzewo::Drzewo()
 {
@@ -85,7 +88,7 @@ unsigned Zapisz_tab(drzewo d, int* dst, int n, int poz) {
 ///todo ^^^
 
 
-
+/*
 int czy_rowne(drzewo d, drzewo f) {
     // Zapisujemy zawartoœæ obu drzew do dwóch tablic, nastêpnie porównujemy wartoœci
     // Aby by³o szybciej nie sprawdzamy obu tablic element po elemencie, zamiast tego
@@ -95,11 +98,9 @@ int czy_rowne(drzewo d, drzewo f) {
 
     // problem: operujemy na drzewie ³añcuchów znakowych.....
 
-
-    int* d_vars = (int*) malloc(1000 * sizeof(int));
-    int* f_vars = (int*) malloc(1000 * sizeof(int));
-    unsigned d_count = 0, f_count = 0;
 }
+
+
 
 int max(drzewo d) {
 
@@ -146,12 +147,11 @@ void DrukujDrzewo0(drzewo d, int glebokosc) {
     printf("%s\n", d->klucz);
     DrukujDrzewo0(d->prawy, glebokosc + 1);
 }
+*/
 
-void DrukujDrzewo(drzewo d) {
-    DrukujDrzewo0(d, 0);
-    putchar(' ');
-}
 
+
+/*
 void DodajD(drzewo* d, int klucz) {
     if (*d == NULL) {
         *d = (drzewo)malloc(sizeof(wDrzewaB));
@@ -223,6 +223,11 @@ void ZwolnijD(drzewo* d) {
     *d = NULL;
 }
 
+
+*/
+
+
+/*
 void poprzednik(drzewo d, int liczba) {
 
     drzewo i = d;
@@ -279,4 +284,76 @@ void nastepnik(drzewo d, int liczba) {
 
     printf("\n Nastepnik: %d", pop);
 
+}
+
+*/
+
+void drukuj(vector<vector<char*>> &arr) {
+    for (auto &row : arr) {
+        for (auto &cell : row) {
+            if (cell == nullptr) {
+                cout << " ";
+            }
+            else {
+                cout << cell;
+            }
+        }
+        cout << endl;
+    }
+}
+
+int wysokosc(weld* root) {
+    if (!root) {
+        return -1;
+    }
+
+    int l = wysokosc(root->l);
+    int p = wysokosc(root->p);
+
+    return max(l, p) + 1;
+}
+
+// To jest potrzebne do wyswietlania drzewa, output jest w ans
+void inorder(weld *root, int row, int col, int height,
+             vector<vector<char*>> &ans) {
+    if (!root) {
+        return;
+    }
+
+    int offset = pow(2, height - row - 1);
+
+   // przejdz po lewym drzewie, czyli 
+   //lewe <= obecne < Prawe
+    if (root->l) {
+        inorder(root->l, row + 1, col - offset, height, ans);
+    }
+
+    ans[row][col] = root->wsp;
+
+    if (root->p) {
+        inorder(root->p, row + 1, col + offset, height, ans);
+    }
+}
+
+
+
+vector<vector<char*>> treeToMatrix(weld* root) {
+
+    int h = wysokosc(root);
+
+    int rows = h + 1;
+    int cols = pow(2, h + 1) - 1;
+
+    vector<vector<char*>> ans(rows, vector<char*>());
+
+    inorder(root, 0, (cols - 1) / 2, h, ans);
+
+    return ans;
+}
+
+
+ void DrukujDrzewo(weld* d) {
+    std::vector<vector<char*>> ret = treeToMatrix(d);
+
+    drukuj(ret);
 }
