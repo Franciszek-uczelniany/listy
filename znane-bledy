@@ -1,0 +1,20 @@
+wyswietlanie od czasu commitu 
+commit bdf9ad794417b97dd7b5acb814ed0dd20a338e16
+Author: Franciszek Moszczynski <318074@stud.umk.pl>
+Date:   Mon Dec 29 08:04:30 2025 +0100
+
+    poprawki
+
+
+jest niepoprawne np dodaj 10 dod 5 dodaj 12 
+5 bedzie z prawej strony
+
+ogolnie nie da sie dla pierwszego lewego aby byl ze strony lewej
+
+
+poprzednik dla korzenia nie dziala powod to korzen->r nie jest ustawiony lub jest niepoprawny, cos z tym rodzicem jest nie w porzadku.
+
+Zadanie 22 wymaga od nas aby sortowanie odbywalo sie alfabetycznie, czyli dla Drzewa nalezy dodac rowniez sprawdzenie czy to co dodajemy jest liczbą czy 
+ciągiem znakow
+
+w 'posortowana' z README zrobic porzadek

@@ -48,5 +48,7 @@ public:
 };
 
 void DrukujDrzewo(Drzewo* d);
+int pord(Drzewo* p, Drzewo* q);
+void heapsort(int *A, int n);
 
 #endif

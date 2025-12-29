@@ -108,6 +108,7 @@ Drzewo* Drzewo::max() {
 
 void Drzewo::Pokaz() {
     if (data && data->wsp) cout << data->wsp << endl;
+    else cout << "\nPusty element!";
 }
 
 void drukuj(const vector<vector<char*>>& mat) {
@@ -151,7 +152,7 @@ void DrukujDrzewo(Drzewo* d) {
 }
 
 Drzewo* Drzewo::poprzednik() {
-    
+    return poprzednik(this);
 }
 
 Drzewo* Drzewo::poprzednik(Drzewo* d) {
@@ -183,6 +184,10 @@ Drzewo* Drzewo::nastepnik(Drzewo* d) {
     return d;
 }
 
+Drzewo* Drzewo::nastepnik() {
+    return nastepnik(this);
+}
+
 Drzewo* Drzewo::znajdz(int var) {
     if(*this == var) return this;
 
@@ -195,4 +200,51 @@ Drzewo* Drzewo::znajdz(int var) {
 
     if (!p) return nullptr;
     return p->znajdz(var);
+}
+
+// Porownaj drzewa
+int pord(Drzewo* p, Drzewo* q) {
+    p = p->min();
+    q = q->min();
+    while(p->data->wsp!=nullptr && q->data->wsp!=nullptr ) {
+        if(p != q) return 0;
+        p = p->nastepnik();
+        q = q->nastepnik();
+    }
+
+    return p==q;
+}
+
+// A to jest tablica w której s? przechowywane nasze warto?ci zmiennych
+// size to jest wielko?? kopca
+// i to jest jaki? tam element w tablicy od którego zaczynany sortowa?
+void heapify(int *A, int i, int size){
+    int l, r, x, largest;
+    l = 2*i + 1;
+    r = 2*1 + 2;
+    if(l < size && A[l] > A[i]) largest = l;
+    else largest = i;
+    if(r < size && A[r] > A[largest]) largest = r;
+    if(largest != i) {
+        x = A[i];
+        A[i] = A[largest];
+        A[largest] = x;
+        heapify(A, largest, size);
+    }
+}
+
+void buildheap(int *A, int n) {
+    int i;
+    for (i = (n-1)/2; i >= 0; i--) heapify(A, i, n);
+}
+
+void heapsort(int *A, int n) {
+    int i, x, size = n; // wielkosc kopca rowna wielkosci elementow w tablicy
+    buildheap(A, n);
+    for (i = n; i > 0; i--) {
+        x = A[0];
+        A[0] = A[i];
+        A[i] = x;
+        heapify(A, 0, --size);
+    }
 }
