@@ -43,6 +43,11 @@ bool Drzewo::operator==(const weld& w) {
     return porownaj(data->wsp, data->len, w.wsp, w.len) == 0;
 }
 
+bool Drzewo::operator==(const int& w) {
+    string s = to_string(w);
+    return porownaj(data->wsp, data->len, s.c_str(), s.length()) == 0;
+}
+
 bool Drzewo::operator>(const int& w) {
     string s = to_string(w);
     return porownaj(data->wsp, data->len, s.c_str(), s.length()) > 0;
@@ -145,15 +150,49 @@ void DrukujDrzewo(Drzewo* d) {
     drukuj(mat);
 }
 
+Drzewo* Drzewo::poprzednik() {
+    
+}
+
 Drzewo* Drzewo::poprzednik(Drzewo* d) {
     if(d!= nullptr) {
-        Drzewo* ret, t;
-        if(d->l != nullptr) return (*d).l.max();
+        Drzewo* t;
+        if(d->l != nullptr) return (*d).l->max();
         do {
-            ret = d;
+            t = d;
             d = d->o;
-        } while(d!=NULL && d->l == ret);
+        } while(d!=NULL && d->l == t);
         // i potem tylko ret d->p chyba,
         return d;
     }
+    return d;
+    // Jesli nie mozemy znalezc poprzednika to zwracamy arg
+}
+
+Drzewo* Drzewo::nastepnik(Drzewo* d) {
+    if(d!= nullptr) {
+        Drzewo* t;
+        if(d->l != nullptr) return (*d).p->min();
+        do {
+            t = d;
+            d = d->o;
+        } while(d!=NULL && d->p == t);
+
+        return d;
+    }
+    return d;
+}
+
+Drzewo* Drzewo::znajdz(int var) {
+    if(*this == var) return this;
+
+     if (*this > var) {
+        if (!l) return nullptr;             // Nie jest mozliwe znalezienie tego elementu
+          else {
+           return l->znajdz(var);
+        }
+    }
+
+    if (!p) return nullptr;
+    return p->znajdz(var);
 }

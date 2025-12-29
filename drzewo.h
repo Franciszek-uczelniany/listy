@@ -27,6 +27,7 @@ public:
     bool operator>(const weld&);
     bool operator<(const weld&);
     bool operator==(const weld&);
+    bool operator==(const int&);
     bool operator>(const int&);
     bool operator<(const int&);
     bool operator<=(const weld&);
@@ -36,6 +37,14 @@ public:
     Drzewo* max();
     void Pokaz();
 	Drzewo* poprzednik(Drzewo* d);
+	Drzewo* nastepnik(Drzewo* d);
+    Drzewo* poprzednik();
+	Drzewo* nastepnik();
+    Drzewo* znajdz(int war);        // kiedy chcemy wyznaczyc poprzednika lub nastepnika danego el
+                                    // to musimy najpierw przejsc na ten dany element
+
+    // alternatywą dla funkcji znajdź jest dodawanie do listy jednokierukowej wszystkich el. d
+    // w momencie dodawania/usuwania
 };
 
 void DrukujDrzewo(Drzewo* d);

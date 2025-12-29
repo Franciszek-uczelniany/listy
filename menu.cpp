@@ -5,11 +5,14 @@
 
 int main() {
     Drzewo drzewa[MAX_DRZEW];
+    Drzewo *out;
     int current = 0;
     int wybor, w;
 
     while (true) {
-        printf("\n0 - wyjscie\n1 - Dodaj\n2 - Drukuj\n4 - min\n5 - max\n\nWybor: ");
+        printf("\n0 - wyjscie\n1 - Dodaj\n2 - Drukuj\n4 - min\n5 - max"
+            "\n6 - poprzednik\n 7 - nastepnik"
+            "\n\nWybor: ");
         scanf("%d", &wybor);
 
         switch (wybor) {
@@ -28,6 +31,9 @@ int main() {
             case 5:
                 drzewa[current].max()->Pokaz();
                 break;
+            case 6:
+                out = drzewa[current].znajdz(w)->poprzednik();
+
             default:
                 printf("Nieznana opcja\n");
         }
