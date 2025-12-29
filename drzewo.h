@@ -8,9 +8,6 @@ struct weld {
     char* wsp;
     unsigned short len;
     int licznik;
-    weld* l;
-    weld* p;
-    weld* o;
 };
 
 class Drzewo {
@@ -35,6 +32,7 @@ public:
 
     Drzewo* min();
     Drzewo* max();
+    Drzewo* korzen();               // Funkcja zwraca korzen dla calego d, potrzebne dla heapify
     void Pokaz();
 	Drzewo* poprzednik(Drzewo* d);
 	Drzewo* nastepnik(Drzewo* d);
@@ -50,5 +48,6 @@ public:
 void DrukujDrzewo(Drzewo* d);
 int pord(Drzewo* p, Drzewo* q);
 void heapsort(int *A, int n);
+void podmien(Drzewo* p, Drzewo* q);
 
 #endif

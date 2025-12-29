@@ -27,7 +27,6 @@ Drzewo::Drzewo(const char* s) {
     data->wsp = new char[data->len + 1];
     strcpy(data->wsp, s);
     data->licznik = 1;
-    data->l = data->p = data->o = nullptr;
     l = p = o = nullptr;
 }
 
@@ -202,6 +201,13 @@ Drzewo* Drzewo::znajdz(int var) {
     return p->znajdz(var);
 }
 
+void podmien(Drzewo* p, Drzewo* q){
+    auto data = p->data;
+    p->data = q->data;
+    q->data = data;
+}
+
+
 // Porownaj drzewa
 int pord(Drzewo* p, Drzewo* q) {
     p = p->min();
@@ -238,8 +244,30 @@ void buildheap(int *A, int n) {
     for (i = (n-1)/2; i >= 0; i--) heapify(A, i, n);
 }
 
+/*
+    Zalozenia dla sortowania kopcowego dla drzewa:
+    1. Przy podmianie elementow robimy tylko podmiane wskaznikow wsp, len itd
+    najlepiej napisac funkcje podmien() i wtedy pozbywamy sie iksa w heapsort()
+
+    2. Wywolujemy funkcje korzen tylko raz na poczatku heapsort()
+    Drzewo* korzen = this->korzen();
+
+    3. Za kazda petla for pokazujemy aktualna zawartosc drzewa dla ladnego zobrazowania
+
+    4. bez debugera sie nie obejdzie
+
+    5. Zwracamy void, posortowane elementy s? w int* A
+
+    6. Po co heapsort na drzewie binarnym z porz?dkiem? to bez sensu.
+*/
+
+// Funkcja heapsort dla drzewa binarnego z porz?dkiem?
 void heapsort(int *A, int n) {
     int i, x, size = n; // wielkosc kopca rowna wielkosci elementow w tablicy
+    // Dla drzewa:
+    // Zapisz zawartosc calego drzewa inorder, licz?c przy tym ile jest elementów
+    // rozserzaj tablic? co dwadziescia
+    // funkcja inorder moze zwracac ilosc zapisanych elementow
     buildheap(A, n);
     for (i = n; i > 0; i--) {
         x = A[0];
@@ -247,4 +275,13 @@ void heapsort(int *A, int n) {
         A[i] = x;
         heapify(A, 0, --size);
     }
+}
+
+Drzewo* Drzewo::korzen() {
+    Drzewo* ret = nullptr, *t = this->o;
+    while(t) {
+        ret = t;
+        t = t->o;
+    }  
+    return ret;
 }

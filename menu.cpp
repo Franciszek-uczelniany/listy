@@ -11,7 +11,7 @@ int main() {
 
     while (true) {
         printf("\n0 - wyjscie\n1 - Dodaj\n2 - Porownaj czy drzewa sa identyczne\n4 - min\n5 - max"
-            "\n6 - poprzednik\n 7 - nastepnik \n 10 - Drukuj" 
+            "\n6 - poprzednik\n 7 - nastepnik \n 10 - Drukuj \n 11 - podmien drzewa" 
             "\n\nWybor: ");
         scanf("%d", &wybor);
 
@@ -46,6 +46,9 @@ int main() {
             case 10:
                 DrukujDrzewo(&drzewa[current]);
                 break;
+            case 11:
+                current = ++current % MAX_DRZEW;
+            break;
             default:
                 printf("Nieznana opcja\n");
         }
