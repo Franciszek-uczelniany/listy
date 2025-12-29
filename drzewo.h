@@ -35,6 +35,7 @@ public:
     Drzewo* min();
     Drzewo* max();
     void Pokaz();
+	Drzewo* poprzednik(Drzewo* d);
 };
 
 void DrukujDrzewo(Drzewo* d);

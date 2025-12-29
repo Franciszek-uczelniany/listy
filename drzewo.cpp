@@ -144,3 +144,16 @@ void DrukujDrzewo(Drzewo* d) {
     auto mat = treeToMatrix(d);
     drukuj(mat);
 }
+
+Drzewo* Drzewo::poprzednik(Drzewo* d) {
+    if(d!= nullptr) {
+        Drzewo* ret, t;
+        if(d->l != nullptr) return (*d).l.max();
+        do {
+            ret = d;
+            d = d->o;
+        } while(d!=NULL && d->l == ret);
+        // i potem tylko ret d->p chyba,
+        return d;
+    }
+}

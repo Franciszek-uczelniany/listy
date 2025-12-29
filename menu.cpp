@@ -9,7 +9,7 @@ int main() {
     int wybor, w;
 
     while (true) {
-        printf("\n0 - wyjscie\n1 - Dodaj\n2 - Drukuj\n4 - min\n5 - max\n\nWybór: ");
+        printf("\n0 - wyjscie\n1 - Dodaj\n2 - Drukuj\n4 - min\n5 - max\n\nWybor: ");
         scanf("%d", &wybor);
 
         switch (wybor) {
