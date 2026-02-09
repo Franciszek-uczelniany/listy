@@ -11,6 +11,11 @@ struct elDrzewaB {
 typedef struct elDrzewaB wDrzewaB;
 typedef wDrzewaB* drzewo;
 
+int maxD(drzewo d) {
+    if (d == 0) return 0;
+    while(d->prawy) d = d->prawy;
+    return d->klucz;
+}
 
 int zliczWezly(drzewo root) {
     if (root == NULL) {
@@ -48,6 +53,13 @@ int porownajDrzewa(drzewo root1, drzewo root2) {
     int liczbaWezlow2 = zliczWezly(root2);
 
     if (liczbaWezlow1 != liczbaWezlow2) {
+        return 0;
+    }
+
+    int m1 = maxD(root1);
+    int m2 = maxD(root2);
+
+    if (m1 != m2) {
         return 0;
     }
 
@@ -101,7 +113,7 @@ drzewo dodaj(drzewo root, int klucz) {
     return root;
 }
 
-
+// Nie jest to optymalny sposób.
 int main() {
     drzewo d1 = NULL;
     d1 = dodaj(d1, 5);
